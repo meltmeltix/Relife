@@ -640,6 +640,18 @@ html {
   --bc: 0.746477 0.0216 264.435964;
 }
 
+@font-face {
+  font-family: Noto Serif;
+
+  src: url(/resources/fonts/NotoSerif.ttf) format("ttf");
+}
+
+@font-face {
+  font-family: Roboto Flex;
+
+  src: url(/resources/fonts/RobotoFlex.ttf) format("ttf");
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;

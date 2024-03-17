@@ -8,11 +8,15 @@ module.exports = {
     './resources/**/*.{html,js}'
   ],
   theme: {
+    darkMode: 'selector',
     extend: {},
   },
   plugins: [
     require("daisyui")
   ],
+  daisyui: {
+    prefix: 'daisy-',
+  },
   prefix: 'tw-',
 }
 
