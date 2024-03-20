@@ -12,7 +12,8 @@ module.exports = {
     extend: {
       colors: {
         'md': {
-          'primary': {
+          'tonal': {
+            'primary': {
             '0': '#000000',
             '10': '#002111',
             '20': '#003921',
@@ -120,6 +121,13 @@ module.exports = {
             '99': '#fffbff',
             '100': '#ffffff',
           }
+          },
+          'light': {
+
+          },
+          'dark': {
+            'surface-container': '#1b211d'
+          }
         }
       }
     },
@@ -130,8 +138,7 @@ module.exports = {
   daisyui: {
     prefix: 'daisy-',
     themes: [
-      {
-        light: {
+      { light: {
           "primary": "#006d44",
           "secondary": "#4e6355",
           "accent": "#3c6471",
@@ -141,10 +148,8 @@ module.exports = {
           "success": "#006e2e",
           "warning": "#7c5800",
           "error": "#ba1a1a",
-        }
-      },
-      {
-        dark: {
+      } },
+      { dark: {
           "primary": "#74daa3",
           "secondary": "#b5ccbb",
           "accent": "#a4cddc",
@@ -154,8 +159,7 @@ module.exports = {
           "success": "#79db89",
           "warning": "#f7bd48",
           "error": "#ffb4ab",
-        },
-      }, 
+      }, }, 
     ]
   },
   prefix: 'tw-',
