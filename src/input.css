@@ -13,3 +13,9 @@
         src: url(/resources/fonts/RobotoFlex.ttf) format("ttf");
     }
 }
+
+@layer components {
+    .tw-dy-btn {
+        @apply tw-rounded-2xl
+    }
+}
