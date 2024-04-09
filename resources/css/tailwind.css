@@ -748,6 +748,12 @@ html {
   --tw-backdrop-sepia:  ;
 }
 
+@media (hover:hover) {
+  .tw-dy-link-hover:hover {
+    text-decoration-line: underline;
+  }
+}
+
 .tw-dy-btn {
   display: inline-flex;
   height: 3rem;
@@ -987,6 +993,40 @@ html {
   }
 }
 
+.tw-dy-input {
+  flex-shrink: 1;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  height: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  line-height: 2;
+  line-height: 1.5rem;
+  border-radius: var(--rounded-btn, 0.5rem);
+  border-width: 1px;
+  border-color: transparent;
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
+}
+
+.tw-dy-input[type="number"]::-webkit-inner-spin-button,
+.tw-dy-input-md[type="number"]::-webkit-inner-spin-button {
+  margin-top: -1rem;
+  margin-bottom: -1rem;
+  margin-inline-end: -1rem;
+}
+
+.tw-dy-link {
+  cursor: pointer;
+  text-decoration-line: underline;
+}
+
+.tw-dy-link-hover {
+  text-decoration-line: none;
+}
+
 .tw-dy-btn:active:hover,
   .tw-dy-btn:active:focus {
   animation: button-pop 0s ease-out;
@@ -1136,6 +1176,149 @@ html {
   gap: 1rem;
 }
 
+.tw-dy-input input {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity)));
+  background-color: transparent;
+}
+
+.tw-dy-input input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.tw-dy-input[list]::-webkit-calendar-picker-indicator {
+  line-height: 1em;
+}
+
+.tw-dy-input-bordered {
+  border-color: var(--fallback-bc,oklch(var(--bc)/0.2));
+}
+
+.tw-dy-input:focus,
+  .tw-dy-input:focus-within {
+  box-shadow: none;
+  border-color: var(--fallback-bc,oklch(var(--bc)/0.2));
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: 2px;
+  outline-color: var(--fallback-bc,oklch(var(--bc)/0.2));
+}
+
+.tw-dy-input-disabled,
+  .tw-dy-input:disabled,
+  .tw-dy-input[disabled] {
+  cursor: not-allowed;
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)));
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
+  color: var(--fallback-bc,oklch(var(--bc)/0.4));
+}
+
+.tw-dy-input-disabled::-moz-placeholder, .tw-dy-input:disabled::-moz-placeholder, .tw-dy-input[disabled]::-moz-placeholder {
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-placeholder-opacity)));
+  --tw-placeholder-opacity: 0.2;
+}
+
+.tw-dy-input-disabled::placeholder,
+  .tw-dy-input:disabled::placeholder,
+  .tw-dy-input[disabled]::placeholder {
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-placeholder-opacity)));
+  --tw-placeholder-opacity: 0.2;
+}
+
+.tw-dy-input::-webkit-date-and-time-value {
+  text-align: inherit;
+}
+
+.tw-dy-link-primary {
+  --tw-text-opacity: 1;
+  color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
+}
+
+@supports (color:color-mix(in oklab,black,black)) {
+  @media (hover:hover) {
+    .tw-dy-link-primary:hover {
+      color: color-mix(in oklab,var(--fallback-p,oklch(var(--p)/1)) 80%,black);
+    }
+
+    .tw-dy-link-secondary:hover {
+      color: color-mix(in oklab,var(--fallback-s,oklch(var(--s)/1)) 80%,black);
+    }
+
+    .tw-dy-link-accent:hover {
+      color: color-mix(in oklab,var(--fallback-a,oklch(var(--a)/1)) 80%,black);
+    }
+  }
+}
+
+.tw-dy-link-secondary {
+  --tw-text-opacity: 1;
+  color: var(--fallback-s,oklch(var(--s)/var(--tw-text-opacity)));
+}
+
+.tw-dy-link-accent {
+  --tw-text-opacity: 1;
+  color: var(--fallback-a,oklch(var(--a)/var(--tw-text-opacity)));
+}
+
+.tw-dy-link:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.tw-dy-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.tw-dy-mockup-browser .tw-dy-mockup-browser-toolbar .tw-dy-input {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  height: 1.75rem;
+  width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
+  padding-left: 2rem;
+  direction: ltr;
+}
+
+.tw-dy-mockup-browser .tw-dy-mockup-browser-toolbar .tw-dy-input:before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  aspect-ratio: 1 / 1;
+  height: 0.75rem;
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-radius: 9999px;
+  border-width: 2px;
+  border-color: currentColor;
+  opacity: 0.6;
+}
+
+.tw-dy-mockup-browser .tw-dy-mockup-browser-toolbar .tw-dy-input:after {
+  content: "";
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  height: 0.5rem;
+  --tw-translate-y: 25%;
+  --tw-rotate: -45deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-radius: 9999px;
+  border-width: 1px;
+  border-color: currentColor;
+  opacity: 0.6;
+}
+
 @keyframes modal-pop {
   0% {
     opacity: 0;
@@ -1225,6 +1408,10 @@ html {
   display: flex;
 }
 
+.tw-h-4 {
+  height: 1rem;
+}
+
 .tw-h-\[100svh\] {
   height: 100svh;
 }
@@ -1237,17 +1424,38 @@ html {
   height: 100%;
 }
 
+.tw-w-4 {
+  width: 1rem;
+}
+
 .tw-w-full {
   width: 100%;
+}
+
+.tw-grow {
+  flex-grow: 1;
 }
 
 .tw-flex-col {
   flex-direction: column;
 }
 
+.tw-items-center {
+  align-items: center;
+}
+
+.tw-gap-2 {
+  gap: 0.5rem;
+}
+
 .tw-bg-background-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(220 218 188 / var(--tw-bg-opacity));
+}
+
+.tw-bg-light-base {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 240 228 / var(--tw-bg-opacity));
 }
 
 .tw-fill-light-base {
@@ -1296,6 +1504,11 @@ html {
   .dark\:tw-bg-background-800 {
     --tw-bg-opacity: 1;
     background-color: rgb(67 65 35 / var(--tw-bg-opacity));
+  }
+
+  .dark\:tw-bg-dark-base {
+    --tw-bg-opacity: 1;
+    background-color: rgb(27 26 14 / var(--tw-bg-opacity));
   }
 
   .dark\:tw-fill-dark-base {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../resources/css/tailwind.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap/bootstrap.min.css">
+    <title>Login</title>
+</head>
+
+<body class="tw-flex tw-flex-col tw-h-[100svh] tw-text-current tw-bg-light-base dark:tw-bg-dark-base">
+    <div class="col-sm tw-h-full">
+        <label class="tw-dy-input tw-dy-input-bordered tw-w-full tw-flex tw-items-center tw-gap-2">
+            <i data-lucide="user" class="tw-w-4 tw-h-4 tw-opacity-70"></i>
+            <input type="text" class="tw-grow" placeholder="Username">
+        </label>
+
+        <label class="tw-dy-input tw-dy-input-bordered tw-w-full tw-flex tw-items-center tw-gap-2">
+            <i data-lucide="key-round" class="tw-w-4 tw-h-4 tw-opacity-70"></i>
+            <input type="password" class="tw-grow" placeholder="Password">
+        </label>
+
+        <a class="tw-dy-link tw-dy-link-hover tw-dy-link-accent">Forgot password?</a>
+        <p>New to Relife? <a class="tw-dy-link tw-dy-link-hover tw-dy-link-accent">Sign up</a></p>
+
+        <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Log in</button>
+    </div>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
