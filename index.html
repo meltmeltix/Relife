@@ -5,40 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./resources/css/tailwind.css">
-    <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap.min.css">
     <title>ReLife</title>
 </head>
 
-<body class="tw-flex tw-flex-col tw-h-[100svh] tw-text-current">
-    <div class="col-sm tw-h-full tw-bg-background-200 dark:tw-bg-background-800">
-        <svg 
-            class="tw-absolute tw-bottom-0 tw-object-fill tw-h-[35rem] tw-w-full tw-fill-light-base dark:tw-fill-dark-base"
-            viewBox="0 0 720 788" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-        ><path d="M0 242V787.5H719.5V0C719.5 0 549.5 160 340.5 227C151.385 287.625 40.5 283.833 0 242Z"/></svg>
-        
+<body class="tw-flex tw-flex-col sm:tw-grid sm:tw-grid-cols-2 md:tw-grid-cols-5 tw-relative tw-h-[100svh] tw-text-current">
+    <!-- Graphics -->
+    <svg 
+        class="sm:tw-hidden tw-absolute tw-bottom-0 tw-object-fill tw-h-[38rem] tw-w-full tw-fill-light-base dark:tw-fill-dark-base"
+        viewBox="0 0 720 788" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+    ><path d="M0 242V787.5H719.5V0C719.5 0 549.5 160 340.5 227C151.385 287.625 40.5 283.833 0 242Z"/></svg>
 
-        <div class="tw-flex tw-flex-col tw-w-full tw-absolute tw-bottom-0 tw-p-8 tw-pb-20">
-            <div class="row">
-                <div class="col">
-                    <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Explore</button>
-                </div>
+    <!-- Left column -->
+    <div class="sm:tw-flex tw-hidden tw-flex-col md:tw-col-span-3 tw-grow tw-h-full tw-bg-background-200 dark:tw-bg-background-800">
+
+    </div>
+
+    <!-- Right column -->
+    <div class="tw-flex tw-flex-col md:tw-col-span-2 tw-grow tw-h-full tw-justify-end tw-bg-background-200 dark:tw-bg-background-800">
+        <!-- Buttons -->
+        <div class="tw-absolute sm:tw-relative tw-w-full tw-grid tw-grid-cols-2 tw-gap-x-3 tw-bottom-0 tw-p-8 tw-pb-20">
+            <div class="tw-col-span-2">
+                <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Explore</button>
             </div>
-            <div class="row">
-                <div class="col justify-content-center">
-                    <div class="mx-auto tw-dy-divider">or</div>
-                </div>
+            <div class="tw-col-span-2">
+                <div class="mx-auto tw-dy-divider">or</div>
             </div>
-            <div class="row gx-3">
-                <div class="col">
-                    <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Sign in</button>
-                </div>
-                <div class="col">
-                    <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Log in</button>
-                </div>
-            </div>
+            <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Sign in</button>
+            <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Log in</button>
         </div>
     </div>
 
