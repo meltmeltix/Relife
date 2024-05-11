@@ -10,25 +10,23 @@
 </head>
 
 <body class="tw-flex tw-flex-col tw-h-[100svh] tw-text-current tw-bg-light-base dark:tw-bg-dark-base">
-    <aside class="tw-dy-drawer sm:tw-dy-drawer-open">
+    <aside class="tw-dy-drawer sm:tw-dy-drawer-open md:tw-px-48 lg:tw-px-64 xl:tw-px-[22rem]">
         <input id="navigation-drawer" type="checkbox" class="tw-dy-drawer-toggle" />
-        <div class="tw-dy-drawer-content tw-flex tw-flex-col">
-
+        <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-bg-background-600">
+            <div class="tw-dy-navbar">
+                <a class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-ghost">Home</a>
+            </div>
         </div>
 
-        <div class="tw-dy-drawer-side">
-            <label for="navigation-drawer" aria-label="close sidebar" class="tw-dy-drawer-overlay"></label> 
-            <ul class="tw-dy-menu tw-p-4 tw-m-0">
+        <div class="tw-dy-drawer-side tw-bg-text-600">
+            <ul class="tw-dy-menu tw-min-h-full tw-w-60 tw-m-0">
                 <li><a>Sidebar Item 1</a></li>
                 <li><a>Sidebar Item 2</a></li>
             </ul>
         </div>
-    </>
+    </aside>
 
-    <!-- <div class="tw-dy-navbar tw-gap-2 shadow-sm">
-        <div class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-ghost tw-dy-btn-square"><i data-lucide="menu"></i></div>
-        <a class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-ghost">Home</a>
-    </div>
+    <!-- 
 
     <div class="tw-dy-btm-nav tw-dy-btm-nav-sm">
         <button class="tw-dy-active"><i data-lucide="home"></i></button>

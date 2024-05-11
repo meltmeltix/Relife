@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     darkMode: 'selector',
+    screens: {
+      'test': '1100px'
+    },
     colors: {
       'text': {
         50: '#f6f6ee',
