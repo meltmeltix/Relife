@@ -838,12 +838,6 @@ html {
   pointer-events: none;
 }
 
-.tw-dy-btn-square {
-  height: 3rem;
-  width: 3rem;
-  padding: 0px;
-}
-
 :where(.tw-dy-btn:is(input[type="checkbox"])),
 :where(.tw-dy-btn:is(input[type="radio"])) {
   width: auto;
@@ -913,8 +907,6 @@ html {
 }
 
 .tw-dy-drawer-side > .tw-dy-drawer-overlay {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   position: sticky;
   top: 0px;
   place-self: stretch;
@@ -1843,27 +1835,9 @@ html {
   font-size: 0.875rem;
 }
 
-.tw-dy-btn-square:where(.tw-dy-btn-xs) {
-  height: 1.5rem;
-  width: 1.5rem;
-  padding: 0px;
-}
-
 .tw-dy-btn-square:where(.tw-dy-btn-sm) {
   height: 2rem;
   width: 2rem;
-  padding: 0px;
-}
-
-.tw-dy-btn-square:where(.tw-dy-btn-md) {
-  height: 3rem;
-  width: 3rem;
-  padding: 0px;
-}
-
-.tw-dy-btn-square:where(.tw-dy-btn-lg) {
-  height: 4rem;
-  width: 4rem;
   padding: 0px;
 }
 
@@ -2052,15 +2026,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
   padding: 2rem;
 }
 
-.tw-p-4 {
-  padding: 1rem;
-}
-
-.tw-px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
 .tw-pb-20 {
   padding-bottom: 5rem;
 }
@@ -2090,10 +2055,119 @@ html:has(.tw-dy-drawer-toggle:checked) {
   opacity: 0.7;
 }
 
+@media (min-width: 640px) {
+  .sm\:tw-dy-drawer-open > .tw-dy-drawer-toggle {
+    display: none;
+  }
+
+  .sm\:tw-dy-drawer-open > .tw-dy-drawer-toggle ~ .tw-dy-drawer-side {
+    pointer-events: auto;
+    visibility: visible;
+    position: sticky;
+    display: block;
+    width: auto;
+    overscroll-behavior: auto;
+  }
+
+  .sm\:tw-dy-drawer-open > .tw-dy-drawer-toggle ~ .tw-dy-drawer-side > *:not(.tw-dy-drawer-overlay) {
+    transform: translateX(0%);
+  }
+
+  [dir="rtl"] .sm\:tw-dy-drawer-open > .tw-dy-drawer-toggle ~ .tw-dy-drawer-side > *:not(.tw-dy-drawer-overlay) {
+    transform: translateX(0%);
+  }
+
+  .sm\:tw-dy-drawer-open > .tw-dy-drawer-toggle:checked ~ .tw-dy-drawer-side {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .sm\:tw-dy-drawer-open > .tw-dy-drawer-side {
+    overflow-y: auto;
+  }
+
+  html:has(.sm\:tw-dy-drawer-open.sm\:tw-dy-drawer-open) {
+    overflow-y: auto;
+    scrollbar-gutter: auto;
+  }
+
+  .sm\:tw-dy-drawer-open > .tw-dy-drawer-toggle ~ .tw-dy-drawer-side > .tw-dy-drawer-overlay {
+    cursor: default;
+    background-color: transparent;
+  }
+
+  .sm\:tw-relative {
+    position: relative;
+  }
+
+  .sm\:tw-flex {
+    display: flex;
+  }
+
+  .sm\:tw-grid {
+    display: grid;
+  }
+
+  .sm\:tw-hidden {
+    display: none;
+  }
+
+  .sm\:tw-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 700px) {
+  .sm-700\:tw-px-9 {
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:tw-col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
+  .md\:tw-col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+
+  .md\:tw-grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .md\:tw-px-20 {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+@media (min-width: 840px) {
+  .md-840\:tw-px-32 {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:tw-px-48 {
+    padding-left: 12rem;
+    padding-right: 12rem;
+  }
+}
+
 @media (min-width: 1100px) {
-  .test\:tw-px-3 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+  .lg-1100\:tw-px-56 {
+    padding-left: 14rem;
+    padding-right: 14rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:tw-px-\[22rem\] {
+    padding-left: 22rem;
+    padding-right: 22rem;
   }
 }
 

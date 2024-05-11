@@ -8,9 +8,6 @@ module.exports = {
   ],
   theme: {
     darkMode: 'selector',
-    screens: {
-      'test': '1100px'
-    },
     colors: {
       'text': {
         50: '#f6f6ee',
@@ -164,6 +161,14 @@ module.exports = {
         "warning": "#f8be1f",
         "error": "#ffb4a2",
       }
+    },
+    extend: {
+      screens: {
+        'sm-700': '700px',
+        'md-840': '840px',
+        'md-860': '860px',
+        'lg-1100': '1100px'
+      },
     }
   },
   plugins: [
