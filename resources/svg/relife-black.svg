@@ -2,19 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="124.9599mm"
-   height="35.742092mm"
-   viewBox="0 0 472.28939 135.08823"
-   version="1.1"
-   id="svg1"
-   xml:space="preserve"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><defs
-     id="defs1"><mask
-       maskUnits="userSpaceOnUse"
-       id="mask-powermask-path-effect2-8"><path
-         id="mask-powermask-path-effect2-8_box"
-         style="fill:#ffffff;fill-opacity:1"
+  width="124.9599mm"
+  height="35.742092mm"
+  viewBox="0 0 472.28939 135.08823"
+  version="1.1"
+  id="svg1"
+  xml:space="preserve"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg">
+    <defs id="defs1">
+      <mask
+        maskUnits="userSpaceOnUse"
+        id="mask-powermask-path-effect2-8"><path
+    id="mask-powermask-path-effect2-8_box"
+    style="fill:#ffffff;fill-opacity:1"
          d="m 51.68905,322.88491 h 124.9649 V 448.54257 H 51.68905 Z" /><path
          id="path9"
          style="fill:#ffffff;fill-opacity:1"

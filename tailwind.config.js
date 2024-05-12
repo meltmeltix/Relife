@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     darkMode: 'selector',
+    fontFamily: {
+      'sans': 'Roboto Flex',
+      'serif': 'Noto Serif'
+    },
     colors: {
       'text': {
         50: '#f6f6ee',
@@ -167,7 +171,6 @@ module.exports = {
         'sm-700': '700px',
         'md-840': '840px',
         'md-860': '860px',
-        'lg-1100': '1100px'
       },
     }
   },

@@ -10,29 +10,49 @@
 </head>
 
 <body class="tw-flex tw-flex-col tw-h-[100svh] tw-text-current tw-bg-light-base dark:tw-bg-dark-base">
-    <aside class="tw-dy-drawer sm:tw-dy-drawer-open sm-700:tw-px-9 md:tw-px-20 md-840:tw-px-32 lg:tw-px-48 lg-1100:tw-px-56 xl:tw-px-[22rem]">
+    <nav class="tw-dy-drawer sm:tw-dy-drawer-open sm-700:tw-px-9 md:tw-px-20 md-840:tw-px-32 lg:tw-px-48 xl:tw-px-[18rem]">
         <input id="navigation-drawer" type="checkbox" class="tw-dy-drawer-toggle" />
-        <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-bg-background-600">
+        <div class="tw-dy-drawer-content tw-flex tw-flex-col">
+            <!-- Top Bar -->
             <div class="tw-dy-navbar">
                 <a class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-ghost">Home</a>
             </div>
+
+            <!-- Bottom Navigation -->
+            <nav class="tw-dy-btm-nav tw-dy-btm-nav-sm sm:tw-hidden">
+                <button class="tw-dy-active"><i data-lucide="home"></i></button>
+                <button><i data-lucide="search"></i></button>
+                <button><i data-lucide="user"></i></button>
+            </nav>
         </div>
 
-        <div class="tw-dy-drawer-side tw-bg-text-600">
-            <ul class="tw-dy-menu tw-min-h-full tw-w-60 tw-m-0">
-                <li><a>Sidebar Item 1</a></li>
-                <li><a>Sidebar Item 2</a></li>
-            </ul>
-        </div>
-    </aside>
-
-    <!-- 
-
-    <div class="tw-dy-btm-nav tw-dy-btm-nav-sm">
-        <button class="tw-dy-active"><i data-lucide="home"></i></button>
-        <button><i data-lucide="search"></i></button>
-        <button><i data-lucide="user"></i></button>
-    </div> -->
+        <!-- Drawer -->
+        <aside class="tw-dy-drawer-side">
+            <div class="tw-h-full tw-p-3">
+                <a class="tw-dy-btn tw-dy-btn-ghost tw-gap-0">
+                    <svg
+                        class="tw-h-6 tw-fill-primary dark:tw-fill-dark-primary"
+                        viewBox="0 0 122.96485 123.65821"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:svg="http://www.w3.org/2000/svg">
+                        <defs id="layer"/>
+                        <g id="layer" transform="translate(-35.123313,-659.22548)">
+                            <path d="m 70.881591,659.2255 c 0,0 -2.88451,11.9183 -2.676284,20.85272 0.157514,6.75849 4.110796,6.93687 4.110796,6.93687 0,0 4.971281,-7.53999 12.165923,-9.64347 11.030539,-3.22498 18.897624,1.90603 24.456694,9.68556 4.06844,3.55906 17.11811,-0.22047 17.11811,-0.22047 0,0 -9.90122,24.05213 -30.111935,24.05213 -20.210687,0 -23.628792,-13.91583 -23.628792,-13.91583 0,0 -12.221591,-3.40101 -12.221591,-22.85269 0,-11.91583 -2.660789,-14.89482 -2.660789,-14.89482 H 35.123312 v 9.87109 h 6.927735 c 1.962818,0 3.984222,0.63619 6.0625,1.90625 2.078278,1.1546 3.117188,3.92503 3.117188,8.3125 v 83.6504 c 0,4.38747 -0.982495,7.15985 -2.945313,8.31445 -1.962818,1.1546 -4.040637,1.73047 -6.234375,1.73047 h -6.927735 v 9.87305 h 61.656253 v -9.87305 h -5.54297 c -2.54012,0 -4.61794,-0.57587 -6.234379,-1.73047 -1.61643,-1.1546 -2.42382,-3.92698 -2.42382,-8.31445 v -33.42579 h 10.216789 l 19.224615,37.75586 c 3.34834,6.46576 8.14017,10.67976 14.375,12.64258 6.23484,1.96282 14.43328,2.94532 24.59375,2.94532 h 7.09961 v -9.87305 h -1.03906 c -3.00196,0 -5.71401,-1.15369 -8.13867,-3.46289 -2.42466,-2.3092 -5.19704,-6.06212 -8.31445,-11.25782 l -20.08985,-34.46484 c 4.15656,-1.27006 8.08263,-3.17473 11.77734,-5.71484 3.69472,-2.65558 6.6383,-6.11861 8.83204,-10.39063 2.30919,-4.27201 3.46484,-9.64167 3.46484,-16.10742 0,-10.04501 -3.81129,-17.95357 -11.43164,-23.72656 -7.62035,-5.773 -20.43553,-8.66016 -38.447275,-8.66016 z m 3.680055,32.99676 c -0.312547,-0.3912 0.791158,-2.26216 3.999848,-3.61543 1.340375,-0.55687 2.986376,-0.92614 4.849762,-0.91283 v 0 c 3.080589,0.0408 6.049299,0.9196 9.226159,2.22242 0.044,0.018 0.0879,0.0361 0.13161,0.0541 3.70161,1.48387 5.49311,2.46117 8.419925,3.35064 2.43956,0.73326 4.34205,0.88452 5.87853,0.87879 1.46387,-0.005 2.38103,-0.11919 2.51824,0.19576 0.19545,0.44863 -2.8962,3.24032 -9.14569,2.07503 -3.089475,-0.56097 -5.782035,-1.66421 -9.081085,-3.00011 -0.003,-10e-4 -0.12607,-0.0496 -0.12916,-0.0508 -3.16139,-1.24334 -5.48242,-2.15616 -8.004409,-2.43502 v 0 c -1.461023,-0.17473 -2.763495,-0.11081 -3.902179,0.0953 -2.733025,0.4766 -4.449004,1.53331 -4.761551,1.14211 z"/>
+                        </g>
+                    </svg>
+                    <div class="tw-font-serif tw-font-bold tw-inline-flex tw-text-[1.9rem] tw-text-primary dark:tw-text-dark-primary">elife</div>
+                </a>
+                <div class="tw-h-4"></div>
+                <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Post</button>
+                <div class="tw-h-4"></div>
+                <ul class="tw-dy-menu tw-w-60 tw-p-0 tw-gap-2 text-base-content">
+                    <li><a><i data-lucide="home"></i> Home</a></li>
+                    <li><a><i data-lucide="search"></i>Search</a></li>
+                    <li><a><i data-lucide="user"></i>Profile</a></li>
+                </ul>
+            </div>
+        </aside>
+    </>
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
