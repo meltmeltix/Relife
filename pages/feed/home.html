@@ -12,11 +12,16 @@
 <body class="tw-flex tw-flex-col tw-h-[100svh] tw-text-current tw-bg-light-base dark:tw-bg-dark-base">
     <nav class="tw-dy-drawer sm:tw-dy-drawer-open sm-700:tw-px-9 md:tw-px-20 md-840:tw-px-32 lg:tw-px-48 xl:tw-px-[18rem]">
         <input id="navigation-drawer" type="checkbox" class="tw-dy-drawer-toggle" />
-        <div class="tw-dy-drawer-content tw-flex tw-flex-col">
+        <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
             <!-- Top Bar -->
             <div class="tw-dy-navbar">
                 <a class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-ghost">Home</a>
             </div>
+
+            <button class="tw-dy-btn tw-dy-btn-secondary tw-absolute tw-bottom-16 tw-right-3 sm:tw-hidden">
+                <i data-lucide="square-pen"></i>
+                Post
+            </button>
 
             <!-- Bottom Navigation -->
             <nav class="tw-dy-btm-nav tw-dy-btm-nav-sm sm:tw-hidden">

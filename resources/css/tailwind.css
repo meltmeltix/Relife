@@ -1904,6 +1904,58 @@ html:has(.tw-dy-drawer-toggle:checked) {
   bottom: 0px;
 }
 
+.tw-right-0 {
+  right: 0px;
+}
+
+.tw-bottom-10 {
+  bottom: 2.5rem;
+}
+
+.tw-bottom-20 {
+  bottom: 5rem;
+}
+
+.tw-bottom-1 {
+  bottom: 0.25rem;
+}
+
+.tw-bottom-12 {
+  bottom: 3rem;
+}
+
+.tw-bottom-14 {
+  bottom: 3.5rem;
+}
+
+.tw-bottom-16 {
+  bottom: 4rem;
+}
+
+.tw-right-10 {
+  right: 2.5rem;
+}
+
+.tw-right-1 {
+  right: 0.25rem;
+}
+
+.tw-right-2 {
+  right: 0.5rem;
+}
+
+.tw-right-5 {
+  right: 1.25rem;
+}
+
+.tw-right-4 {
+  right: 1rem;
+}
+
+.tw-right-3 {
+  right: 0.75rem;
+}
+
 .tw-col-span-2 {
   grid-column: span 2 / span 2;
 }
@@ -1998,6 +2050,14 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-h-7 {
   height: 1.75rem;
+}
+
+.tw-min-h-\[\] {
+  min-height: ;
+}
+
+.tw-min-h-\[100svh\] {
+  min-height: 100svh;
 }
 
 .tw-w-4 {
