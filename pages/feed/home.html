@@ -15,7 +15,11 @@
         <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
             <!-- Top Bar -->
             <div class="tw-dy-navbar">
-                <a class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-ghost">Home</a>
+                <div class="tw-flex-1 tw-pl-3">Home</div>
+                
+                <div class="tw-flex-none sm:tw-hidden">
+                    <a class="tw-dy-btn tw-dy-btn-ghost tw-dy-btn-square"><i data-lucide="settings"></i></a>
+                </div>
             </div>
 
             <button class="tw-dy-btn tw-dy-btn-secondary tw-absolute tw-bottom-16 tw-right-3 sm:tw-hidden">
@@ -47,13 +51,20 @@
                     </svg>
                     <div class="tw-font-serif tw-font-bold tw-inline-flex tw-text-[1.9rem] tw-text-primary dark:tw-text-dark-primary">elife</div>
                 </a>
+
                 <div class="tw-h-4"></div>
+
                 <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Post</button>
+
                 <div class="tw-h-4"></div>
+
                 <ul class="tw-dy-menu tw-w-60 tw-p-0 tw-gap-2 text-base-content">
                     <li><a><i data-lucide="home"></i> Home</a></li>
                     <li><a><i data-lucide="search"></i>Search</a></li>
                     <li><a><i data-lucide="user"></i>Profile</a></li>
+                </ul>
+                <ul class="tw-dy-menu tw-w-60 tw-p-0 tw-absolute tw-bottom-0">
+                    <li><a><i data-lucide="settings"></i>Settings</a></li>
                 </ul>
             </div>
         </aside>
