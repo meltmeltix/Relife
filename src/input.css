@@ -15,7 +15,13 @@
 }
 
 @layer components {
-    .tw-dy-btn {
-        @apply tw-rounded-2xl
-    }
+    .tw-dy-btn { @apply tw-rounded-2xl }
+    .tw-dy-active { @apply tw-text-light-primary dark:tw-text-dark-primary }
+    .tw-dy-btm-nav { @apply tw-border-t-2 tw-border-background-100 dark:tw-border-background-900 sm:tw-hidden }
+    .tw-dy-dropdown-content { @apply tw-z-[1] tw-dy-menu tw-p-2 tw-shadow tw-bg-background-200 dark:tw-bg-background-800 tw-rounded-box tw-w-32 }
+}
+
+@layer utilities {
+    .tw-dy-inactive { @apply tw-text-neutral-600 dark:tw-text-neutral-400 } /* Complementary class for active */
+    .tw-inverted-background { @apply tw-bg-background-200 dark:tw-bg-background-800 }
 }
