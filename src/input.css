@@ -6,11 +6,11 @@
 @layer base {
     @font-face {
         font-family: 'Noto Serif';
-        src: url(/resources/fonts/NotoSerif.ttf) format("ttf");
+        src: url(/resources/fonts/NotoSerif.ttf) format('truetype');
     }
     @font-face {
         font-family: 'Roboto Flex';
-        src: url(/resources/fonts/RobotoFlex.ttf) format("ttf");
+        src: url(/resources/fonts/RobotoFlex.ttf) format('truetype');
     }
 }
 
