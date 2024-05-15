@@ -1406,6 +1406,80 @@ html {
   justify-self: end;
 }
 
+.tw-dy-modal {
+  pointer-events: none;
+  position: fixed;
+  inset: 0px;
+  margin: 0px;
+  display: grid;
+  height: 100%;
+  max-height: none;
+  width: 100%;
+  max-width: none;
+  justify-items: center;
+  padding: 0px;
+  opacity: 0;
+  overscroll-behavior: contain;
+  z-index: 999;
+  background-color: transparent;
+  color: inherit;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-property: transform, opacity, visibility;
+  overflow-y: hidden;
+}
+
+:where(.tw-dy-modal) {
+  align-items: center;
+}
+
+.tw-dy-modal-box {
+  max-height: calc(100vh - 5em);
+  grid-column-start: 1;
+  grid-row-start: 1;
+  width: 91.666667%;
+  max-width: 32rem;
+  --tw-scale-x: .9;
+  --tw-scale-y: .9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-bottom-right-radius: var(--rounded-box, 1rem);
+  border-bottom-left-radius: var(--rounded-box, 1rem);
+  border-top-left-radius: var(--rounded-box, 1rem);
+  border-top-right-radius: var(--rounded-box, 1rem);
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
+  padding: 1.5rem;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 200ms;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.tw-dy-modal-open,
+.tw-dy-modal:target,
+.tw-dy-modal-toggle:checked + .tw-dy-modal,
+.tw-dy-modal[open] {
+  pointer-events: auto;
+  visibility: visible;
+  opacity: 1;
+}
+
+.tw-dy-modal-action {
+  display: flex;
+  margin-top: 1.5rem;
+  justify-content: flex-end;
+}
+
+:root:has(:is(.tw-dy-modal-open, .tw-dy-modal:target, .tw-dy-modal-toggle:checked + .tw-dy-modal, .tw-dy-modal[open])) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
 .tw-dy-navbar {
   display: flex;
   align-items: center;
@@ -1836,6 +1910,28 @@ html {
   opacity: 0.6;
 }
 
+.tw-dy-modal:not(dialog:not(.tw-dy-modal-open)),
+  .tw-dy-modal::backdrop {
+  background-color: #0006;
+  animation: modal-pop 0.2s ease-out;
+}
+
+.tw-dy-modal-open .tw-dy-modal-box,
+.tw-dy-modal-toggle:checked + .tw-dy-modal .tw-dy-modal-box,
+.tw-dy-modal:target .tw-dy-modal-box,
+.tw-dy-modal[open] .tw-dy-modal-box {
+  --tw-translate-y: 0px;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.tw-dy-modal-action > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 @keyframes modal-pop {
   0% {
     opacity: 0;
@@ -1999,9 +2095,52 @@ html:has(.tw-dy-drawer-toggle:checked) {
   scrollbar-gutter: stable;
 }
 
+.tw-dy-modal-bottom {
+  place-items: end;
+}
+
 .tw-dy-drawer-open > .tw-dy-drawer-toggle ~ .tw-dy-drawer-side > .tw-dy-drawer-overlay {
   cursor: default;
   background-color: transparent;
+}
+
+.tw-dy-modal-top :where(.tw-dy-modal-box) {
+  width: 100%;
+  max-width: none;
+  --tw-translate-y: -2.5rem;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-bottom-right-radius: var(--rounded-box, 1rem);
+  border-bottom-left-radius: var(--rounded-box, 1rem);
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.tw-dy-modal-middle :where(.tw-dy-modal-box) {
+  width: 91.666667%;
+  max-width: 32rem;
+  --tw-translate-y: 0px;
+  --tw-scale-x: .9;
+  --tw-scale-y: .9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-top-left-radius: var(--rounded-box, 1rem);
+  border-top-right-radius: var(--rounded-box, 1rem);
+  border-bottom-right-radius: var(--rounded-box, 1rem);
+  border-bottom-left-radius: var(--rounded-box, 1rem);
+}
+
+.tw-dy-modal-bottom :where(.tw-dy-modal-box) {
+  width: 100%;
+  max-width: none;
+  --tw-translate-y: 2.5rem;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-top-left-radius: var(--rounded-box, 1rem);
+  border-top-right-radius: var(--rounded-box, 1rem);
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 .tw-dy-btn {
@@ -2416,6 +2555,11 @@ html:has(.tw-dy-drawer-toggle:checked) {
   padding: 2rem;
 }
 
+.tw-py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .tw-pb-20 {
   padding-bottom: 5rem;
 }
@@ -2443,6 +2587,11 @@ html:has(.tw-dy-drawer-toggle:checked) {
 .tw-text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.tw-text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .tw-font-bold {
@@ -2532,9 +2681,26 @@ html:has(.tw-dy-drawer-toggle:checked) {
     scrollbar-gutter: auto;
   }
 
+  .sm\:tw-dy-modal-middle {
+    place-items: center;
+  }
+
   .sm\:tw-dy-drawer-open > .tw-dy-drawer-toggle ~ .tw-dy-drawer-side > .tw-dy-drawer-overlay {
     cursor: default;
     background-color: transparent;
+  }
+
+  .sm\:tw-dy-modal-middle :where(.tw-dy-modal-box) {
+    width: 91.666667%;
+    max-width: 32rem;
+    --tw-translate-y: 0px;
+    --tw-scale-x: .9;
+    --tw-scale-y: .9;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    border-top-left-radius: var(--rounded-box, 1rem);
+    border-top-right-radius: var(--rounded-box, 1rem);
+    border-bottom-right-radius: var(--rounded-box, 1rem);
+    border-bottom-left-radius: var(--rounded-box, 1rem);
   }
 
   .sm\:tw-relative {
@@ -2565,6 +2731,21 @@ html:has(.tw-dy-drawer-toggle:checked) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sm\:tw-px-7 {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+
+  .sm\:tw-px-20 {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
+  .sm\:tw-px-28 {
+    padding-left: 7rem;
+    padding-right: 7rem;
+  }
+
   .sm\:tw-pb-8 {
     padding-bottom: 2rem;
   }
@@ -2578,12 +2759,32 @@ html:has(.tw-dy-drawer-toggle:checked) {
 }
 
 @media (min-width: 768px) {
+  .md\:tw-relative {
+    position: relative;
+  }
+
   .md\:tw-col-span-2 {
     grid-column: span 2 / span 2;
   }
 
   .md\:tw-col-span-3 {
     grid-column: span 3 / span 3;
+  }
+
+  .md\:tw-block {
+    display: block;
+  }
+
+  .md\:tw-flex {
+    display: flex;
+  }
+
+  .md\:tw-grid {
+    display: grid;
+  }
+
+  .md\:tw-hidden {
+    display: none;
   }
 
   .md\:tw-w-\[45\%\] {
@@ -2594,9 +2795,17 @@ html:has(.tw-dy-drawer-toggle:checked) {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
+  .md\:tw-p-8 {
+    padding: 2rem;
+  }
+
   .md\:tw-px-20 {
     padding-left: 5rem;
     padding-right: 5rem;
+  }
+
+  .md\:tw-pb-8 {
+    padding-bottom: 2rem;
   }
 }
 

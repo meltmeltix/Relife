@@ -11,10 +11,10 @@
     <title>ReLife</title>
 </head>
 
-<body class="tw-flex tw-flex-col sm:tw-grid sm:tw-grid-cols-2 md:tw-grid-cols-5 tw-relative tw-h-[100svh]">
+<body class="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-5 tw-relative tw-h-[100svh]">
     <!-- Graphics -->
     <svg 
-        class="sm:tw-hidden tw-absolute tw-bottom-0 tw-object-fill tw-h-[32rem] tw-w-full tw-fill-light-base dark:tw-fill-dark-base"
+        class="md:tw-hidden tw-absolute tw-bottom-0 tw-object-fill tw-h-[32rem] tw-w-full tw-fill-light-base dark:tw-fill-dark-base"
         viewBox="0 0 393 595" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
@@ -22,22 +22,36 @@
     ><path d="M0.5 184L0 595H393V0C393 0 308.806 74.8472 208.5 125C104.5 177 0.5 184 0.5 184Z"/></svg>
 
     <svg 
-        class="tw-hidden sm:tw-block tw-absolute tw-h-full tw-right-0 sm:tw-w-[55%] md:tw-w-[45%]"
+        class="tw-hidden md:tw-block tw-absolute tw-h-full tw-right-0 sm:tw-w-[55%] md:tw-w-[45%]"
         viewBox="0 0 761 1024" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
     ><path d="M42 0H761V1024H42L21.0055 932.942C6.50716 870.06 5.79607 804.784 18.9211 741.601L28.3355 696.281C37.272 653.26 34.1773 608.609 19.3913 567.234L17.0409 560.656C-5.28602 498.179 -5.14245 429.873 17.4469 367.49L28.7658 336.231C54.4817 265.213 55.1727 187.543 30.7245 116.079C17.5555 77.5852 21.6783 35.2455 42 0Z" fill="#15140C"/></svg>
 
+    <!-- Modal -->
+    <dialog id="my_modal_5" class="tw-dy-modal tw-dy-modal-bottom sm:tw-dy-modal-middle">
+    <div class="tw-dy-modal-box">
+        <h3 class="tw-font-bold tw-text-lg">Hello!</h3>
+        <p class="tw-py-4">Press ESC key or click the button below to close</p>
+        <div class="tw-dy-modal-action">
+        <form method="tw-dy-dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="tw-dy-btn">Close</button>
+        </form>
+        </div>
+    </div>
+    </dialog>
+
     <!-- Left column -->
-    <div class="sm:tw-flex tw-hidden tw-flex-col md:tw-col-span-3 tw-grow tw-h-full tw-inverted-background">
+    <div class="tw-hidden md:tw-flex tw-flex-col md:tw-col-span-3 tw-grow tw-h-full tw-inverted-background">
 
     </div>
 
     <!-- Right column -->
     <div class="tw-flex tw-flex-col md:tw-col-span-2 tw-grow tw-h-full tw-justify-end tw-inverted-background">
         <!-- Buttons -->
-        <div class="tw-absolute sm:tw-relative tw-w-full tw-grid tw-grid-cols-2 tw-gap-x-3 tw-bottom-0 tw-p-8 tw-pb-20 sm:tw-pb-8">
+        <div class="tw-absolute md:tw-relative tw-w-full tw-grid tw-grid-cols-2 tw-gap-x-3 tw-bottom-0 tw-p-8 tw-pb-20 sm:tw-px-28 md:tw-p-8 md:tw-pb-8">
             <div class="tw-col-span-2">
                 <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Explore</button>
             </div>
@@ -45,10 +59,10 @@
                 <div class="mx-auto tw-dy-divider">or</div>
             </div>
             <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Sign in</button>
-            <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Log in</button>
+            <button class="tw-dy-btn tw-dy-btn-primary tw-w-full" onclick="my_modal_5.showModal()">Log in</button>
         </div>
         
-        <footer class="tw-absolute sm:tw-relative tw-bottom-0 tw-w-full tw-flex tw-flex-col tw-text-xs tw-leading-3 tw-fill-light-base dark:tw-fill-dark-base">
+        <footer class="tw-absolute md:tw-relative tw-bottom-0 tw-w-full tw-flex tw-flex-col tw-text-xs tw-leading-3 tw-fill-light-base dark:tw-fill-dark-base">
             <p class="tw-w-full tw-text-center tw-mb-1">Website built for educational purposes</p>
             <p class="tw-w-full tw-text-center tw-mb-1">Made with ♥️ in Italy</p>
             <a href="https://meltix.vercel.app" class="tw-w-full tw-text-center tw-opacity-70 tw-mb-3 tw-text-current tw-no-underline">&copy 2024 Alessio Cameroni</a>
