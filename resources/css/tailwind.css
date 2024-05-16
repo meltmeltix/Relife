@@ -1189,39 +1189,6 @@ html {
     }
   }
 
-  .tw-dy-btn-outline:hover {
-    --tw-border-opacity: 1;
-    border-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-border-opacity)));
-    --tw-bg-opacity: 1;
-    background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
-    --tw-text-opacity: 1;
-    color: var(--fallback-b1,oklch(var(--b1)/var(--tw-text-opacity)));
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-primary:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-primary:hover {
-      background-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-primary:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-primary:hover {
-      background-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-    }
-  }
-
   .tw-dy-btn-outline.tw-dy-btn-primary:hover {
     --tw-text-opacity: 1;
     color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
@@ -1267,150 +1234,6 @@ html {
     .tw-dy-btn-outline.tw-dy-btn-secondary:hover {
       background-color: color-mix(in oklab, var(--fallback-s,oklch(var(--s)/1)) 90%, black);
       border-color: color-mix(in oklab, var(--fallback-s,oklch(var(--s)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-secondary:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-sc,oklch(var(--sc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-secondary:hover {
-      background-color: color-mix(in oklab, var(--fallback-s,oklch(var(--s)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-s,oklch(var(--s)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-secondary:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-sc,oklch(var(--sc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-secondary:hover {
-      background-color: color-mix(in oklab, var(--fallback-s,oklch(var(--s)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-s,oklch(var(--s)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-accent:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-accent:hover {
-      background-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-accent:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-accent:hover {
-      background-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-success:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-success:hover {
-      background-color: color-mix(in oklab, var(--fallback-su,oklch(var(--su)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-su,oklch(var(--su)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-success:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-success:hover {
-      background-color: color-mix(in oklab, var(--fallback-su,oklch(var(--su)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-su,oklch(var(--su)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-info:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-inc,oklch(var(--inc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-info:hover {
-      background-color: color-mix(in oklab, var(--fallback-in,oklch(var(--in)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-in,oklch(var(--in)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-info:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-inc,oklch(var(--inc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-info:hover {
-      background-color: color-mix(in oklab, var(--fallback-in,oklch(var(--in)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-in,oklch(var(--in)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-warning:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-warning:hover {
-      background-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-warning:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-warning:hover {
-      background-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-error:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-erc,oklch(var(--erc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-error:hover {
-      background-color: color-mix(in oklab, var(--fallback-er,oklch(var(--er)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-er,oklch(var(--er)/1)) 90%, black);
-    }
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-error:hover {
-    --tw-text-opacity: 1;
-    color: var(--fallback-erc,oklch(var(--erc)/var(--tw-text-opacity)));
-  }
-
-  @supports (color: color-mix(in oklab, black, black)) {
-    .tw-dy-btn-outline.tw-dy-btn-error:hover {
-      background-color: color-mix(in oklab, var(--fallback-er,oklch(var(--er)/1)) 90%, black);
-      border-color: color-mix(in oklab, var(--fallback-er,oklch(var(--er)/1)) 90%, black);
     }
   }
 
@@ -1714,10 +1537,6 @@ html {
   .tw-dy-btn-secondary {
     --btn-color: var(--fallback-s);
   }
-
-  .tw-dy-btn-neutral {
-    --btn-color: var(--fallback-n);
-  }
 }
 
 @supports (color: color-mix(in oklab, black, black)) {
@@ -1729,31 +1548,6 @@ html {
   .tw-dy-btn-outline.tw-dy-btn-secondary.tw-dy-btn-active {
     background-color: color-mix(in oklab, var(--fallback-s,oklch(var(--s)/1)) 90%, black);
     border-color: color-mix(in oklab, var(--fallback-s,oklch(var(--s)/1)) 90%, black);
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-accent.tw-dy-btn-active {
-    background-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
-    border-color: color-mix(in oklab, var(--fallback-a,oklch(var(--a)/1)) 90%, black);
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-success.tw-dy-btn-active {
-    background-color: color-mix(in oklab, var(--fallback-su,oklch(var(--su)/1)) 90%, black);
-    border-color: color-mix(in oklab, var(--fallback-su,oklch(var(--su)/1)) 90%, black);
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-info.tw-dy-btn-active {
-    background-color: color-mix(in oklab, var(--fallback-in,oklch(var(--in)/1)) 90%, black);
-    border-color: color-mix(in oklab, var(--fallback-in,oklch(var(--in)/1)) 90%, black);
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-warning.tw-dy-btn-active {
-    background-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
-    border-color: color-mix(in oklab, var(--fallback-wa,oklch(var(--wa)/1)) 90%, black);
-  }
-
-  .tw-dy-btn-outline.tw-dy-btn-error.tw-dy-btn-active {
-    background-color: color-mix(in oklab, var(--fallback-er,oklch(var(--er)/1)) 90%, black);
-    border-color: color-mix(in oklab, var(--fallback-er,oklch(var(--er)/1)) 90%, black);
   }
 }
 
@@ -1777,22 +1571,12 @@ html {
   .tw-dy-btn-secondary {
     --btn-color: var(--s);
   }
-
-  .tw-dy-btn-neutral {
-    --btn-color: var(--n);
-  }
 }
 
 .tw-dy-btn-secondary {
   --tw-text-opacity: 1;
   color: var(--fallback-sc,oklch(var(--sc)/var(--tw-text-opacity)));
   outline-color: var(--fallback-s,oklch(var(--s)/1));
-}
-
-.tw-dy-btn-neutral {
-  --tw-text-opacity: 1;
-  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
-  outline-color: var(--fallback-n,oklch(var(--n)/1));
 }
 
 .tw-dy-btn.tw-dy-glass {
@@ -1823,25 +1607,6 @@ html {
   background-color: var(--fallback-bc,oklch(var(--bc)/0.2));
 }
 
-.tw-dy-btn-outline {
-  border-color: currentColor;
-  background-color: transparent;
-  --tw-text-opacity: 1;
-  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
-  --tw-shadow: 0 0 #0000;
-  --tw-shadow-colored: 0 0 #0000;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.tw-dy-btn-outline.tw-dy-btn-active {
-  --tw-border-opacity: 1;
-  border-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-border-opacity)));
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
-  --tw-text-opacity: 1;
-  color: var(--fallback-b1,oklch(var(--b1)/var(--tw-text-opacity)));
-}
-
 .tw-dy-btn-outline.tw-dy-btn-primary {
   --tw-text-opacity: 1;
   color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
@@ -1860,56 +1625,6 @@ html {
 .tw-dy-btn-outline.tw-dy-btn-secondary.tw-dy-btn-active {
   --tw-text-opacity: 1;
   color: var(--fallback-sc,oklch(var(--sc)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-accent {
-  --tw-text-opacity: 1;
-  color: var(--fallback-a,oklch(var(--a)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-accent.tw-dy-btn-active {
-  --tw-text-opacity: 1;
-  color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-success {
-  --tw-text-opacity: 1;
-  color: var(--fallback-su,oklch(var(--su)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-success.tw-dy-btn-active {
-  --tw-text-opacity: 1;
-  color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-info {
-  --tw-text-opacity: 1;
-  color: var(--fallback-in,oklch(var(--in)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-info.tw-dy-btn-active {
-  --tw-text-opacity: 1;
-  color: var(--fallback-inc,oklch(var(--inc)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-warning {
-  --tw-text-opacity: 1;
-  color: var(--fallback-wa,oklch(var(--wa)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-warning.tw-dy-btn-active {
-  --tw-text-opacity: 1;
-  color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-error {
-  --tw-text-opacity: 1;
-  color: var(--fallback-er,oklch(var(--er)/var(--tw-text-opacity)));
-}
-
-.tw-dy-btn-outline.tw-dy-btn-error.tw-dy-btn-active {
-  --tw-text-opacity: 1;
-  color: var(--fallback-erc,oklch(var(--erc)/var(--tw-text-opacity)));
 }
 
 .tw-dy-btn.tw-dy-btn-disabled,
@@ -2044,19 +1759,10 @@ html {
 
 @supports (color:color-mix(in oklab,black,black)) {
   @media (hover:hover) {
-    .tw-dy-link-secondary:hover {
-      color: color-mix(in oklab,var(--fallback-s,oklch(var(--s)/1)) 80%,black);
-    }
-
     .tw-dy-link-accent:hover {
       color: color-mix(in oklab,var(--fallback-a,oklch(var(--a)/1)) 80%,black);
     }
   }
-}
-
-.tw-dy-link-secondary {
-  --tw-text-opacity: 1;
-  color: var(--fallback-s,oklch(var(--s)/var(--tw-text-opacity)));
 }
 
 .tw-dy-link-accent {
@@ -2330,22 +2036,6 @@ html {
   border-top-width: 4px;
 }
 
-.tw-dy-btn-sm {
-  height: 2rem;
-  min-height: 2rem;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  font-size: 0.875rem;
-}
-
-.tw-dy-btn-md {
-  height: 3rem;
-  min-height: 3rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-size: 0.875rem;
-}
-
 .tw-dy-btn-square:where(.tw-dy-btn-xs) {
   height: 1.5rem;
   width: 1.5rem;
@@ -2367,20 +2057,6 @@ html {
 .tw-dy-btn-square:where(.tw-dy-btn-lg) {
   height: 4rem;
   width: 4rem;
-  padding: 0px;
-}
-
-.tw-dy-btn-circle:where(.tw-dy-btn-sm) {
-  height: 2rem;
-  width: 2rem;
-  border-radius: 9999px;
-  padding: 0px;
-}
-
-.tw-dy-btn-circle:where(.tw-dy-btn-md) {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 9999px;
   padding: 0px;
 }
 
@@ -2848,20 +2524,16 @@ html:has(.tw-dy-drawer-toggle:checked) {
   gap: 0px;
 }
 
+.tw-gap-1 {
+  gap: 0.25rem;
+}
+
 .tw-gap-2 {
   gap: 0.5rem;
 }
 
 .tw-gap-3 {
   gap: 0.75rem;
-}
-
-.tw-gap-80 {
-  gap: 20rem;
-}
-
-.tw-gap-4 {
-  gap: 1rem;
 }
 
 .tw-gap-6 {
@@ -2873,22 +2545,9 @@ html:has(.tw-dy-drawer-toggle:checked) {
        column-gap: 0.75rem;
 }
 
-.tw-gap-y-10 {
-  row-gap: 2.5rem;
-}
-
-.tw-gap-y-80 {
-  row-gap: 20rem;
-}
-
 .tw-bg-light-base {
   --tw-bg-opacity: 1;
   background-color: rgb(241 240 228 / var(--tw-bg-opacity));
-}
-
-.tw-bg-primary {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity)));
 }
 
 .tw-fill-light-base {
@@ -2916,18 +2575,8 @@ html:has(.tw-dy-drawer-toggle:checked) {
   padding: 2rem;
 }
 
-.tw-py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.tw-py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.tw-pb-20 {
-  padding-bottom: 5rem;
+.tw-pb-24 {
+  padding-bottom: 6rem;
 }
 
 .tw-pb-3 {
@@ -2938,24 +2587,22 @@ html:has(.tw-dy-drawer-toggle:checked) {
   padding-left: 0.75rem;
 }
 
-.tw-pb-6 {
-  padding-bottom: 1.5rem;
-}
-
-.tw-pb-4 {
-  padding-bottom: 1rem;
-}
-
-.tw-pb-2 {
-  padding-bottom: 0.5rem;
-}
-
 .tw-text-center {
   text-align: center;
 }
 
 .tw-font-serif {
   font-family: Noto Serif;
+}
+
+.tw-text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.tw-text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .tw-text-\[1\.92rem\] {
@@ -2967,23 +2614,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   line-height: 1rem;
 }
 
-.tw-text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.tw-text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.tw-text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
 .tw-font-bold {
   font-weight: 700;
+}
+
+.tw-font-medium {
+  font-weight: 500;
 }
 
 .tw-font-semibold {
@@ -2992,6 +2628,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-leading-3 {
   line-height: .75rem;
+}
+
+.tw-tracking-tighter {
+  letter-spacing: -0.05em;
 }
 
 .tw-text-current {
@@ -3009,6 +2649,22 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-opacity-70 {
   opacity: 0.7;
+}
+
+.tw-opacity-75 {
+  opacity: 0.75;
+}
+
+.tw-opacity-5 {
+  opacity: 0.05;
+}
+
+.tw-opacity-15 {
+  opacity: 0.15;
+}
+
+.tw-opacity-45 {
+  opacity: 0.45;
 }
 
 .tw-dy-inactive {
@@ -3095,22 +2751,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
     border-bottom-left-radius: var(--rounded-box, 1rem);
   }
 
-  .sm\:tw-relative {
-    position: relative;
-  }
-
-  .sm\:tw-block {
-    display: block;
-  }
-
-  .sm\:tw-flex {
-    display: flex;
-  }
-
-  .sm\:tw-grid {
-    display: grid;
-  }
-
   .sm\:tw-hidden {
     display: none;
   }
@@ -3119,27 +2759,9 @@ html:has(.tw-dy-drawer-toggle:checked) {
     width: 55%;
   }
 
-  .sm\:tw-grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .sm\:tw-px-7 {
-    padding-left: 1.75rem;
-    padding-right: 1.75rem;
-  }
-
-  .sm\:tw-px-20 {
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-
   .sm\:tw-px-28 {
     padding-left: 7rem;
     padding-right: 7rem;
-  }
-
-  .sm\:tw-pb-8 {
-    padding-bottom: 2rem;
   }
 }
 
@@ -3187,6 +2809,18 @@ html:has(.tw-dy-drawer-toggle:checked) {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
+  .md\:tw-justify-center {
+    justify-content: center;
+  }
+
+  .md\:tw-gap-10 {
+    gap: 2.5rem;
+  }
+
+  .md\:tw-gap-2 {
+    gap: 0.5rem;
+  }
+
   .md\:tw-p-8 {
     padding: 2rem;
   }
@@ -3196,8 +2830,22 @@ html:has(.tw-dy-drawer-toggle:checked) {
     padding-right: 5rem;
   }
 
-  .md\:tw-pb-8 {
-    padding-bottom: 2rem;
+  .md\:tw-pt-16 {
+    padding-top: 4rem;
+  }
+
+  .md\:tw-text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .md\:tw-text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .md\:tw-leading-\[3\.8rem\] {
+    line-height: 3.8rem;
   }
 }
 
@@ -3205,6 +2853,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   .md-840\:tw-px-32 {
     padding-left: 8rem;
     padding-right: 8rem;
+  }
+}
+
+@media (min-width: 970px) {
+  .xl-970\:tw-pr-10 {
+    padding-right: 2.5rem;
   }
 }
 
@@ -3219,6 +2873,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
   .xl\:tw-px-\[18rem\] {
     padding-left: 18rem;
     padding-right: 18rem;
+  }
+
+  .xl\:tw-text-\[3\.20rem\] {
+    font-size: 3.20rem;
   }
 }
 

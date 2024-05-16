@@ -13,6 +13,15 @@
 
 <body class="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-5 tw-relative tw-h-[100svh]">
     <!-- Graphics -->
+    <svg class="tw-absolute tw-h-full tw-w-full tw-opacity-45" viewBox="0 0 100% 100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <pattern id="graphic" width="600" height="600" viewBox="0 0 600 600" patternUnits="userSpaceOnUse">
+                <image href="./resources/svg/topography.svg"></image>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#graphic)"></rect>
+    </svg>
+
     <svg 
         class="md:tw-hidden tw-absolute tw-bottom-0 tw-object-fill tw-h-[32rem] tw-w-full tw-fill-light-base dark:tw-fill-dark-base"
         viewBox="0 0 393 595" 
@@ -53,18 +62,27 @@
     </div>
 
     <!-- Right column -->
-    <div class="tw-flex tw-flex-col md:tw-col-span-2 tw-grow tw-h-full tw-justify-end tw-inverted-background">
-        <!-- Buttons -->
-        <div class="tw-absolute md:tw-relative tw-w-full tw-grid tw-grid-cols-2 tw-gap-x-3 tw-bottom-0 tw-p-8 tw-pb-20 sm:tw-px-28 md:tw-p-8 md:tw-pb-8">
-            <div class="tw-col-span-2">
-                <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Explore</button>
+    <div class="tw-flex tw-flex-col md:tw-col-span-2 xl-970:tw-pr-10 tw-grow tw-inverted-background">
+        <!-- Content -->
+        <div class="tw-absolute tw-w-full md:tw-relative sm:tw-px-28 tw-p-8 tw-pb-24 md:tw-pt-16 md:tw-p-8 tw-flex tw-flex-col tw-h-full tw-justify-end tw-gap-6 md:tw-gap-10 md:tw-justify-center">
+            <div class="tw-flex tw-flex-col tw-gap-1 md:tw-gap-2">
+                <h1 class="tw-font-serif tw-tracking-tighter tw-font-medium tw-text-3xl md:tw-leading-[3.8rem] md:tw-text-5xl xl:tw-text-[3.20rem]">Plant your seed &#127793</svg>
+                <h4 class="md:tw-text-2xl tw-font-medium">Join the community!</h4>
             </div>
-            <div class="tw-col-span-2">
-                <div class="mx-auto tw-dy-divider">or</div>
+
+            <!-- Buttons -->
+            <div class="tw-grid tw-grid-cols-2 tw-gap-x-3 tw-bottom-0 ">
+                <div class="tw-col-span-2">
+                    <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Explore</button>
+                </div>
+                <div class="tw-col-span-2">
+                    <div class="mx-auto tw-dy-divider">or</div>
+                </div>
+                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Sign in</button>
+                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full" onclick="modal_login.showModal()">Log in</button>
             </div>
-            <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Sign in</button>
-            <button class="tw-dy-btn tw-dy-btn-primary tw-w-full" onclick="modal_login.showModal()">Log in</button>
         </div>
+        
         
         <footer class="tw-absolute md:tw-relative tw-bottom-0 tw-w-full tw-flex tw-flex-col tw-text-xs tw-leading-3 tw-fill-light-base dark:tw-fill-dark-base">
             <p class="tw-w-full tw-text-center tw-mb-1">Website built for educational purposes</p>
