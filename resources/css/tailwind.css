@@ -639,11 +639,15 @@ html {
 @font-face {
   font-family: 'Noto Serif';
 
+  font-display: swap;
+
   src: url(/resources/fonts/NotoSerif.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'Roboto Flex';
+
+  font-display: swap;
 
   src: url(/resources/fonts/RobotoFlex.ttf) format('truetype');
 }
@@ -2647,24 +2651,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   text-decoration-line: none;
 }
 
-.tw-opacity-70 {
-  opacity: 0.7;
-}
-
-.tw-opacity-75 {
-  opacity: 0.75;
-}
-
-.tw-opacity-5 {
-  opacity: 0.05;
-}
-
-.tw-opacity-15 {
-  opacity: 0.15;
-}
-
 .tw-opacity-45 {
   opacity: 0.45;
+}
+
+.tw-opacity-70 {
+  opacity: 0.7;
 }
 
 .tw-dy-inactive {
