@@ -2740,6 +2740,14 @@ html:has(.tw-dy-drawer-toggle:checked) {
   opacity: 0.7;
 }
 
+.tw-opacity-15 {
+  opacity: 0.15;
+}
+
+.tw-opacity-10 {
+  opacity: 0.1;
+}
+
 .tw-dy-inactive {
   --tw-text-opacity: 1;
   color: rgb(82 82 82 / var(--tw-text-opacity));
@@ -3060,5 +3068,9 @@ html:has(.tw-dy-drawer-toggle:checked) {
   .dark\:tw-text-text-200 {
     --tw-text-opacity: 1;
     color: rgb(220 220 188 / var(--tw-text-opacity));
+  }
+
+  .dark\:tw-opacity-45 {
+    opacity: 0.45;
   }
 }
