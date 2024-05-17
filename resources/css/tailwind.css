@@ -787,6 +787,11 @@ html {
     text-decoration-line: underline;
   }
 
+  .tw-dy-label a:hover {
+    --tw-text-opacity: 1;
+    color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
+  }
+
   .tw-dy-menu li > *:not(ul, .tw-dy-menu-title, details, .tw-dy-btn):active,
 .tw-dy-menu li > *:not(ul, .tw-dy-menu-title, details, .tw-dy-btn).tw-dy-active,
 .tw-dy-menu li > details > summary:active {
@@ -1315,6 +1320,24 @@ html {
 
 .tw-dy-dropdown:is(details) summary::-webkit-details-marker {
   display: none;
+}
+
+.tw-dy-form-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.tw-dy-label {
+  display: flex;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .tw-dy-input {
@@ -2494,6 +2517,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-w-full {
   width: 100%;
+}
+
+.tw-max-w-sm {
+  max-width: 24rem;
 }
 
 .tw-flex-1 {
