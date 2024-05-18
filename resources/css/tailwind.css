@@ -2512,6 +2512,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
   flex: none;
 }
 
+.tw-flex-grow {
+  flex-grow: 1;
+}
+
 .tw-grow {
   flex-grow: 1;
 }
@@ -2607,12 +2611,21 @@ html:has(.tw-dy-drawer-toggle:checked) {
   padding-left: 0.75rem;
 }
 
+.tw-pt-20 {
+  padding-top: 5rem;
+}
+
 .tw-text-center {
   text-align: center;
 }
 
 .tw-font-serif {
   font-family: Noto Serif;
+}
+
+.tw-text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .tw-text-3xl {
@@ -2752,7 +2765,15 @@ html:has(.tw-dy-drawer-toggle:checked) {
     border-bottom-right-radius: var(--rounded-box, 1rem);
     border-bottom-left-radius: var(--rounded-box, 1rem);
   }
+}
 
+@media (min-width: 500px) {
+  .sm-500\:tw-w-72 {
+    width: 18rem;
+  }
+}
+
+@media (min-width: 640px) {
   .sm\:tw-hidden {
     display: none;
   }
@@ -2775,6 +2796,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
 }
 
 @media (min-width: 768px) {
+  .md\:tw-invisible {
+    visibility: hidden;
+  }
+
   .md\:tw-relative {
     position: relative;
   }

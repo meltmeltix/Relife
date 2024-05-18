@@ -168,6 +168,7 @@ module.exports = {
     },
     extend: {
       screens: {
+        'sm-500': '500px',
         'sm-700': '700px',
         'md-840': '840px',
         'md-860': '860px',
