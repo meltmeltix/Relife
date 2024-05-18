@@ -24,6 +24,6 @@
 }
 
 @layer utilities {
-    .tw-dy-inactive { @apply tw-text-neutral-600 dark:tw-text-neutral-400 } /* Complementary class for active */
+    .tw-dy-inactive { @apply tw-text-base-content } /* Complementary class for active */
     .tw-inverted-background { @apply tw-bg-background-200 dark:tw-bg-background-800 }
 }

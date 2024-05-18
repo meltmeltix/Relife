@@ -2424,10 +2424,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
   z-index: 10;
 }
 
-.tw-z-20 {
-  z-index: 20;
-}
-
 .tw-z-\[1\] {
   z-index: 1;
 }
@@ -2442,14 +2438,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-mb-3 {
   margin-bottom: 0.75rem;
-}
-
-.tw-inline-block {
-  display: inline-block;
-}
-
-.tw-inline {
-  display: inline;
 }
 
 .tw-flex {
@@ -2492,10 +2480,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
   height: 100%;
 }
 
-.tw-h-9 {
-  height: 2.25rem;
-}
-
 .tw-min-h-\[100svh\] {
   min-height: 100svh;
 }
@@ -2512,20 +2496,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   width: 15rem;
 }
 
-.tw-w-full {
-  width: 100%;
-}
-
-.tw-w-48 {
-  width: 12rem;
-}
-
 .tw-w-80 {
   width: 20rem;
 }
 
-.tw-w-96 {
-  width: 24rem;
+.tw-w-full {
+  width: 100%;
 }
 
 .tw-flex-1 {
@@ -2538,12 +2514,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-grow {
   flex-grow: 1;
-}
-
-.tw-scale-90 {
-  --tw-scale-x: .9;
-  --tw-scale-y: .9;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .tw-grid-cols-2 {
@@ -2578,10 +2548,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
   gap: 0.5rem;
 }
 
-.tw-gap-3 {
-  gap: 0.75rem;
-}
-
 .tw-gap-6 {
   gap: 1.5rem;
 }
@@ -2602,14 +2568,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-fill-primary {
   fill: var(--fallback-p,oklch(var(--p)/1));
-}
-
-.tw-fill-dark-primary {
-  fill: #b4a64b;
-}
-
-.tw-fill-text-200 {
-  fill: #dcdcbc;
 }
 
 .tw-fill-text-800 {
@@ -2641,20 +2599,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   padding-bottom: 0.75rem;
 }
 
-.tw-pl-3 {
-  padding-left: 0.75rem;
-}
-
-.tw-pl-2 {
-  padding-left: 0.5rem;
-}
-
-.tw-pl-20 {
-  padding-left: 5rem;
-}
-
 .tw-pl-16 {
   padding-left: 4rem;
+}
+
+.tw-pl-3 {
+  padding-left: 0.75rem;
 }
 
 .tw-text-center {
@@ -2665,14 +2615,14 @@ html:has(.tw-dy-drawer-toggle:checked) {
   font-family: Noto Serif;
 }
 
-.tw-text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
 .tw-text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.tw-text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .tw-text-\[1\.92rem\] {
@@ -2684,26 +2634,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   line-height: 1rem;
 }
 
-.tw-text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
-.tw-text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .tw-font-bold {
   font-weight: 700;
 }
 
 .tw-font-medium {
   font-weight: 500;
-}
-
-.tw-font-semibold {
-  font-weight: 600;
 }
 
 .tw-leading-3 {
@@ -2732,32 +2668,17 @@ html:has(.tw-dy-drawer-toggle:checked) {
   text-decoration-line: none;
 }
 
-.tw-opacity-45 {
-  opacity: 0.45;
+.tw-opacity-10 {
+  opacity: 0.1;
 }
 
 .tw-opacity-70 {
   opacity: 0.7;
 }
 
-.tw-opacity-15 {
-  opacity: 0.15;
-}
-
-.tw-opacity-10 {
-  opacity: 0.1;
-}
-
 .tw-dy-inactive {
   --tw-text-opacity: 1;
-  color: rgb(82 82 82 / var(--tw-text-opacity));
-}
-
-@media (prefers-color-scheme: dark) {
-  .tw-dy-inactive {
-    --tw-text-opacity: 1;
-    color: rgb(163 163 163 / var(--tw-text-opacity));
-  }
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
 }
 
 /* Complementary class for active */
@@ -2920,58 +2841,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
     line-height: 2rem;
   }
 
-  .md\:tw-text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .md\:tw-text-4xl {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-
-  .md\:tw-text-\[2\.15rem\] {
-    font-size: 2.15rem;
-  }
-
-  .md\:tw-text-\[2\.20rem\] {
-    font-size: 2.20rem;
-  }
-
-  .md\:tw-text-\[2\.5rem\] {
-    font-size: 2.5rem;
-  }
-
   .md\:tw-text-\[2\.25rem\] {
     font-size: 2.25rem;
   }
 
-  .md\:tw-leading-\[3\.8rem\] {
-    line-height: 3.8rem;
-  }
-
-  .md\:tw-leading-3 {
-    line-height: .75rem;
-  }
-
-  .md\:tw-leading-\[\] {
-    line-height: ;
-  }
-
   .md\:tw-leading-\[3rem\] {
     line-height: 3rem;
-  }
-
-  .md\:tw-text-\[\] {
-    color: ;
-  }
-
-  .md\:tw-text-\[2\.\] {
-    color: 2.;
-  }
-
-  .md\:tw-text-\[2\.rem\] {
-    color: 2.rem;
   }
 }
 
@@ -3012,18 +2887,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 }
 
 @media (min-width: 1280px) {
-  .xl\:tw-w-\[\] {
-    width: ;
-  }
-
-  .xl\:tw-w-\[106\] {
-    width: 106;
-  }
-
-  .xl\:tw-w-\[110rem\] {
-    width: 110rem;
-  }
-
   .xl\:tw-w-\[30rem\] {
     width: 30rem;
   }
@@ -3031,10 +2894,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
   .xl\:tw-px-\[18rem\] {
     padding-left: 18rem;
     padding-right: 18rem;
-  }
-
-  .xl\:tw-text-\[3\.20rem\] {
-    font-size: 3.20rem;
   }
 }
 
@@ -3050,10 +2909,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
   .dark\:tw-fill-dark-primary {
     fill: #b4a64b;
-  }
-
-  .dark\:tw-fill-text-800 {
-    fill: #434323;
   }
 
   .dark\:tw-fill-text-200 {
