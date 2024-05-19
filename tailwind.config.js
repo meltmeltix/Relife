@@ -142,28 +142,6 @@ module.exports = {
         800: '#003547',  
         900: '#001E2B',  
         950: '#00131C'
-      },
-      'light': {
-        "primary": "#b4a64b",
-        "secondary": "#b6d5a5",
-        "accent": "#58904c",
-        "neutral": "#32301a",
-        "base-100": "#f1f0e4",
-        "info": "#006687",
-        "success": "#1c6d0a",
-        "warning": "#785a00",
-        "error": "#b52700",
-      },
-      'dark': {
-        "primary": "#b4a64b",
-        "secondary": "#3b5a2a",
-        "accent": "#7cb36f",
-        "neutral": "#32301a",
-        "base-100": "#1b1a0e",
-        "info": "#71d2ff",
-        "success": "#87db6e",
-        "warning": "#f8be1f",
-        "error": "#ffb4a2",
       }
     },
     extend: {

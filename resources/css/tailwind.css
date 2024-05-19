@@ -2569,6 +2569,22 @@ html:has(.tw-dy-drawer-toggle:checked) {
   fill: #434323;
 }
 
+.tw-fill-text-700 {
+  fill: #646435;
+}
+
+.tw-fill-light-base-100 {
+  fill: #f1f0e4;
+}
+
+.tw-fill-base-100 {
+  fill: var(--fallback-b1,oklch(var(--b1)/1));
+}
+
+.tw-fill-text-400 {
+  fill: #b9b979;
+}
+
 .tw-object-fill {
   -o-object-fit: fill;
      object-fit: fill;
@@ -2903,6 +2919,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
   .dark\:tw-fill-text-200 {
     fill: #dcdcbc;
+  }
+
+  .dark\:tw-fill-dark-base-100 {
+    fill: #1b1a0e;
   }
 
   .dark\:tw-text-text-200 {
