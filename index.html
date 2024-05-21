@@ -11,7 +11,7 @@
     <title>ReLife</title>
 </head>
 
-<body class="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-5 tw-relative tw-h-[100svh] tw-inverted-background">
+<body class="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-5 tw-relative tw-h-viewport tw-inverted-background">
     <!-- Logo -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
         <defs>
@@ -51,11 +51,16 @@
 
     <!-- Modal -->
     <dialog id="modal_login" class="tw-dy-modal tw-dy-modal-bottom sm:tw-dy-modal-middle">
-        <div class="tw-dy-modal-box">
-            <div class="tw-dy-modal-action">
-                <form method="dialog"><button class="tw-dy-btn">Close</button></form>
-                <button class="tw-dy-btn tw-dy-btn-primary">Login</button>
-            </div>
+        <div class="tw-hidden sm:tw-block tw-dy-modal-box">
+            <form method="dialog">
+                <button class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-circle tw-dy-btn-ghost tw-absolute tw-right-2 tw-top-2"><i data-lucide="x"></i></button>
+            </form>
+        </div>
+
+        <div style="max-height: none;" class="sm:tw-hidden tw-dy-modal-box tw-h-viewport tw-rounded-none">
+            <form method="dialog">
+                <button class="tw-dy-btn tw-dy-btn-circle tw-dy-btn-ghost tw-absolute tw-right-2 tw-top-2"><i data-lucide="x"></i></button>
+            </form>
         </div>
     </dialog>
 
