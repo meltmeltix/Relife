@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
     <title>Home</title>
+    <script src="../resources/js/pages/feed.js"></script>
 </head>
 
 <body class="tw-flex tw-flex-col tw-h-viewport tw-text-current tw-bg-light-base dark:tw-bg-dark-base">
@@ -58,14 +59,27 @@
 
         <!-- Drawer -->
         <aside class="tw-dy-drawer-side">
-            <div class="tw-h-full tw-p-3">
-                <a class="tw-dy-btn tw-dy-btn-ghost tw-gap-0">
-                    <svg class="tw-h-6 tw-fill-primary" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
+            <div class="tw-flex tw-flex-col tw-w-64 tw-h-full tw-p-3">
+                <a class="tw-flex tw-items-center tw-w-min tw-pl-3 tw-h-12">
+                    <svg class="tw-h-7 tw-fill-text-700 dark:tw-fill-text-300" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
                 </a>
 
                 <div class="tw-h-4"></div>
 
-                <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Post</button>
+                <div class="tw-px-3"><button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Post</button></div>
+                <div class="tw-h-4"></div>
+
+                <ul class="tw-dy-menu tw-w-60 tw-p-0 tw-gap-2 text-base-content">
+                    <li><a><i data-lucide="home"></i>Home</a></li>
+                    <li><a><i data-lucide="search"></i>Search</a></li>
+                    <li><a><i data-lucide="user"></i>Profile</a></li>
+                </ul>
+                <ul class="tw-dy-menu tw-w-60 tw-p-0 tw-pb-3 tw-absolute tw-bottom-0">
+                    <li><a><i data-lucide="settings"></i>Settings</a></li>
+                    <li><a><i data-lucide="log-out"></i>Log out</a></li>
+                </ul>
+
+                <!-- <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full">Post</button>
 
                 <div class="tw-h-4"></div>
 
@@ -77,10 +91,10 @@
                 <ul class="tw-dy-menu tw-w-60 tw-p-0 tw-pb-3 tw-absolute tw-bottom-0">
                     <li><a><i data-lucide="settings"></i>Settings</a></li>
                     <li><a><i data-lucide="log-out"></i>Log out</a></li>
-                </ul>
+                </ul> -->
             </div>
         </aside>
-    </>
+    </s>
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
