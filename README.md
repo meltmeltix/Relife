@@ -1,4 +1,4 @@
-Header image here
+![ReLife](https://raw.githubusercontent.com/meltmeltix/ReLife/main/github/header.png)
 
 <p align="center">
   <strong>🌱 A social media dedicated to plants 🌱</strong>
@@ -16,7 +16,13 @@ This website is the main assignment of the course [Web Programming Metodologies]
 
 ## 🖥️ Showcase
 
-Prototype not available (yet)
+![ReLife Design File](https://raw.githubusercontent.com/meltmeltix/ReLife/main/github/preview.png)
+
+<p align="center">
+	<a href="https://www.figma.com/design/UVCyfAp3Nr8tvzCmPL9ajq/ReLife?node-id=0%3A1&t=pBeeAuAH9S27GSPO-1">
+		<img src="https://raw.githubusercontent.com/meltmeltix/ReLife/main/github/open%20in%20figma.png" height="45"/>
+	</a>
+</p>
 
 <br>
 
