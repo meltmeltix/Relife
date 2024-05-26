@@ -2,10 +2,7 @@ const { default: daisyui } = require('daisyui');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html", 
-    "./pages/**/*.{html,js}"
-  ],
+  content: [ "./views/**/*.ejs" ],
   theme: {
     darkMode: 'selector',
     fontFamily: {

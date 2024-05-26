@@ -1,9 +1,15 @@
-const express = require("express");
-const app = express();
-const port = 3000;
+const express = require('express')
+const path = require('path')
+const app = express()
+const port = 3000
 
-app.get("/", (req, res) => res.send("Hello world!"));
+app.set('views', path.join(__dirname, '../views'))
+app.set('view engine', 'ejs')
 
-app.listen(port, () => console.log("Server ready on port 3000."));
+app.use(express.static(path.join(__dirname, '../public')))
 
-module.exports = app;
+app.get("/", (req, res) => res.render('pages/index'))
+
+app.listen(port, () => console.log("Server ready on port 3000."))
+
+module.exports = app

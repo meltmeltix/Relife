@@ -7,12 +7,12 @@
     @font-face {
         font-family: 'Noto Serif';
         font-display: swap;
-        src: url(/resources/fonts/NotoSerif.ttf) format('truetype');
+        src: url(/fonts/NotoSerif.ttf) format('truetype');
     }
     @font-face {
         font-family: 'Roboto Flex';
         font-display: swap;
-        src: url(/resources/fonts/RobotoFlex.ttf) format('truetype');
+        src: url(/fonts/RobotoFlex.ttf) format('truetype');
     }
 }
 
