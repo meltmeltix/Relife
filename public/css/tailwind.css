@@ -2444,16 +2444,16 @@ html:has(.tw-dy-drawer-toggle:checked) {
   bottom: 4rem;
 }
 
-.tw-right-3 {
-  right: 0.75rem;
-}
-
 .tw-right-0 {
   right: 0px;
 }
 
 .tw-right-2 {
   right: 0.5rem;
+}
+
+.tw-right-3 {
+  right: 0.75rem;
 }
 
 .tw-top-2 {
@@ -2524,12 +2524,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   height: 1.75rem;
 }
 
-.tw-h-full {
-  height: 100%;
-}
-
 .tw-h-\[32rem\] {
   height: 32rem;
+}
+
+.tw-h-full {
+  height: 100%;
 }
 
 .tw-min-h-\[100svh\] {
@@ -2548,6 +2548,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
   width: 16rem;
 }
 
+.tw-w-80 {
+  width: 20rem;
+}
+
 .tw-w-full {
   width: 100%;
 }
@@ -2555,10 +2559,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 .tw-w-min {
   width: -moz-min-content;
   width: min-content;
-}
-
-.tw-w-80 {
-  width: 20rem;
 }
 
 .tw-flex-1 {
@@ -2597,16 +2597,16 @@ html:has(.tw-dy-drawer-toggle:checked) {
   justify-content: center;
 }
 
+.tw-gap-1 {
+  gap: 0.25rem;
+}
+
 .tw-gap-2 {
   gap: 0.5rem;
 }
 
 .tw-gap-3 {
   gap: 0.75rem;
-}
-
-.tw-gap-1 {
-  gap: 0.25rem;
 }
 
 .tw-gap-6 {
@@ -2622,12 +2622,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   border-radius: 0px;
 }
 
-.tw-fill-text-700 {
-  fill: #646435;
-}
-
 .tw-fill-base-100 {
   fill: var(--fallback-b1,oklch(var(--b1)/1));
+}
+
+.tw-fill-text-700 {
+  fill: #646435;
 }
 
 .tw-fill-text-800 {
@@ -2656,20 +2656,20 @@ html:has(.tw-dy-drawer-toggle:checked) {
   padding-right: 0.75rem;
 }
 
-.tw-pb-3 {
-  padding-bottom: 0.75rem;
-}
-
-.tw-pl-3 {
-  padding-left: 0.75rem;
-}
-
 .tw-pb-24 {
   padding-bottom: 6rem;
 }
 
+.tw-pb-3 {
+  padding-bottom: 0.75rem;
+}
+
 .tw-pl-16 {
   padding-left: 4rem;
+}
+
+.tw-pl-3 {
+  padding-left: 0.75rem;
 }
 
 .tw-pt-20 {
@@ -2704,12 +2704,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   line-height: 1rem;
 }
 
-.tw-font-semibold {
-  font-weight: 600;
-}
-
 .tw-font-medium {
   font-weight: 500;
+}
+
+.tw-font-semibold {
+  font-weight: 600;
 }
 
 .tw-leading-3 {
@@ -2718,11 +2718,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-tracking-tighter {
   letter-spacing: -0.05em;
-}
-
-.tw-text-background-600 {
-  --tw-text-opacity: 1;
-  color: rgb(135 129 69 / var(--tw-text-opacity));
 }
 
 .tw-text-current {
@@ -2984,12 +2979,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
 }
 
 @media (prefers-color-scheme: dark) {
-  .dark\:tw-fill-text-300 {
-    fill: #caca9b;
-  }
-
   .dark\:tw-fill-text-200 {
     fill: #dcdcbc;
+  }
+
+  .dark\:tw-fill-text-300 {
+    fill: #caca9b;
   }
 
   .dark\:tw-text-text-200 {
