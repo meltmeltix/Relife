@@ -6,6 +6,7 @@
     "lucide": "^0.358.0",
     "page": "^1.11.6",
     "passport": "^0.7.0",
+    "sqlite": "^5.1.1",
     "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
@@ -17,6 +18,8 @@
   "description": "A social media built using Bootstrap, Tailwind, Express and SQLite",
   "main": "index.js",
   "scripts": {
+    "start": "node api/index.js",
+    "watch": "node --watch api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
