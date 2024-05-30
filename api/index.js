@@ -1,3 +1,5 @@
+'use strict'
+
 const express = require('express')
 const path = require('path')
 const app = express()
@@ -7,7 +9,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const session = require('express-session')
 
-const userDao = require('models/user-dao.js')
+const userDao = require('./models/user-dao.js')
 
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
@@ -23,8 +25,28 @@ passport.use(new LocalStrategy(function verify(id, password, callback) {
     })
 }))
 
-app.get("/", (req, res) => res.render('pages/index'))
-app.get("/home", (req, res) => res.render('pages/feed', {'content': 'HOME'}))
+// User de/serialization
+passport.serializeUser(function (user, callback) { callback(null, user.handle) })
+passport.deserializeUser(function (handle, callback) {
+    userDao.getUserByHandle(handle).then(user => {
+        callback(null, user)
+    })
+})
+
+// Session setup
+app.use(session({
+    secret: 'super duper fun secret',
+    resave: false,
+    saveUninitialized: false
+}))
+
+app.use(passport.initialize())
+app.use(session)
+
+const isLogged = (req, res, next) => {
+    if (req.isAuthenticated() && !req.user.error) next()
+    else res.redirect('/')
+}
 
 app.listen(port, () => console.log("Server ready on port 3000."))
 
