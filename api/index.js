@@ -9,7 +9,9 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const session = require('express-session')
 
-const userDao = require('./models/user-dao.js')
+const userDao = require('./models/user-dao')
+
+const sessionRouter = require('./routes/session')
 
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
@@ -41,13 +43,12 @@ app.use(session({
 }))
 
 app.use(passport.initialize())
-app.use(session)
+app.use(passport.session())
 
-const isLogged = (req, res, next) => {
-    if (req.isAuthenticated() && !req.user.error) next()
-    else res.redirect('/')
-}
+app.use('/', sessionRouter)
+app.use('/sessions', sessionRouter)
 
-app.listen(port, () => console.log("Server ready on port 3000."))
+// Add is logged in check
 
+app.listen(port, () => console.log('Listening att: http://localhost:' + port))
 module.exports = app
