@@ -7,16 +7,11 @@ const port = 3000
 
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-
 const session = require('express-session')
-const RedisStore = require('connect-redis')(session)
-const redis = require('redis')
-const redisClient = redis.createClient()
+const sessionRouter = require('./routes/session')
 
 const userDao = require('./models/user-dao')
 
-const sessionRouter = require('./routes/session')
-const { default: RedisStore } = require('connect-redis')
 
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
@@ -42,7 +37,6 @@ passport.deserializeUser(function (handle, callback) {
 
 // Session setup
 app.use(session({
-    store: new RedisStore(redisClient),
     secret: 'your-complex-secure-secret-here',
     resave: false,
     saveUninitialized: false,
