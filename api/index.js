@@ -12,10 +12,11 @@ const sessionRouter = require('./routes/session')
 
 const userDao = require('./models/user-dao')
 
-
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'ejs')
+
+// Static folder setup
 app.use(express.static(path.join(__dirname, '../public')))
 
 // Login strategy
@@ -54,5 +55,5 @@ app.use('/sessions', sessionRouter)
 
 // Add is logged in check
 
-app.listen(port, () => console.log('Listening att: http://localhost:' + port))
+app.listen(port, () => console.log('Listening at: http://localhost:' + port))
 module.exports = app

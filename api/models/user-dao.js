@@ -5,9 +5,22 @@ const db = require('../database/db.js')
 const bcrypt = require('bcrypt');
 const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-exports.createUser = function() {
+/**
+ * Given a user object, retrieve all of it's information
+ * and insert into the user table to create a new user
+ * 
+ * @param {*} user          Contains all the information about the new user
+ * @returns
+ */
+exports.createUser = function(user) {
     return new Promise((resolve, rejects) => {
-
+        const query = 'INSERT INTO user(handle, mail, password, name, bio, avatar) VALUES (?, ?, ?, ?, ?, ?)'
+        bcrypt.hash(user.password, 10).then((hash => {
+            db.run(query, [user.handle, user.mail, user.password, user.name, user.bio, user.avatar], function(err) {
+                if (err) reject(err)
+                else resolve()
+            })
+        }))
     })
 }
 
