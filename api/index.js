@@ -5,18 +5,27 @@ const path = require('path')
 const app = express()
 const port = 3000
 
+const bodyParser = require('body-parser')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 const sessionRouter = require('./routes/session')
 
+const modalRouter = require('./routes/indexModal')
+
+const homeRouter = require('./routes/home')
+const searchRouter = require('./routes/search')
+const profileRouter = require('./routes/profile')
+
 const userDao = require('./models/user-dao')
+const { profile } = require('console')
 
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'ejs')
 
 // Static folder setup
+app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '../public')))
 
 // Login strategy
@@ -50,10 +59,26 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/', sessionRouter)
-app.use('/sessions', sessionRouter)
+const isLogged = (req, res, next) => {
+    if (req.isAuthenticated() && !req.user.error) next()
+    else res.redirect('/')
+}
 
-// Add is logged in check
+app.use('/', sessionRouter)
+app.use('/showModalContent', modalRouter)
+app.use('/sessions', sessionRouter)
+//app.use('/home', homeRouter)
+//app.use('/search', isLogged, searchRouter)
+//app.use('/profile', isLogged, profileRouter)
+
+app.use(function (req, res, next) { next(createError(404)) })
+app.use(function (err, req, res, next) {
+    res.locals.message = err.message
+    res.locals.error = req.app.get('env') === 'development' ? err : {}
+
+    res.status(err.status || 500)
+    res.render('error')
+})
 
 app.listen(port, () => console.log('Listening at: http://localhost:' + port))
 module.exports = app

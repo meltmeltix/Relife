@@ -6,14 +6,14 @@ const passport = require('passport')
 
 router.get('/', function (req, res, next) {
     //const isLogged = req.isAuthenticated()
-    res.render('pages/index')
+    res.render('index')
 })
 
 // TODO Create EJS logic to display information
 router.post('/sessions', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) return next(err)
-        if (!user) return res.render('pages/index') // info.message
+        if (!user) return res.render('index') // info.message
     
         // Success
         req.login(user, function(err) {
