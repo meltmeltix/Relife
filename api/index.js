@@ -11,7 +11,7 @@ const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 const sessionRouter = require('./routes/session')
 
-const modalRouter = require('./routes/indexModal')
+const indexRouting = require('./routes/indexFlow')
 
 const homeRouter = require('./routes/home')
 const searchRouter = require('./routes/search')
@@ -65,8 +65,8 @@ const isLogged = (req, res, next) => {
 }
 
 app.use('/', sessionRouter)
-app.use('/showModalContent', modalRouter)
 app.use('/sessions', sessionRouter)
+app.use('/i', indexRouting)
 //app.use('/home', homeRouter)
 //app.use('/search', isLogged, searchRouter)
 //app.use('/profile', isLogged, profileRouter)

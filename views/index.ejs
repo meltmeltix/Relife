@@ -9,6 +9,19 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <title>ReLife</title>
+    <script>
+        function loadContent(content) {
+            const modal = document.getElementById('modal')
+            modal.showModal()
+
+            fetch(content)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('modal-content').innerHTML = data
+                })
+                .catch(error => console.error("Could not load content"))
+        }
+    </script>
 </head>
 
 <body class="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-5 tw-relative tw-h-viewport tw-inverted-background">
@@ -51,17 +64,9 @@
 
     <!-- Modal -->
     <dialog id="modal" class="tw-dy-modal tw-dy-modal-bottom sm:tw-dy-modal-middle">
-        <div class="tw-hidden sm:tw-block tw-dy-modal-box">
+        <div class="tw-dy-modal-box">
             <form method="dialog">
                 <button class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-circle tw-dy-btn-ghost tw-absolute tw-right-2 tw-top-2"><i data-lucide="x"></i></button>
-            </form>
-
-            <div id="modal-content"></div>
-        </div>
-
-        <div style="max-height: none;" class="sm:tw-hidden tw-dy-modal-box tw-h-viewport tw-rounded-none">
-            <form method="dialog">
-                <button class="tw-dy-btn tw-dy-btn-circle tw-dy-btn-ghost tw-absolute tw-right-2 tw-top-2"><i data-lucide="x"></i></button>
             </form>
 
             <div id="modal-content"></div>
@@ -96,8 +101,8 @@
                 <div class="tw-col-span-2">
                     <div class="mx-auto tw-dy-divider">or</div>
                 </div>
-                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full" id="signupBtn">Sign up</button>
-                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full" id="loginBtn">Log in</button>
+                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full" onclick="loadContent('/i/signup')">Sign up</button>
+                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full" onclick="loadContent('/i/login')">Log in</button>
             </div>
         </div>
         
@@ -109,7 +114,6 @@
         </footer>
     </div>
 
-    <script src="/js/modalContent.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
