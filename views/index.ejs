@@ -10,19 +10,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <title>ReLife</title>
-    <script>
-        function loadContent(content) {
-            const modal = document.getElementById('modal')
-            modal.showModal()
-
-            fetch(content)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('modal-content').innerHTML = data
-                })
-                .catch(error => console.error("Could not load content"))
-        }
-    </script>
 </head>
 
 <body class="tw-flex tw-flex-col md:tw-grid md:tw-grid-cols-5 tw-relative tw-h-viewport tw-inverted-background">
@@ -63,17 +50,6 @@
         preserveAspectRatio="none"
     ><path d="M42 0H761V1024H42L21.0055 932.942C6.50716 870.06 5.79607 804.784 18.9211 741.601L28.3355 696.281C37.272 653.26 34.1773 608.609 19.3913 567.234L17.0409 560.656C-5.28602 498.179 -5.14245 429.873 17.4469 367.49L28.7658 336.231C54.4817 265.213 55.1727 187.543 30.7245 116.079C17.5555 77.5852 21.6783 35.2455 42 0Z"/></svg>
 
-    <!-- Modal -->
-    <dialog id="modal" class="tw-dy-modal tw-dy-modal-bottom sm:tw-dy-modal-middle">
-        <div class="tw-dy-modal-box">
-            <form method="dialog">
-                <button class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-circle tw-dy-btn-ghost tw-absolute tw-right-2 tw-top-2"><i data-lucide="x"></i></button>
-            </form>
-
-            <div id="modal-content"></div>
-        </div>
-    </dialog>
-
     <!-- Left column -->
     <div class="tw-z-10 tw-hidden md:tw-flex tw-flex-col md:tw-col-span-3 tw-grow tw-h-full tw-justify-center tw-gap-2 tw-pl-16 lg:tw-pl-20">
         <svg class="tw-fill-text-800 dark:tw-fill-text-200 tw-w-80 lg:tw-w-96 xl:tw-w-[30rem]" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo" /></svg>
@@ -102,8 +78,8 @@
                 <div class="tw-col-span-2">
                     <div class="mx-auto tw-dy-divider">or</div>
                 </div>
-                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full" onclick="loadContent('/i/signup')">Sign up</button>
-                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full" onclick="loadContent('/i/login')">Log in</button>
+                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Sign up</button>
+                <button class="tw-dy-btn tw-dy-btn-primary tw-w-full">Log in</button>
             </div>
         </div>
         

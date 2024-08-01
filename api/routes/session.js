@@ -5,8 +5,9 @@ const router = express.Router()
 const passport = require('passport')
 
 router.get('/', function (req, res, next) {
-    //const isLogged = req.isAuthenticated()
-    res.render('index')
+    const isLogged = req.isAuthenticated()
+    if (isLogged) res.render('home')
+    else res.render('index')
 })
 
 // TODO Create EJS logic to display information
