@@ -1,4 +1,4 @@
-<%- include('partials/header', {'title': 'Home'}) -%>
+<%- include('partials/feed/header', {'title': 'Home'}) -%>
 
 <!-- Content -->
 <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
@@ -8,8 +8,12 @@
 <!-- Drawer -->
 <aside class="tw-dy-drawer-side">
     <nav class="tw-flex tw-flex-col tw-w-64 tw-h-full tw-p-3">
-        
+        <a class="tw-flex tw-items-center tw-w-min tw-pl-3 tw-h-12">
+            <svg class="tw-h-7 tw-fill-text-700 dark:tw-fill-text-300" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
+        </a>
+
+        <%- include('partials/feed/nav-drawer') -%>
     </nav>
 </aside>
 
-<%- include('partials/footer') -%>
+<%- include('partials/feed/footer') -%>

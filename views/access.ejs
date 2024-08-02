@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/tailwind.css">
+    <link rel="icon" href="/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <title><%- title -%></title>
+</head>
+
+<body class="tw-flex tw-flex-col tw-h-viewport tw-bg-light-base dark:tw-bg-dark-base">
+    <div class="tw-flex tw-flex-col tw-grow tw-p-6 tw-justify-between sm:tw-px-32 sm:tw-py-12 md:tw-px-60 lg:tw-px-80 xl:tw-px-[28rem]">
+        <% if (accessType == "LOGIN") { %>
+            <%- include('partials/login') -%>
+        <% } else if (accessType == "SIGNUP") { %>
+            <%- include('partials/signup/step1') -%>
+        <% } %>
+
+        <div class="tw-grid tw-grid-cols-2 tw-gap-3">
+            <div><button id="backButton" class="tw-dy-btn tw-w-full">Back</button></div>
+            <div><button id="nextButton" class="tw-dy-btn tw-dy-btn-primary tw-w-full"><%- buttonText -%></button></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

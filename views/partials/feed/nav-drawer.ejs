@@ -1,13 +1,13 @@
-<% if (variant === 'GUEST') { %>
+<% if (userType === 'GUEST') { %>
     <div class="tw-w-full tw-px-3">Sign up or log in to engage with the community</div>
 
     <div class="tw-h-3"></div>
 
     <div class="tw-grid tw-grid-cols-2 tw-gap-2 tw-px-3">
-        <button class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-primary tw-w-full">Sign up</button>
-        <button class="tw-dy-btn tw-dy-btn-sm tw-w-full">Log in</button>
+        <a href="/a/signup"><button class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-primary tw-w-full">Sign up</button></a>
+        <a href="/a/login"><button class="tw-dy-btn tw-dy-btn-sm tw-w-full">Log in</button></a>
     </div>
-<% } else if (variant === 'USER') { %>
+<% } else if (userType === 'USER') { %>
     <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full tw-px-3">Post</button>
     <div class="tw-h-4"></div>
 
@@ -20,6 +20,6 @@
         <li><a><i data-lucide="settings"></i>Settings</a></li>
         <li><a><i data-lucide="log-out"></i>Log out</a></li>
     </ul>
-<% } else if (variant === 'MODERATOR') { %>
+<% } else if (userType === 'MODERATOR') { %>
     
 <% } %>

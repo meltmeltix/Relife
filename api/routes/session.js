@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 })
 
 // TODO Create EJS logic to display information
-router.post('/sessions', function(req, res, next) {
+router.post('/', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) return next(err)
         if (!user) return res.render('index') // info.message

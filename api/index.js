@@ -10,6 +10,9 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 const sessionRouter = require('./routes/session')
+const accessRouter = require('./routes/access')
+
+const feedRouter = require('./routes/feed')
 
 const homeRouter = require('./routes/home')
 const searchRouter = require('./routes/search')
@@ -64,6 +67,8 @@ const isLogged = (req, res, next) => {
 
 app.use('/', sessionRouter)
 app.use('/sessions', sessionRouter)
+app.use('/a', accessRouter)
+app.use('/', feedRouter)
 //app.use('/home', homeRouter)
 //app.use('/search', isLogged, searchRouter)
 //app.use('/profile', isLogged, profileRouter)
