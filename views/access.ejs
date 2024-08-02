@@ -14,9 +14,9 @@
 
 <body class="tw-flex tw-flex-col tw-h-viewport tw-bg-light-base dark:tw-bg-dark-base">
     <div class="tw-flex tw-flex-col tw-grow tw-p-6 tw-justify-between sm:tw-px-32 sm:tw-py-12 md:tw-px-60 lg:tw-px-80 xl:tw-px-[28rem]">
-        <% if (accessType == "LOGIN") { %>
+        <% if (accessType === "LOGIN") { %>
             <%- include('partials/login') -%>
-        <% } else if (accessType == "SIGNUP") { %>
+        <% } else if (accessType === "SIGNUP") { %>
             <%- include('partials/signup/step1') -%>
         <% } %>
 

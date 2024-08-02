@@ -1,8 +1,27 @@
-<%- include('partials/feed/header', {'title': 'Home'}) -%>
+<%- include('partials/feed/header') -%>
 
 <!-- Content -->
 <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
+    <input id="navigation-drawer" type="checkbox" class="tw-dy-drawer-toggle" />
+    <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
+        <!-- Top Bar -->
+        <nav class="tw-dy-navbar">
+            <div class="tw-flex-1 tw-pl-3"><%- title -%></div>
+            
+            <% if (userType != 'GUEST') { %>
+                <div class="tw-flex-none tw-dy-dropdown tw-dy-dropdown-end sm:tw-hidden">
+                    <div tabindex="0" role="button" class="tw-dy-btn tw-dy-btn-square tw-dy-btn-ghost"><i data-lucide="ellipsis-vertical"></i></div>
+                    <ul tabindex="0" class="tw-dy-dropdown-content">
+                        <li><a>Settings</a></li>
+                        <li><a>Log out</a></li>
+                    </ul>
+                </div>
+            <% } %>
+        </nav>
 
+        <!-- Bottom Navigation -->
+        <%- include('partials/feed/nav-bottom') -%>
+    </div>
 </div>
 
 <!-- Drawer -->
