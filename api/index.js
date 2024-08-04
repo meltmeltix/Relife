@@ -5,6 +5,8 @@ const path = require('path')
 const app = express()
 const port = 3000
 
+const logger = require('morgan')
+
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
@@ -25,26 +27,44 @@ const { profile } = require('console')
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'ejs')
 
-// Static folder setup
-app.use(bodyParser.json())
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, '../public')))
 
 // Login strategy
-passport.use(new LocalStrategy(function verify(id, password, callback) {
-    userDao.getUser(id, password).then((user, check) => {
-        if (!user) return callback(null, false, { message: "Invalid identifier or password"})
-        if (!check) return callback(null, false, { message: "Invalid password" })
-        return callback(null, user)
-    })
-}))
+passport.use(new LocalStrategy(
+    function verify(username, password, done) {
+        userDao.getUser(username, password).then(({user, check}) => {
+            if (!check) return done(null, false, { message: 'Incorrect password' });
+            if (!user) return done(null, false, { message: 'User not found' });
+            
+            return done(null, user); // Pass only the user object
+        }).catch(err => done(err));
+    }
+));
+
 
 // User de/serialization
-passport.serializeUser(function (user, callback) { callback(null, user.handle) })
-passport.deserializeUser(function (handle, callback) {
+passport.serializeUser(function (user, done) {
+    if (!user || !user.handle) {
+        return done(new Error('Invalid user object during serialization.'));
+    }
+    done(null, user.handle);
+});
+
+passport.deserializeUser(function (handle, done) {
+    if (!handle) {
+        return done(new Error('Invalid handle during deserialization.'));
+    }
     userDao.getUserByHandle(handle).then(user => {
-        callback(null, user)
-    })
-})
+        if (!user) {
+            return done(new Error('User not found.'));
+        }
+        done(null, user);
+    }).catch(err => done(err));
+});
+
 
 // Session setup
 app.use(session({
@@ -52,6 +72,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
+        sameSite: 'strict',
         secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60
     }
@@ -66,12 +87,9 @@ const isLogged = (req, res, next) => {
 }
 
 app.use('/', sessionRouter)
-app.use('/sessions', sessionRouter)
-app.use('/a', accessRouter)
 app.use('/', feedRouter)
-//app.use('/home', homeRouter)
-//app.use('/search', isLogged, searchRouter)
-//app.use('/profile', isLogged, profileRouter)
+app.use('/a', accessRouter)
+app.use('/sessions', sessionRouter)
 
 app.use(function (req, res, next) { next(createError(404)) })
 app.use(function (err, req, res, next) {

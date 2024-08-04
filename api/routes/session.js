@@ -10,22 +10,28 @@ router.get('/', function (req, res, next) {
     else res.render('index')
 })
 
-// TODO Create EJS logic to display information
 router.post('/', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) return next(err)
-        if (!user) return res.render('index') // info.message
-    
-        // Success
-        req.login(user, function(err) {
-            // req.user = logged user
-            if (err) { return next(err) }
-            res.redirect('feed')
+        if (!user) 
+            return res.render('access', { accessType: "LOGIN", title: "Log In", buttonText: "Log In", message: info.message })
+
+        req.logIn(user, function(err) {
+            if (err) return next(err)
+            return res.redirect('/home')
         })
-    }) (req, res, next)
+    })(req, res, next)
 })
 
-// Handle issues
-// Handle logout
+router.use(function (err, req, res, next) {
+    res.render('access', { accessType: "LOGIN", title: "Log In", buttonText: "Log In", message: err.message });
+});
+
+router.post('/logout', function(req, res, next) {
+    req.logout(function (err) {
+        if (err) return next(err)
+        return res.redirect('/')
+    })
+})
 
 module.exports = router

@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/tailwind.css">
     <link rel="icon" href="/favicon/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -14,19 +13,20 @@
 
 <body class="tw-flex tw-flex-col tw-h-viewport tw-items-center tw-justify-center tw-bg-base-300">
     <div class="tw-w-full sm:tw-w-96 sm:tw-rounded-3xl tw-bg-base-100">
-        <div class="tw-flex tw-flex-col tw-p-6 tw-justify-between tw-h-viewport tw-gap-10 sm: sm:tw-h-full sm:tw-p-8">
+        <form action="/sessions" method="post" class="tw-flex tw-flex-col tw-p-6 tw-justify-between tw-h-viewport tw-gap-10 sm: sm:tw-h-full sm:tw-p-8">
             <% if (accessType === "LOGIN") { %>
                 <%- include('partials/login') -%>
             <% } else if (accessType === "SIGNUP") { %>
                 <%- include('partials/signup/step1') -%>
             <% } %>
-
+            
             <div class="tw-grid tw-grid-cols-2 sm:tw-grid-cols-3 tw-gap-3">
-                <div><button id="backButton" class="tw-dy-btn tw-w-full">Back</button></div>
+                <div><a href="/" id="backButton" class="tw-dy-btn tw-w-full">Back</a></div>
                 <div class="tw-hidden sm:tw-block sm:tw-w-10"></div>
-                <div><button id="nextButton" class="tw-dy-btn tw-dy-btn-primary tw-w-full"><%- buttonText -%></button></div>
+                <div><button id="nextButton" type="submit" class="tw-dy-btn tw-dy-btn-primary tw-w-full"><%- buttonText -%></button></div>
             </div>
-        </div>
+        </form>
+
     </div>
 
     <script src="https://unpkg.com/lucide@latest"></script>

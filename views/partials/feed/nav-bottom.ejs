@@ -7,8 +7,13 @@
     </div>
 <% } else { %>
     <nav class="tw-dy-btm-nav tw-dy-btm-nav-sm">
-        <button class="tw-dy-active"><i data-lucide="home" class="tw-h-5 tw-w-5"></i></button>
-        <button class="tw-dy-inactive"><i data-lucide="search" class="tw-h-5 tw-w-5"></i></button>
-        <button class="tw-dy-inactive"><i data-lucide="user" class="tw-h-5 tw-w-5"></i></button>
+        <% if (tab === "HOME") { %><button class="tw-dy-active"><i data-lucide="home" class="tw-h-5 tw-w-5"></i></button>
+        <% } else { %><button class="tw-dy-inactive"><i data-lucide="home" class="tw-h-5 tw-w-5"></i></button><% } %>
+
+        <% if (tab === "SEARCH") { %><button class="tw-dy-active"><i data-lucide="search" class="tw-h-5 tw-w-5"></i></button>
+        <% } else { %><button class="tw-dy-inactive"><i data-lucide="search" class="tw-h-5 tw-w-5"></i></button><% } %>
+
+        <% if (tab === "PROFILE") { %><button class="tw-dy-active"><i data-lucide="user" class="tw-h-5 tw-w-5"></i></button>
+        <% } else { %><button class="tw-dy-inactive"><i data-lucide="user" class="tw-h-5 tw-w-5"></i></button><% } %>
     </nav>
 <% } %>

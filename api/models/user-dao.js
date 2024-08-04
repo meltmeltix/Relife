@@ -2,6 +2,7 @@
 
 const { rejects } = require('assert');
 const db = require('../database/db.js')
+const sqlite = require('sqlite3');
 const bcrypt = require('bcrypt');
 const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -34,38 +35,52 @@ exports.createUser = function(user) {
  */
 exports.getUser = function(id, password) {
     return new Promise((resolve, reject) => {
-        let isIdMail = false
-        let query = () => {
-            if (mailRegex.test(id)) return 'SELECT * FROM user WHERE id = ?'
-            else return 'SELECT * FROM user WHERE mail = ?'
-        }
+        const query = mailRegex.test(id) 
+            ? 'SELECT * FROM user WHERE mail = ?'
+            : 'SELECT * FROM user WHERE handle = ?';
+
+        console.log('Executing query:', query, 'with ID:', id);
 
         db.get(query, [id], (err, row) => {
-            if (err) reject(err)
-            else if (row === undefined) resolve({error: 'User not found'})
-            else {
-                const user = { handle: row.handle, mail: row.mail }
-                let check = false
-
-                if (bcrypt.compareSync(password, row.password)) check = true
-
-                resolve({user, check})
+            if (err) {
+                console.error('Database error:', err);
+                return reject(err);
             }
-        })
-    })
+            if (!row) {
+                console.log('User not found');
+                return resolve({ error: 'User not found' });
+            }
+
+            const user = { handle: row.handle, mail: row.mail };
+            const check = bcrypt.compareSync(password, row.password);
+
+            console.log('Password check result:', check);
+
+            resolve({ user, check });
+        });
+    });
 }
 
 exports.getUserByHandle = function(handle) {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM user WHERE handle = ?'
-        
+        console.log('Querying for user with handle:', handle);  // Log the handle being queried
+
+        const query = 'SELECT * FROM user WHERE handle = ?';
+
         db.get(query, [handle], (err, row) => {
-            if (err) reject(err)
-            else if (row === undefined) resolve({error: 'User not fount'})
-            else {
-                const user = { handle: row.handle, mail: row.mail }
-                resolve(user)
+            if (err) {
+                console.error('Error executing query:', err);  // Log any error from the query execution
+                return reject(err);
             }
-        })
-    })
+
+            if (!row) {
+                console.log('No user found for handle:', handle);  // Log when no user is found
+                return resolve({ error: 'User not found' });
+            }
+
+            const user = { handle: row.handle, mail: row.mail };
+            console.log('User found:', user);  // Log the user object found
+            resolve(user);
+        });
+    });
 }

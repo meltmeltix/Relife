@@ -8,11 +8,11 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/signup', function (req, res, next) {
-    res.render('access', { accessType: "SIGNUP", title: "Sign Up", buttonText: "Next" })
+    res.render('access', { accessType: "SIGNUP", title: "Sign Up", buttonText: "Next", message: null })
 })
 
 router.get('/login', function (req, res, next) {
-    res.render('access', { accessType: "LOGIN", title: "Log In", buttonText: "Log In" })
+    res.render('access', { accessType: "LOGIN", title: "Log In", buttonText: "Log In", message: null })
 })
 
 module.exports = router
