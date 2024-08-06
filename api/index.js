@@ -82,9 +82,15 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 const isLogged = (req, res, next) => {
-    if (req.isAuthenticated() && !req.user.error) next()
-    else res.redirect('/')
-}
+    if (req.isAuthenticated() && !req.user.error) {
+        console.log('User is authenticated:', req.user);
+        next();
+    } else {
+        console.log('User is not authenticated, redirecting to /');
+        res.redirect('/');
+    }
+};
+
 
 app.use('/', sessionRouter)
 app.use('/', feedRouter)
