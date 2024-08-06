@@ -11,10 +11,12 @@
             <% if (userType != 'GUEST') { %>
                 <div class="tw-flex-none tw-dy-dropdown tw-dy-dropdown-end sm:tw-hidden">
                     <div tabindex="0" role="button" class="tw-dy-btn tw-dy-btn-square tw-dy-btn-ghost"><i data-lucide="ellipsis-vertical"></i></div>
-                    <ul tabindex="0" class="tw-dy-dropdown-content">
-                        <li><a>Settings</a></li>
-                        <li><a>Log out</a></li>
-                    </ul>
+                    <form action="/logout" method="post">
+                        <ul tabindex="0" class="tw-dy-dropdown-content">
+                            <li><a>Settings</a></li>
+                            <li><input type="submit" value="Log out"></li>
+                        </ul>
+                    </form>
                 </div>
             <% } %>
         </nav>

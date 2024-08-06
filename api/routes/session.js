@@ -5,8 +5,7 @@ const router = express.Router()
 const passport = require('passport')
 
 router.get('/', function (req, res, next) {
-    const isLogged = req.isAuthenticated()
-    if (isLogged) res.render('home')
+    if (req.isAuthenticated()) res.redirect('/home')
     else res.render('index')
 })
 
