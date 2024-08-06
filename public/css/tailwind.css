@@ -2452,6 +2452,14 @@ html:has(.tw-dy-drawer-toggle:checked) {
   right: 0px;
 }
 
+.tw-bottom-16 {
+  bottom: 4rem;
+}
+
+.tw-right-3 {
+  right: 0.75rem;
+}
+
 .tw-z-0 {
   z-index: 0;
 }
@@ -2526,6 +2534,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-h-full {
   height: 100%;
+}
+
+.tw-h-2 {
+  height: 0.5rem;
 }
 
 .tw-min-h-\[100svh\] {
@@ -2726,6 +2738,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-pt-20 {
   padding-top: 5rem;
+}
+
+.tw-text-left {
+  text-align: left;
 }
 
 .tw-text-center {

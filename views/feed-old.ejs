@@ -1,0 +1,40 @@
+<%- include('partials/feed/header') -%>
+
+<!-- Content -->
+<div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
+    <input id="navigation-drawer" type="checkbox" class="tw-dy-drawer-toggle" />
+    <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
+        <!-- Top Bar -->
+        <nav class="tw-dy-navbar">
+            <div class="tw-flex-1 tw-pl-3"><%- title -%></div>
+            
+            <% if (userType != 'GUEST') { %>
+                <div class="tw-flex-none tw-dy-dropdown tw-dy-dropdown-end sm:tw-hidden">
+                    <div tabindex="0" role="button" class="tw-dy-btn tw-dy-btn-square tw-dy-btn-ghost"><i data-lucide="ellipsis-vertical"></i></div>
+                    <form action="/logout" method="post">
+                        <ul tabindex="0" class="tw-dy-dropdown-content">
+                            <li><a>Settings</a></li>
+                            <li><input type="submit" value="Log out"></li>
+                        </ul>
+                    </form>
+                </div>
+            <% } %>
+        </nav>
+
+        <!-- Bottom Navigation -->
+        <%- include('partials/feed/nav-bottom') -%>
+    </div>
+</div>
+
+<!-- Drawer -->
+<aside class="tw-dy-drawer-side">
+    <nav class="tw-flex tw-flex-col tw-w-64 tw-h-full tw-p-3">
+        <a class="tw-flex tw-items-center tw-w-min tw-pl-3 tw-h-12">
+            <svg class="tw-h-7 tw-fill-text-700 dark:tw-fill-text-300" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
+        </a>
+
+        <%- include('partials/feed/nav-drawer') -%>
+    </nav>
+</aside>
+
+<%- include('partials/feed/footer') -%>
