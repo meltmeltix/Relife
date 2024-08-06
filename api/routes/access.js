@@ -4,7 +4,8 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', function (req, res, next) {
-    res.redirect('/')
+    if (req.isAuthenticated()) res.redirect('/home')
+    else res.redirect('/')
 })
 
 router.get('/signup', function (req, res, next) {

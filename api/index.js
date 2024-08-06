@@ -65,7 +65,6 @@ passport.deserializeUser(function (handle, done) {
     }).catch(err => done(err));
 });
 
-
 // Session setup
 app.use(session({
     secret: 'your-complex-secure-secret-here',
@@ -77,6 +76,12 @@ app.use(session({
         maxAge: 1000 * 60 * 60
     }
 }))
+
+app.use((req, res, next) => {
+    console.log('Session data:', req.session);
+    console.log('User data:', req.user);
+    next();
+});
 
 app.use(passport.initialize())
 app.use(passport.session())
