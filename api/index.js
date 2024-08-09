@@ -3,7 +3,7 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 const logger = require('morgan')
 
@@ -21,7 +21,20 @@ const searchRouter = require('./routes/search')
 const profileRouter = require('./routes/profile')
 
 const userDao = require('./models/user-dao')
+const postDao = require('./models/post-dao')
 const { profile } = require('console')
+
+app.get('/api/posts', (req, res) => {
+    postDao.getAllPosts()
+        .then((posts) => {
+            console.log("Posts:", posts); // Log the posts to see what's being returned
+            res.json(posts);
+        })
+        .catch((err) => {
+            console.error("Database error:", err); // Log the error if the query fails
+            res.status(500).end();
+        });
+});
 
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
@@ -77,12 +90,6 @@ app.use(session({
     }
 }))
 
-app.use((req, res, next) => {
-    console.log('Session data:', req.session);
-    console.log('User data:', req.user);
-    next();
-});
-
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -95,7 +102,6 @@ const isLogged = (req, res, next) => {
         res.redirect('/');
     }
 };
-
 
 app.use('/', sessionRouter)
 app.use('/', feedRouter)

@@ -38,7 +38,7 @@
 
                 <!-- Top Bar -->
                 <nav class="tw-dy-navbar">
-                    <div class="tw-flex-1 tw-pl-3">Relife</div>
+                    <div id="title-bar" class="tw-flex-1 tw-pl-3"></div>
 
                     <!-- Meatball Menu -->
                     <% if (sessionType !== 'GUEST') { %>
@@ -53,6 +53,8 @@
                         </div>
                     <% } %>
                 </nav>
+
+                <div id="content-container" class="tw-w-full tw-h-full"></div>
                 
                 <!-- Navigation bar -->
                 <% if (sessionType === 'GUEST') { %>
@@ -112,7 +114,7 @@
                     <form action="/logout", method="post">
                         <ul class="tw-dy-menu tw-w-60 tw-p-0 tw-pb-3 tw-absolute tw-bottom-0">
                             <li><a><i data-lucide="settings"></i>Settings</a></li>
-                            <li><a><i data-lucide="log-out"></i><input type="submit" class="tw-text-left" value="Log out"></a></li>
+                            <li><button type="submit"><i data-lucide="log-out"></i> Log out</button></li>
                         </ul>
                     </form>
                 <% } %>                
