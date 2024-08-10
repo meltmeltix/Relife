@@ -1,3 +1,4 @@
+import Api from './api.js'
 import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
 import { returnDrawerItem, returnNavBarItem } from './template/drawer-item.js'
@@ -8,7 +9,8 @@ class App {
         if (userType === 'GUEST') {
             page('/explore', () => {
                 titleBar.innerHTML = 'Explore'
-                this.showAllPosts()
+
+                this.getPosts()
             })
 
             page()
@@ -48,6 +50,16 @@ class App {
     
                 page()
             }
+        }
+    }
+
+    getPosts = async () => {
+        console.log('Getting posts...')
+
+        const posts = await Api.getPosts()
+
+        for (let post of posts) {
+            console.log(JSON.stringify(post))
         }
     }
 }

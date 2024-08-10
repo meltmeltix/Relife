@@ -24,18 +24,6 @@ const userDao = require('./models/user-dao')
 const postDao = require('./models/post-dao')
 const { profile } = require('console')
 
-app.get('/api/posts', (req, res) => {
-    postDao.getAllPosts()
-        .then((posts) => {
-            console.log("Posts:", posts); // Log the posts to see what's being returned
-            res.json(posts);
-        })
-        .catch((err) => {
-            console.error("Database error:", err); // Log the error if the query fails
-            res.status(500).end();
-        });
-});
-
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'ejs')
@@ -102,6 +90,14 @@ const isLogged = (req, res, next) => {
         res.redirect('/');
     }
 };
+
+app.get('/api/posts', (req, res) => {
+    console.log('Fetching posts...')
+
+    postDao.getAllPosts()
+        .then((posts) => res.json(posts))
+        .catch(() => res.status(500).end())
+})
 
 app.use('/', sessionRouter)
 app.use('/', feedRouter)

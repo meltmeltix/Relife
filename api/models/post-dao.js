@@ -7,7 +7,6 @@ const sqlite3 = require('sqlite3')
 exports.getAllPosts = function() {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM post'
-        console.log('Fetching posts...')
 
         db.all(query, (err, rows) => {
             if (err) {
