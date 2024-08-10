@@ -6,7 +6,11 @@ const sqlite3 = require('sqlite3')
 
 exports.getAllPosts = function() {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM post'
+        const query = `
+            SELECT id, body, attachment, date, handle, name, avatar
+            FROM post, user
+            WHERE author = handle
+        `
 
         db.all(query, (err, rows) => {
             if (err) {
@@ -19,7 +23,9 @@ exports.getAllPosts = function() {
                 body: p.body, 
                 attachment: p.attachment, 
                 date: p.date,
-                author: p.author
+                handle: p.handle,
+                name: p.name,
+                avatar: p.avatar
             }))
             resolve(posts)
         })

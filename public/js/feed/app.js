@@ -1,10 +1,12 @@
 import Api from './api.js'
 import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
+import { createPost } from './template/post-item.js'
 import { returnDrawerItem, returnNavBarItem } from './template/drawer-item.js'
 
 class App {
     constructor(userType, navDrawer, navBar, titleBar, contentContainer) {
+        this.contentContainer = contentContainer
 
         if (userType === 'GUEST') {
             page('/explore', () => {
@@ -24,12 +26,16 @@ class App {
     
                     navBar.innerHTML = '';
                     navBar.insertAdjacentHTML('beforeend', returnNavBarItem('HOME') )
+
+                    this.getPosts()
                 })
     
                 page('/search', () => {
                     document.title = 'Search'
-
                     titleBar.innerHTML = returnSearchBar()
+                    
+                    // to remove
+                    this.contentContainer.innerHTML = ''
 
                     navDrawer.innerHTML = '';
                     navDrawer.insertAdjacentHTML('beforeend', returnDrawerItem('SEARCH') )
@@ -41,6 +47,10 @@ class App {
                 page('/profile', () => {
                     document.title = 'Profile'
                     titleBar.innerHTML = 'Profile'
+
+                    // to remove
+                    this.contentContainer.innerHTML = ''
+
                     navDrawer.innerHTML = '';
                     navDrawer.insertAdjacentHTML('beforeend', returnDrawerItem('PROFILE') )
     
@@ -57,9 +67,12 @@ class App {
         console.log('Getting posts...')
 
         const posts = await Api.getPosts()
+        this.contentContainer.innerHTML = ''
 
         for (let post of posts) {
             console.log(JSON.stringify(post))
+            const p = createPost(post)
+            this.contentContainer.insertAdjacentHTML('beforeend', p)
         }
     }
 }

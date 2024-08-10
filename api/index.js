@@ -95,8 +95,14 @@ app.get('/api/posts', (req, res) => {
     console.log('Fetching posts...')
 
     postDao.getAllPosts()
-        .then((posts) => res.json(posts))
-        .catch(() => res.status(500).end())
+        .then((posts) => {
+            console.log('Fetching posts: Success')
+            res.json(posts)
+        })
+        .catch(() => {
+            console.log('Fetching posts: Failure')
+            res.status(500).end()
+        })
 })
 
 app.use('/', sessionRouter)

@@ -1,10 +1,12 @@
 class Post {
-    constructor(id, body, attachment, date, author) {
-        this.id = id
-        this.body = body
-        this.attachment = attachment
-        this.date = date
-        this.author = author
+    constructor(id, body, attachment, date, handle, name, avatar) {
+        this.id = id, 
+        this.body = body, 
+        this.attachment = attachment, 
+        this.date = date,
+        this.handle = handle,
+        this.name = name,
+        this.avatar = avatar
     }
 
     static from(json) {
