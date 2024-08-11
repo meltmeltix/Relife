@@ -29,9 +29,14 @@ function createPost(post) {
                     </button>
                 </div>
 
-                <button class="tw-dy-btn tw-dy-btn-square tw-dy-btn-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                </button>
+                <div class="tw-dy-dropdown tw-dy-dropdown-end">
+                    <div tabindex="0" role="button"  class="tw-dy-btn tw-dy-btn-square tw-dy-btn-sm tw-z-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </div>
+                    <ul tabindex="0" class="tw-dy-dropdown-content">
+                        <li><a>Report</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     `

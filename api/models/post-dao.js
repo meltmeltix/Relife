@@ -10,6 +10,7 @@ exports.getAllPosts = function() {
             SELECT id, body, attachment, date, handle, name, avatar
             FROM post, user
             WHERE author = handle
+            ORDER BY date DESC
         `
 
         db.all(query, (err, rows) => {
