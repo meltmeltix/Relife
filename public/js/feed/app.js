@@ -70,7 +70,6 @@ class App {
         this.contentContainer.innerHTML = ''
 
         for (let post of posts) {
-            console.log(JSON.stringify(post))
             const p = createPost(post)
             this.contentContainer.insertAdjacentHTML('beforeend', p)
         }

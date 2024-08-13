@@ -3,15 +3,30 @@
 function createPost(post) {
     return `
         <div class="tw-flex tw-flex-col tw-p-3.5 tw-gap-2.5 tw-rounded-2xl tw-bg-background-100 dark:tw-bg-background-900">
-            <div class="tw-flex tw-flex-row tw-w-full tw-gap-1.5 tw-h-6">
+            <div class="tw-flex tw-items-center tw-w-full tw-gap-1.5 tw-h-6">
                 <div class="avatar tw-w-6">
-                    <img class="tw-rounded-full" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    <img 
+                        class="tw-rounded-full tw-w-full tw-h-full" 
+                        src="${post.avatar != null ? post.avatar : `/webp/no-avatar-24x24.webp`}"
+                    />
                 </div>
-                ${post.name} · @${post.handle}
-                <div class="tw-ml-auto">${moment(post.date).fromNow()}</div>
+                <div class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis">
+                    ${post.name} · @${post.handle}
+                </div>
+                <div class="tw-ml-auto tw-whitespace-nowrap">${moment(post.date).fromNow()}</div>
             </div>
 
-            ${post.body}
+            ${post.body != null ? post.body : ''}
+
+            ${post.attachment != null ? 
+                `
+                    <div 
+                        class="tw-w-full tw-h-48 tw-bg-cover tw-bg-center tw-rounded-lg" 
+                        style="background-image: url(${post.attachment})">
+                    </div>
+                ` 
+                : ``
+            }
 
             <div class="tw-flex tw-flex-row tw-gap-1.5 tw-w-full">
                 <div class="tw-grid tw-grid-cols-3 tw-w-full tw-gap-1.5">
