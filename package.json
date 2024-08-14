@@ -31,12 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meltmeltix/ReLife.git"
+    "url": "git+https://github.com/meltmeltix/Relife.git"
   },
   "author": "Alessio Cameroni",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/meltmeltix/ReLife/issues"
+    "url": "https://github.com/meltmeltix/Relife/issues"
   },
-  "homepage": "https://github.com/meltmeltix/ReLife#readme"
+  "homepage": "https://github.com/meltmeltix/Relife#readme"
 }

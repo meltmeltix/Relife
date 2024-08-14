@@ -1,4 +1,4 @@
-![ReLife](https://raw.githubusercontent.com/meltmeltix/ReLife/main/github/header.png)
+![Relife](https://raw.githubusercontent.com/meltmeltix/Relife/main/github/header.png)
 
 <p align="center">
   <strong>🌱 A social media dedicated to plants 🌱</strong>
@@ -8,7 +8,7 @@
 
 ## 🤔 About
 
-ReLife is a social media platform that focuses mainly on discussions about plants, inspired by other renowed social media platforms, built using Tailwind CSS, Daisy UI, Bootstrap CSS, Express.js and SQLite.
+Relife is a social media platform that focuses mainly on discussions about plants, inspired by other renowed social media platforms, built using Tailwind CSS, Daisy UI, Bootstrap CSS, Express.js and SQLite.
 
 This website is the main assignment of the course [Web Programming Metodologies](https://of.uniupo.it/syllabus/didattica.php/en/2023/1932#176019), part of the 2023/2024 Academic Program.
 
@@ -16,11 +16,11 @@ This website is the main assignment of the course [Web Programming Metodologies]
 
 ## 🖥️ Showcase
 
-![ReLife Design File](https://raw.githubusercontent.com/meltmeltix/ReLife/main/github/preview.png)
+![Relife Design File](https://raw.githubusercontent.com/meltmeltix/Relife/main/github/preview.png)
 
 <p align="center">
-	<a href="https://www.figma.com/design/UVCyfAp3Nr8tvzCmPL9ajq/ReLife?node-id=0%3A1&t=pBeeAuAH9S27GSPO-1">
-		<img src="https://raw.githubusercontent.com/meltmeltix/ReLife/main/github/open%20in%20figma.png" height="45"/>
+	<a href="https://www.figma.com/design/UVCyfAp3Nr8tvzCmPL9ajq/Relife?node-id=0%3A1&t=pBeeAuAH9S27GSPO-1">
+		<img src="https://raw.githubusercontent.com/meltmeltix/Relife/main/github/open%20in%20figma.png" height="45"/>
 	</a>
 </p>
 
