@@ -52,7 +52,7 @@
                 <% } %>
             </nav>
 
-            <div id="content-container" class="tw-w-full tw-space-y-2 tw-p-2 tw-pb-20 sm:tw-pb-2">
+            <div id="content-container" class="tw-w-full tw-min-h-[100svh] tw-space-y-2 tw-p-2 tw-pb-20 sm:tw-pb-2">
 
                 <!-- REMOVE WHEN DONE -->
                 
@@ -120,8 +120,8 @@
                 </div>
             <% } else { %>
                 <% if (sessionType === 'USER') { %>
-                    <nav class="tw-sticky tw-w-full tw-flex tw-flex-row tw-px-3 tw-justify-end tw-bottom-16" style="pointer-events: none">
-                        <button class="tw-dy-btn tw-dy-btn-secondary tw-bottom-16 tw-rounded-2xl sm:tw-hidden" style="pointer-events: all;">
+                    <nav class="tw-sticky tw-w-full tw-flex tw-flex-row tw-px-3 tw-justify-end tw-bottom-16 tw-pointer-events-none">
+                        <button class="tw-dy-btn tw-dy-btn-secondary tw-bottom-16 tw-rounded-2xl sm:tw-hidden tw-pointer-events-auto">
                             <i data-lucide="square-pen"></i>
                             Post
                         </button>
@@ -138,7 +138,7 @@
 
         <!-- Drawer -->
         <aside class="tw-dy-drawer-side">
-            <nav class="tw-flex tw-flex-col tw-w-64 tw-h-full tw-p-3">
+            <nav class="tw-flex tw-flex-col tw-w-64 tw-h-full tw-p-3 tw-bg-base-100">
                 <a class="tw-flex tw-items-center tw-w-min tw-pl-3 tw-h-12">
                     <svg class="tw-h-7 tw-fill-text-700 dark:tw-fill-text-300" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
                 </a>
@@ -164,7 +164,7 @@
                         <!-- Show moderator specific stuff here -->
                     <% } %>
                 
-                    <ul id="nav-drawer" class="tw-dy-menu tw-w-60 tw-p-0 tw-gap-2 text-base-content"></ul>
+                    <ul id="nav-drawer" class="tw-dy-menu tw-p-0 tw-gap-2 text-base-content"></ul>
 
                     <form action="/logout", method="post">
                         <ul class="tw-dy-menu tw-w-60 tw-p-0 tw-pb-3 tw-absolute tw-bottom-0">
