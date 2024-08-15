@@ -16,10 +16,6 @@ const accessRouter = require('./routes/access')
 
 const feedRouter = require('./routes/feed')
 
-const homeRouter = require('./routes/home')
-const searchRouter = require('./routes/search')
-const profileRouter = require('./routes/profile')
-
 const userDao = require('./models/user-dao')
 const postDao = require('./models/post-dao')
 const { profile } = require('console')

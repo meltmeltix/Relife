@@ -10,12 +10,17 @@ router.get('/', function (req, res, next) {
 
 router.get('/signup', function (req, res, next) {
     if (req.isAuthenticated()) res.redirect('/home')
-    else res.render('access', { accessType: "SIGNUP", title: "Sign Up", buttonText: "Next", message: null })
+    else res.render('access', { accessType: "SIGNUP", title: "Sign Up", message: null })
 })
 
 router.get('/login', function (req, res, next) {
     if (req.isAuthenticated()) res.redirect('/home')
-    else res.render('access', { accessType: "LOGIN", title: "Log In", buttonText: "Log In", message: null })
+    else res.render('access', { accessType: "LOGIN", title: "Log In", message: null })
+})
+
+router.get('/forgot', function (req, res, next) {
+    if (req.isAuthenticated()) res.redirect('/home')
+    else res.render('access', { accessType: "FORGOT", title: "Password recovery", message: null })
 })
 
 module.exports = router
