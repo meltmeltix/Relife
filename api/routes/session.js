@@ -13,7 +13,12 @@ router.post('/', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) return next(err)
         if (!user) 
-            return res.render('access', { accessType: "LOGIN", title: "Log In", buttonText: "Log In", message: info.message })
+            return res.render('access', { 
+                accessType: "LOGIN", 
+                title: "Log In", 
+                messageType: "ERROR",
+                message: info.message
+            })
 
         req.logIn(user, function(err) {
             if (err) return next(err)
@@ -23,7 +28,12 @@ router.post('/', function(req, res, next) {
 })
 
 router.use(function (err, req, res, next) {
-    res.render('access', { accessType: "LOGIN", title: "Log In", buttonText: "Log In", message: err.message });
+    res.render('access', { 
+        accessType: "LOGIN", 
+        title: "Log In", 
+        messageType: "ERROR", 
+        message: err.message 
+    });
 });
 
 router.post('/logout', function(req, res, next) {

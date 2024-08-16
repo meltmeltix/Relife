@@ -1,6 +1,5 @@
 'use strict'
 
-const { rejects } = require('assert');
 const db = require('../database/db.js')
 const sqlite = require('sqlite3');
 const bcrypt = require('bcrypt');
@@ -13,15 +12,19 @@ const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
  * @param {*} user          Contains all the information about the new user
  * @returns
  */
-exports.createUser = function(user) {
-    return new Promise((resolve, rejects) => {
-        const query = 'INSERT INTO user(handle, mail, password, name, bio, avatar) VALUES (?, ?, ?, ?, ?, ?)'
-        bcrypt.hash(user.password, 10).then((hash => {
-            db.run(query, [user.handle, user.mail, user.password, user.name, user.bio, user.avatar], function(err) {
-                if (err) reject(err)
-                else resolve()
-            })
-        }))
+exports.createUser = function(handle, mail, password, birthDate) {
+    return new Promise((resolve, reject) => {
+        const query = 'INSERT INTO user(handle, mail, password, birthdate, name, bio, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)'
+        const hashedPassword = bcrypt.hashSync(password, 10)
+        const user = [handle, mail, hashedPassword, birthDate, null, null, null]
+
+        db.run(query, user, (err) => {
+            if (err) {
+                console.error('Error executing query:', err);  // Log any error from the query execution
+                return reject(err);
+            }
+            resolve({username: handle, password: hashedPassword})
+        })
     })
 }
 

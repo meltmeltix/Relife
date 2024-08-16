@@ -7,12 +7,12 @@ const port = process.env.PORT || 4000
 
 const logger = require('morgan')
 
-const bodyParser = require('body-parser')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 const sessionRouter = require('./routes/session')
 const accessRouter = require('./routes/access')
+const registerRouter = require('./routes/register')
 
 const feedRouter = require('./routes/feed')
 
@@ -26,7 +26,7 @@ app.set('view engine', 'ejs')
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '../public')))
 
 // Login strategy
@@ -41,23 +41,19 @@ passport.use(new LocalStrategy(
     }
 ));
 
-
 // User de/serialization
 passport.serializeUser(function (user, done) {
-    if (!user || !user.handle) {
-        return done(new Error('Invalid user object during serialization.'));
-    }
+    if (!user || !user.handle) return done(new Error('Invalid user object during serialization.'));
+
     done(null, user.handle);
 });
 
 passport.deserializeUser(function (handle, done) {
-    if (!handle) {
-        return done(new Error('Invalid handle during deserialization.'));
-    }
+    if (!handle) return done(new Error('Invalid handle during deserialization.'));
+
     userDao.getUserByHandle(handle).then(user => {
-        if (!user) {
-            return done(new Error('User not found.'));
-        }
+        if (!user) return done(new Error('User not found.'));
+
         done(null, user);
     }).catch(err => done(err));
 });
@@ -77,16 +73,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-const isLogged = (req, res, next) => {
-    if (req.isAuthenticated() && !req.user.error) {
-        console.log('User is authenticated:', req.user);
-        next();
-    } else {
-        console.log('User is not authenticated, redirecting to /');
-        res.redirect('/');
-    }
-};
-
 app.get('/api/posts', (req, res) => {
     console.log('Fetching posts...')
 
@@ -105,6 +91,7 @@ app.use('/', sessionRouter)
 app.use('/', feedRouter)
 app.use('/a', accessRouter)
 app.use('/sessions', sessionRouter)
+app.use('/register', registerRouter)
 
 app.use(function (req, res, next) { next(createError(404)) })
 app.use(function (err, req, res, next) {
