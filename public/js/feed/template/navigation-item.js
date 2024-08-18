@@ -37,13 +37,13 @@ function returnDrawerItems(active, loggedUser) {
     `
 }
 
-function returnTabRow(active) {
+function returnTabRow(active, handle) {
     return `
         <div role="tablist" class="tw-dy-tabs tw-dy-tabs-bordered">
-            <a role="tab" class="tw-dy-tab ${active === 'POSTS' ? 'tw-dy-tab-active' : ''}">Posts</a>
-            <a role="tab" class="tw-dy-tab ${active === 'REPLIES' ? 'tw-dy-tab-active' : ''}">Replies</a>
-            <a role="tab" class="tw-dy-tab ${active === 'MEDIA' ? 'tw-dy-tab-active' : ''}">Media</a>
-            <a role="tab" class="tw-dy-tab ${active === 'LIKES' ? 'tw-dy-tab-active' : ''}">Likes</a>
+            <a href='/profile/${handle}/' role="tab" class="tw-dy-tab ${active === 'POSTS' ? 'tw-dy-tab-active' : ''}">Posts</a>
+            <a href='/profile/${handle}/replies' role="tab" class="tw-dy-tab ${active === 'REPLIES' ? 'tw-dy-tab-active' : ''}">Replies</a>
+            <a href='/profile/${handle}/media' role="tab" class="tw-dy-tab ${active === 'MEDIA' ? 'tw-dy-tab-active' : ''}">Media</a>
+            <a href='/profile/${handle}/likes' role="tab" class="tw-dy-tab ${active === 'LIKES' ? 'tw-dy-tab-active' : ''}">Likes</a>
         </div>
     `
 }

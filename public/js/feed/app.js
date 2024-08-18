@@ -19,7 +19,6 @@ class App {
 
             page('/profile/:handle', (ctx) => {
                 const handle = ctx.params.handle
-                console.log("Page handle:", handle)
 
                 document.title = handle + ' | Relife'
                 titleBar.innerHTML = 'User profile'
@@ -30,7 +29,6 @@ class App {
 
             page('/profile/:handle/replies', (ctx) => {
                 const handle = ctx.params.handle
-                console.log("Page handle:", handle)
 
                 document.title = 'Posts replied by ' + handle + ' | Relife'
                 titleBar.innerHTML = 'User profile'
@@ -41,7 +39,6 @@ class App {
 
             page('/profile/:handle/media', (ctx) => {
                 const handle = ctx.params.handle
-                console.log("Page handle:", handle)
 
                 document.title = 'Media uploaded by ' + handle + ' | Relife'
                 titleBar.innerHTML = 'User profile'
@@ -52,7 +49,6 @@ class App {
 
             page('/profile/:handle/likes', (ctx) => {
                 const handle = ctx.params.handle
-                console.log("Page handle:", handle)
 
                 document.title = 'Posts liked by ' + handle + ' | Relife'
                 titleBar.innerHTML = 'User profile'
@@ -97,7 +93,6 @@ class App {
 
                 page('/profile/:handle', (ctx) => {
                     const handle = ctx.params.handle
-                    console.log("Page handle:", handle)
 
                     document.title = handle + ' | Relife'
                     titleBar.innerHTML = ''
@@ -114,7 +109,6 @@ class App {
 
                 page('/profile/:handle/replies', (ctx) => {
                     const handle = ctx.params.handle
-                    console.log("Page handle:", handle)
 
                     document.title = 'Posts replied by ' + handle + ' | Relife'
                     titleBar.innerHTML = ''
@@ -131,7 +125,6 @@ class App {
 
                 page('/profile/:handle/media', (ctx) => {
                     const handle = ctx.params.handle
-                    console.log("Page handle:", handle)
 
                     document.title = 'Media uploaded by ' + handle + ' | Relife'
                     titleBar.innerHTML = ''
@@ -148,7 +141,6 @@ class App {
 
                 page('/profile/:handle/likes', (ctx) => {
                     const handle = ctx.params.handle
-                    console.log("Page handle:", handle)
 
                     document.title = 'Posts liked by ' + handle + ' | Relife'
                     titleBar.innerHTML = ''
@@ -169,7 +161,6 @@ class App {
     }
 
     getPosts = async () => {
-        console.log('Getting posts...')
         const posts = await Api.getPosts()
 
         this.contentContainer.innerHTML = ''
@@ -181,14 +172,12 @@ class App {
     }
 
     getProfile = async (handle, active) => {
-        console.log('Getting user profile...')
-        console.log(active)
         const profile = await Api.getProfile(handle)
 
         this.contentContainer.innerHTML = ''
         this.contentContainer.classList.remove('tw-p-2')
         this.contentContainer.insertAdjacentHTML('beforeend', returnProfileHeader(profile))
-        this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow(active))
+        this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow(active, handle))
     }
 }
 
