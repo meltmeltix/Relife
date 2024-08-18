@@ -20,7 +20,10 @@ class App {
             if (navDrawer || navBar) {
                 page('/home', () => {
                     document.title = 'Home'
+
                     titleBar.innerHTML = 'Home'
+                    titleBar.classList.add("tw-pl-3")
+
                     navDrawer.innerHTML = '';
                     navDrawer.insertAdjacentHTML('beforeend', returnDrawerItem('HOME') )
     
@@ -33,6 +36,7 @@ class App {
                 page('/search', () => {
                     document.title = 'Search'
                     titleBar.innerHTML = returnSearchBar()
+                    titleBar.classList.remove("tw-pl-3")
                     
                     // to remove
                     this.contentContainer.innerHTML = ''
@@ -47,6 +51,7 @@ class App {
                 page('/profile', () => {
                     document.title = 'Profile'
                     titleBar.innerHTML = 'Profile'
+                    titleBar.classList.add("tw-pl-3")
 
                     // to remove
                     this.contentContainer.innerHTML = ''
