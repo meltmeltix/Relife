@@ -25,7 +25,40 @@ class App {
                 titleBar.innerHTML = 'User profile'
                 titleBar.classList.add("tw-pl-3")
 
-                this.getProfile(handle)
+                this.getProfile(handle, 'POSTS')
+            })
+
+            page('/profile/:handle/replies', (ctx) => {
+                const handle = ctx.params.handle
+                console.log("Page handle:", handle)
+
+                document.title = 'Posts replied by ' + handle + ' | Relife'
+                titleBar.innerHTML = 'User profile'
+                titleBar.classList.add("tw-pl-3")
+
+                this.getProfile(handle, 'REPLIES')
+            })
+
+            page('/profile/:handle/media', (ctx) => {
+                const handle = ctx.params.handle
+                console.log("Page handle:", handle)
+
+                document.title = 'Media uploaded by ' + handle + ' | Relife'
+                titleBar.innerHTML = 'User profile'
+                titleBar.classList.add("tw-pl-3")
+
+                this.getProfile(handle, 'MEDIA')
+            })
+
+            page('/profile/:handle/likes', (ctx) => {
+                const handle = ctx.params.handle
+                console.log("Page handle:", handle)
+
+                document.title = 'Posts liked by ' + handle + ' | Relife'
+                titleBar.innerHTML = 'User profile'
+                titleBar.classList.add("tw-pl-3")
+
+                this.getProfile(handle, 'LIKES')
             })
 
             page()
@@ -61,7 +94,7 @@ class App {
                     navBar.innerHTML = '';
                     navBar.insertAdjacentHTML('beforeend', returnNavBarItems('SEARCH', loggedUser) )
                 })
-    
+
                 page('/profile/:handle', (ctx) => {
                     const handle = ctx.params.handle
                     console.log("Page handle:", handle)
@@ -76,7 +109,58 @@ class App {
                     navBar.innerHTML = '';
                     navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
 
-                    this.getProfile(handle)
+                    this.getProfile(handle, 'POSTS')
+                })
+
+                page('/profile/:handle/replies', (ctx) => {
+                    const handle = ctx.params.handle
+                    console.log("Page handle:", handle)
+
+                    document.title = 'Posts replied by ' + handle + ' | Relife'
+                    titleBar.innerHTML = ''
+                    titleBar.classList.add("tw-pl-3")
+
+                    navDrawer.innerHTML = '';
+                    navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
+    
+                    navBar.innerHTML = '';
+                    navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
+
+                    this.getProfile(handle, 'REPLIES')
+                })
+
+                page('/profile/:handle/media', (ctx) => {
+                    const handle = ctx.params.handle
+                    console.log("Page handle:", handle)
+
+                    document.title = 'Media uploaded by ' + handle + ' | Relife'
+                    titleBar.innerHTML = ''
+                    titleBar.classList.add("tw-pl-3")
+
+                    navDrawer.innerHTML = '';
+                    navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
+    
+                    navBar.innerHTML = '';
+                    navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
+
+                    this.getProfile(handle, 'MEDIA')
+                })
+
+                page('/profile/:handle/likes', (ctx) => {
+                    const handle = ctx.params.handle
+                    console.log("Page handle:", handle)
+
+                    document.title = 'Posts liked by ' + handle + ' | Relife'
+                    titleBar.innerHTML = ''
+                    titleBar.classList.add("tw-pl-3")
+
+                    navDrawer.innerHTML = '';
+                    navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
+    
+                    navBar.innerHTML = '';
+                    navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
+
+                    this.getProfile(handle, 'LIKES')
                 })
     
                 page()
@@ -96,14 +180,15 @@ class App {
         }
     }
 
-    getProfile = async (handle) => {
+    getProfile = async (handle, active) => {
         console.log('Getting user profile...')
+        console.log(active)
         const profile = await Api.getProfile(handle)
 
         this.contentContainer.innerHTML = ''
         this.contentContainer.classList.remove('tw-p-2')
         this.contentContainer.insertAdjacentHTML('beforeend', returnProfileHeader(profile))
-        this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow())
+        this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow(active))
     }
 }
 
