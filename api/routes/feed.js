@@ -5,22 +5,27 @@ const router = express.Router()
 
 router.get('/explore', function(req, res, next) {
     if(req.isAuthenticated()) res.redirect('/home')
-    else res.render('feed', { sessionType: 'GUEST' })
+    else res.render('feed', { sessionType: 'GUEST', userHandle: null })
 })
 
 router.get('/home', function(req, res, next) {
     if(!req.isAuthenticated()) res.redirect('/')
-    else res.render('feed', { sessionType: "USER" })
+    else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 
 router.get('/search', function(req, res, next) {
     if(!req.isAuthenticated()) res.redirect('/')
-    else res.render('feed', { sessionType: "USER" })
+    else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 
 router.get('/profile', function(req, res, next) {
     if(!req.isAuthenticated()) res.redirect('/')
-    else res.render('feed', { sessionType: "USER" })
+    else res.redirect('/home')
+})
+
+router.get('/profile/:handle', function(req, res, next) {
+    if(!req.isAuthenticated()) res.render('feed', { sessionType: "GUEST", userHandle: null })
+    else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 
 module.exports = router

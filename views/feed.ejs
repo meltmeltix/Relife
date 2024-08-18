@@ -12,7 +12,9 @@
 
     <script>
         console.log("User type: <%- sessionType %>")
+        console.log("User handle: <%- userHandle %>")
         userType = '<%- sessionType %>'
+        loggedUser = '<%- userHandle %>'
     </script>
     <script defer src="/js/moment.min.js"></script>
     <script defer type="module" src="/js/feed/main.js"></script>
@@ -52,7 +54,7 @@
                 <% } %>
             </nav>
 
-            <div id="content-container" class="tw-w-full tw-h-full tw-space-y-2 tw-p-2 tw-pb-20 sm:tw-pb-2">
+            <div id="content-container" class="tw-w-full tw-h-full tw-space-y-2 tw-pb-20 sm:tw-pb-2">
                 <div id="spinner" class="tw-flex tw-flex-col tw-h-full tw-items-center tw-justify-center">
                     <span class="tw-dy-loading tw-dy-loading-spinner tw-dy-loading-lg"></span>
                 </div>

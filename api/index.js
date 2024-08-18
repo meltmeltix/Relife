@@ -87,6 +87,21 @@ app.get('/api/posts', (req, res) => {
         })
 })
 
+app.get('/api/user-profile', (req, res) => {
+    const handle = req.query.handle
+    console.log('Fetching user', handle, 'profile...')
+    
+    userDao.getUserProfile(handle)
+        .then((user) => {
+            console.log('Fetching user', handle, 'profile: Success')
+            res.json(user)
+        })
+        .catch(() => {
+            console.log('Fetching user', handle, 'profile: Failure')
+            res.status(500).end()
+        })
+})
+
 app.use('/', sessionRouter)
 app.use('/', feedRouter)
 app.use('/a', accessRouter)

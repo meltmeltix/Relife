@@ -40,50 +40,79 @@ exports.getUser = function(id, password) {
     return new Promise((resolve, reject) => {
         const query = mailRegex.test(id) 
             ? 'SELECT * FROM user WHERE mail = ?'
-            : 'SELECT * FROM user WHERE handle = ?';
+            : 'SELECT * FROM user WHERE handle = ?'
 
-        console.log('Executing query:', query, 'with ID:', id);
+        console.log('Executing query:', query, 'with ID:', id)
 
         db.get(query, [id], (err, row) => {
             if (err) {
-                console.error('Database error:', err);
-                return reject(err);
+                console.error('Database error:', err)
+                return reject(err)
             }
             if (!row) {
-                console.log('User not found');
-                return resolve({ error: 'User not found' });
+                console.log('User not found')
+                return resolve({ error: 'User not found' })
             }
 
-            const user = { handle: row.handle, mail: row.mail };
-            const check = bcrypt.compareSync(password, row.password);
+            const user = { handle: row.handle, mail: row.mail }
+            const check = bcrypt.compareSync(password, row.password)
 
-            console.log('Password check result:', check);
+            console.log('Password check result:', check)
 
-            resolve({ user, check });
-        });
-    });
+            resolve({ user, check })
+        })
+    })
 }
 
 exports.getUserByHandle = function(handle) {
     return new Promise((resolve, reject) => {
-        console.log('Querying for user with handle:', handle);  // Log the handle being queried
+        console.log('Querying for user with handle:', handle)
 
-        const query = 'SELECT * FROM user WHERE handle = ?';
+        const query = 'SELECT * FROM user WHERE handle = ?'
 
         db.get(query, [handle], (err, row) => {
             if (err) {
-                console.error('Error executing query:', err);  // Log any error from the query execution
-                return reject(err);
+                console.error('Error executing query:', err)
+                return reject(err)
             }
 
             if (!row) {
-                console.log('No user found for handle:', handle);  // Log when no user is found
-                return resolve({ error: 'User not found' });
+                console.log('No user found for handle:', handle)
+                return resolve({ error: 'User not found' })
             }
 
-            const user = { handle: row.handle, mail: row.mail };
-            console.log('User found:', user);  // Log the user object found
-            resolve(user);
-        });
-    });
+            const user = { handle: row.handle, mail: row.mail }
+            console.log('User found!')
+            resolve(user)
+        })
+    })
+}
+
+exports.getUserProfile = function(handle) {
+    return new Promise((resolve, reject) => {
+        console.log('Querying for user profile with handle:', handle)
+
+        const query = 'SELECT handle, name, bio, avatar FROM user WHERE handle=?'
+
+        db.get(query, [handle], (err, row) => {
+            if (err) {
+                console.error('Error executing query:', err)
+                return reject(err)
+            }
+
+            if (!row) {
+                console.log('No user profile found for handle:', handle)
+                return resolve({ error: 'User not found' })
+            }
+
+            const user = { 
+                handle: row.handle, 
+                name: row.name, 
+                bio: row.bio,
+                avatar: row.avatar ? `data:image/jpeg;base64,${row.avatar.toString('base64')}` : null,
+            }
+            console.log('User found!')
+            resolve(user)
+        })
+    })
 }
