@@ -2496,6 +2496,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
   min-height: 100svh;
 }
 
+.tw-min-h-full {
+  min-height: 100%;
+}
+
 .tw-w-5 {
   width: 1.25rem;
 }
@@ -2531,10 +2535,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-flex-none {
   flex: none;
-}
-
-.tw-shrink-0 {
-  flex-shrink: 0;
 }
 
 .tw-flex-grow {
@@ -2625,6 +2625,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
+.tw-self-center {
+  align-self: center;
+}
+
 .tw-overflow-hidden {
   overflow: hidden;
 }
@@ -2691,10 +2695,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-fill-text-800 {
   fill: #434323;
-}
-
-.tw-stroke-current {
-  stroke: currentColor;
 }
 
 .tw-object-fill {
