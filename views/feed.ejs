@@ -55,6 +55,35 @@
                 <% } %>
             </nav>
 
+            <!-- Post Modal -->
+            <dialog id="post_modal" class="tw-dy-modal tw-dy-modal-bottom sm:tw-dy-modal-middle">
+                <div class="tw-dy-modal-box tw-flex tw-flex-col tw-gap-4 tw-align-bottom">
+                    <form method="dialog">
+                        <button class="tw-dy-btn tw-dy-btn-ghost tw-dy-btn-square tw-dy-btn-sm tw-absolute tw-right-4 tw-top-4"><i data-lucide="x"></i></button>
+                    </form>
+
+                    <span class="tw-text-xl tw-w-full">New post</span>
+
+                    <label class="tw-dy-form-control">
+                        <textarea id="post_textarea" class="tw-dy-textarea tw-dy-textarea-bordered tw-dy-textarea-md tw-h-40 tw-resize-none" maxlength="200" placeholder="Something new to share?"></textarea>
+                        <div class="tw-dy-label">
+                            <span id="post_textarea_counter" class="tw-dy-label-text-alt">0/200</span>
+                        </div>
+                    </label>
+
+                    <label class="tw-dy-form-control">
+                        <input type="file" class="tw-dy-file-input tw-dy-file-input-bordered">
+                        <div class="tw-dy-label">
+                            <span id="post_textarea_counter" class="tw-dy-label-text-alt">Maximum size: 200kb</span>
+                        </div>
+                    </label>
+
+                    <div class="tw-flex tw-flex-row tw-justify-end">
+                        <button class="tw-dy-btn tw-dy-btn-primary tw-rounded-xl tw-w-28">Post</button>
+                    </div>
+                </div>
+            </dialog>
+
             <div id="content-container" class="tw-w-full tw-h-full tw-space-y-2 tw-pb-20 sm:tw-pb-2">
                 <div id="spinner" class="tw-flex tw-flex-col tw-h-full tw-items-center tw-justify-center">
                     <span class="tw-dy-loading tw-dy-loading-spinner tw-dy-loading-lg"></span>
@@ -157,7 +186,7 @@
             <% } else { %>
                 <% if (sessionType === 'USER') { %>
                     <nav class="tw-sticky tw-w-full tw-flex tw-flex-row tw-px-3 tw-justify-end tw-bottom-16 tw-pointer-events-none">
-                        <button class="tw-dy-btn tw-dy-btn-secondary tw-bottom-16 tw-rounded-2xl sm:tw-hidden tw-pointer-events-auto">
+                        <button onclick="post_modal.showModal()" class="tw-dy-btn tw-dy-btn-secondary tw-bottom-16 tw-rounded-2xl sm:tw-hidden tw-pointer-events-auto">
                             <i data-lucide="square-pen"></i>
                             Post
                         </button>
@@ -192,7 +221,7 @@
                     </div>
                 <% } else { %>
                     <% if (sessionType === 'USER') { %>
-                        <button class="tw-dy-btn tw-dy-btn-secondary tw-w-full tw-px-3 tw-rounded-2xl">Post</button>
+                        <button onclick="post_modal.showModal()" class="tw-dy-btn tw-dy-btn-secondary tw-w-full tw-px-3 tw-rounded-2xl">Post</button>
                         <div class="tw-h-4"></div>
                     <% } %>
                 
@@ -216,6 +245,20 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
+    </script>
+
+    <script>
+        const textarea = document.getElementById('post_textarea')
+        const counter = document.getElementById('post_textarea_counter')
+
+        textarea.addEventListener("input", ({ currentTarget: target }) => {
+            const maxLength = target.getAttribute("maxlength");
+            const currentLength = target.value.length;
+        
+            if (currentLength > maxLength) return
+        
+            counter.innerHTML = currentLength + ' / ' + maxLength
+        });
     </script>
 </body>
 
