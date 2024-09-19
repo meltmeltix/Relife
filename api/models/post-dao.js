@@ -32,3 +32,34 @@ exports.getAllPosts = function() {
         })
     })
 }
+
+exports.getUserPosts = function(handle) {
+    return new Promise((resolve, reject) => {
+        console.log('Querying for posts with handle:', handle)
+
+        const query = `
+            SELECT id, body, attachment, date, handle, name, avatar
+            FROM post, user
+            WHERE author = handle AND author = ?
+            ORDER BY date DESC
+        `
+
+        db.all(query, [handle], (err, rows) => {
+            if (err) {
+                console.error('Error executing query:', err)
+                return reject(err)
+            }
+
+            const posts = rows.map((p) => ({
+                id: p.id, 
+                body: p.body, 
+                attachment: p.attachment ? `data:image/jpeg;base64,${p.attachment.toString('base64')}` : null,
+                date: p.date,
+                handle: p.handle,
+                name: p.name,
+                avatar: p.avatar ? `data:image/jpeg;base64,${p.avatar.toString('base64')}` : null,
+            }))
+            resolve(posts)
+        })
+    })
+}

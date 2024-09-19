@@ -3,7 +3,7 @@ import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
 import { returnProfileHeader } from './template/profile-layout.js'
 import { createPost } from './template/post-item.js'
-import { returnNavBarItems, returnDrawerItems, returnTabRow, returnBackButton } from './template/navigation-item.js'
+import { returnNavBarItems, returnDrawerItems, returnTabRow } from './template/navigation-item.js'
 
 class App {
     constructor(userType, loggedUser, navDrawer, navBar, titleBar, contentContainer) {
@@ -59,6 +59,7 @@ class App {
             const handle = ctx.params.handle
             document.title = handle + ' | Relife'
             this.buildProfile(handle, 'POSTS', userType, navDrawer, navBar, titleBar)
+            this.getUserPosts(handle)
         })
 
         page('/profile/:handle/replies', (ctx) => {
@@ -102,6 +103,16 @@ class App {
 
         this.contentContainer.innerHTML = ''
         this.contentContainer.classList.add('tw-p-2')
+        for (let post of posts) {
+            const p = createPost(post)
+            this.contentContainer.insertAdjacentHTML('beforeend', p)
+        }
+    }
+
+    getUserPosts = async(handle) => {
+        const posts = await Api.getUserPosts(handle)
+
+        // TODO Add padding to content
         for (let post of posts) {
             const p = createPost(post)
             this.contentContainer.insertAdjacentHTML('beforeend', p)

@@ -74,17 +74,33 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/api/posts', (req, res) => {
-    console.log('Fetching posts...')
+    const handle = req.query.handle
 
-    postDao.getAllPosts()
-        .then((posts) => {
-            console.log('Fetching posts: Success')
-            res.json(posts)
-        })
-        .catch(() => {
-            console.log('Fetching posts: Failure')
-            res.status(500).end()
-        })
+    if (handle) {
+        console.log('Fetching', handle, 'posts...')
+
+        postDao.getUserPosts(handle)
+            .then((posts) => {
+                console.log('Fetching', handle, 'posts: Success')
+                res.json(posts)
+            })
+            .catch(() => {
+                console.log('Fetching', handle, 'posts: Failure')
+                res.status(500).end()
+            })
+    } else {
+        console.log('Fetching posts...')
+
+        postDao.getAllPosts()
+            .then((posts) => {
+                console.log('Fetching posts: Success')
+                res.json(posts)
+            })
+            .catch(() => {
+                console.log('Fetching posts: Failure')
+                res.status(500).end()
+            })
+    }
 })
 
 app.get('/api/user-profile', (req, res) => {
