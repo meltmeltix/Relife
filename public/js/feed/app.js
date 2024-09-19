@@ -3,161 +3,98 @@ import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
 import { returnProfileHeader } from './template/profile-layout.js'
 import { createPost } from './template/post-item.js'
-import { returnNavBarItems, returnDrawerItems, returnTabRow } from './template/navigation-item.js'
+import { returnNavBarItems, returnDrawerItems, returnTabRow, returnBackButton } from './template/navigation-item.js'
 
 class App {
     constructor(userType, loggedUser, navDrawer, navBar, titleBar, contentContainer) {
         this.contentContainer = contentContainer
 
-        if (userType === 'GUEST') {
-            page('/explore', () => {
-                titleBar.innerHTML = 'Explore'
-                titleBar.classList.add("tw-pl-3")
+        page('/explore', () => {
+            if (userType == 'USER') page.redirect('/home')
 
-                this.getPosts()
-            })
+            document.title = 'Explore | Relife'
 
-            page('/profile/:handle', (ctx) => {
-                const handle = ctx.params.handle
+            titleBar.innerHTML = 'Explore'
+            titleBar.classList.add("tw-pl-3")
 
-                document.title = handle + ' | Relife'
-                titleBar.innerHTML = 'User profile'
-                titleBar.classList.add("tw-pl-3")
+            this.getPosts()
+        })
 
-                this.getProfile(handle, 'POSTS')
-            })
+        page('/home', () => {
+            document.title = 'Home | Relife'
 
-            page('/profile/:handle/replies', (ctx) => {
-                const handle = ctx.params.handle
+            titleBar.innerHTML = 'Home'
+            titleBar.classList.add("tw-pl-3")
 
-                document.title = 'Posts replied by ' + handle + ' | Relife'
-                titleBar.innerHTML = 'User profile'
-                titleBar.classList.add("tw-pl-3")
+            navDrawer.innerHTML = '';
+            navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('HOME', loggedUser) )
 
-                this.getProfile(handle, 'REPLIES')
-            })
+            navBar.innerHTML = '';
+            navBar.insertAdjacentHTML('beforeend', returnNavBarItems('HOME', loggedUser) )
 
-            page('/profile/:handle/media', (ctx) => {
-                const handle = ctx.params.handle
+            this.getPosts()
+        })
 
-                document.title = 'Media uploaded by ' + handle + ' | Relife'
-                titleBar.innerHTML = 'User profile'
-                titleBar.classList.add("tw-pl-3")
+        page('/search', () => {
+            document.title = 'Search | Relife'
+            titleBar.innerHTML = returnSearchBar()
+            titleBar.classList.remove("tw-pl-3")
+            
+            // to remove
+            this.contentContainer.innerHTML = ''
+            this.contentContainer.classList.add('tw-p-2')
 
-                this.getProfile(handle, 'MEDIA')
-            })
+            navDrawer.innerHTML = '';
+            navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('SEARCH', loggedUser) )
 
-            page('/profile/:handle/likes', (ctx) => {
-                const handle = ctx.params.handle
+            navBar.innerHTML = '';
+            navBar.insertAdjacentHTML('beforeend', returnNavBarItems('SEARCH', loggedUser) )
+        })
 
-                document.title = 'Posts liked by ' + handle + ' | Relife'
-                titleBar.innerHTML = 'User profile'
-                titleBar.classList.add("tw-pl-3")
+        page('/profile', () => {
+            // handle logic to send guest back to explore and registered user to personal profile
+        })
 
-                this.getProfile(handle, 'LIKES')
-            })
+        page('/profile/:handle', (ctx) => {
+            const handle = ctx.params.handle
+            document.title = handle + ' | Relife'
+            this.buildProfile(handle, 'POSTS', userType, navDrawer, navBar, titleBar)
+        })
 
-            page()
-        } else {
-            if (navDrawer || navBar) {
-                page('/home', () => {
-                    document.title = 'Home | Relife'
+        page('/profile/:handle/replies', (ctx) => {
+            const handle = ctx.params.handle
+            document.title = 'Posts replied by ' + handle + ' | Relife'
+            this.buildProfile(handle, 'REPLIES', userType, navDrawer, navBar, titleBar)
+        })
 
-                    titleBar.innerHTML = 'Home'
-                    titleBar.classList.add("tw-pl-3")
+        page('/profile/:handle/media', (ctx) => {
+            const handle = ctx.params.handle
+            document.title = 'Media uploaded by ' + handle + ' | Relife'
+            this.buildProfile(handle, 'MEDIA', userType, navDrawer, navBar, titleBar)
+        })
 
-                    navDrawer.innerHTML = '';
-                    navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('HOME', loggedUser) )
-    
-                    navBar.innerHTML = '';
-                    navBar.insertAdjacentHTML('beforeend', returnNavBarItems('HOME', loggedUser) )
+        page('/profile/:handle/likes', (ctx) => {
+            const handle = ctx.params.handle
+            document.title = 'Posts liked by ' + handle + ' | Relife'
+            this.buildProfile(handle, 'LIKES', userType, navDrawer, navBar, titleBar)
+        })
 
-                    this.getPosts()
-                })
-    
-                page('/search', () => {
-                    document.title = 'Search | Relife'
-                    titleBar.innerHTML = returnSearchBar()
-                    titleBar.classList.remove("tw-pl-3")
-                    
-                    // to remove
-                    this.contentContainer.innerHTML = ''
-                    this.contentContainer.classList.add('tw-p-2')
+        page()
+    }
 
-                    navDrawer.innerHTML = '';
-                    navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('SEARCH', loggedUser) )
-    
-                    navBar.innerHTML = '';
-                    navBar.insertAdjacentHTML('beforeend', returnNavBarItems('SEARCH', loggedUser) )
-                })
+    buildProfile = async(handle, page, userType, navDrawer, navBar, titleBar) => {
+        titleBar.innerHTML = `${userType == 'GUEST' ? 'User profile' : ''}`
+        titleBar.classList.add("tw-pl-3")
+        
+        if (userType == 'USER') {
+            navDrawer.innerHTML = '';
+            navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
 
-                page('/profile/:handle', (ctx) => {
-                    const handle = ctx.params.handle
-
-                    document.title = handle + ' | Relife'
-                    titleBar.innerHTML = ''
-                    titleBar.classList.add("tw-pl-3")
-
-                    navDrawer.innerHTML = '';
-                    navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
-    
-                    navBar.innerHTML = '';
-                    navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
-
-                    this.getProfile(handle, 'POSTS')
-                })
-
-                page('/profile/:handle/replies', (ctx) => {
-                    const handle = ctx.params.handle
-
-                    document.title = 'Posts replied by ' + handle + ' | Relife'
-                    titleBar.innerHTML = ''
-                    titleBar.classList.add("tw-pl-3")
-
-                    navDrawer.innerHTML = '';
-                    navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
-    
-                    navBar.innerHTML = '';
-                    navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
-
-                    this.getProfile(handle, 'REPLIES')
-                })
-
-                page('/profile/:handle/media', (ctx) => {
-                    const handle = ctx.params.handle
-
-                    document.title = 'Media uploaded by ' + handle + ' | Relife'
-                    titleBar.innerHTML = ''
-                    titleBar.classList.add("tw-pl-3")
-
-                    navDrawer.innerHTML = '';
-                    navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
-    
-                    navBar.innerHTML = '';
-                    navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
-
-                    this.getProfile(handle, 'MEDIA')
-                })
-
-                page('/profile/:handle/likes', (ctx) => {
-                    const handle = ctx.params.handle
-
-                    document.title = 'Posts liked by ' + handle + ' | Relife'
-                    titleBar.innerHTML = ''
-                    titleBar.classList.add("tw-pl-3")
-
-                    navDrawer.innerHTML = '';
-                    navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
-    
-                    navBar.innerHTML = '';
-                    navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
-
-                    this.getProfile(handle, 'LIKES')
-                })
-    
-                page()
-            }
+            navBar.innerHTML = '';
+            navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
         }
+
+        this.getProfile(handle, page, userType)
     }
 
     getPosts = async () => {
@@ -171,13 +108,13 @@ class App {
         }
     }
 
-    getProfile = async (handle, active) => {
+    getProfile = async (handle, active, userType) => {
         const profile = await Api.getProfile(handle)
 
         this.contentContainer.innerHTML = ''
         this.contentContainer.classList.remove('tw-p-2')
         this.contentContainer.insertAdjacentHTML('beforeend', returnProfileHeader(profile))
-        this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow(active, handle))
+        this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow(active, handle, userType))
     }
 }
 

@@ -19,7 +19,7 @@ router.get('/search', function(req, res, next) {
 })
 
 router.get('/profile', function(req, res, next) {
-    if(!req.isAuthenticated()) res.redirect('/')
+    if(!req.isAuthenticated()) res.redirect('/explore')
     else res.redirect('/home')
 })
 
@@ -34,12 +34,12 @@ router.get('/profile/:handle/replies', function(req, res, next) {
 })
 
 router.get('/profile/:handle/media', function(req, res, next) {
-    if(!req.isAuthenticated()) res.render('feed', { sessionType: "GUEST", userHandle: null })
+    if(!req.isAuthenticated()) res.redirect('/profile/' + req.params.handle)
     else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 
 router.get('/profile/:handle/likes', function(req, res, next) {
-    if(!req.isAuthenticated()) res.render('feed', { sessionType: "GUEST", userHandle: null })
+    if(!req.isAuthenticated()) res.redirect('/profile/' + req.params.handle)
     else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 

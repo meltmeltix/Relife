@@ -38,7 +38,8 @@
         <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
             <!-- Top Bar -->
             <nav class="tw-dy-navbar tw-sticky tw-top-0 tw-bg-base-100 tw-z-50 tw-space-x-3">
-                <div id="title-bar" class="tw-flex-1 tw-flex-row"></div>
+
+                <div id="title-bar" class="tw-flex-row"></div>
 
                 <!-- Meatball Menu -->
                 <% if (sessionType !== 'GUEST') { %>
@@ -61,6 +62,36 @@
 
                 <!-- REMOVE WHEN DONE -->
                 
+                <!-- Profile Layout -->
+                <!-- <div class="tw-flex tw-flex-col tw-p-4 tw-space-y-2.5">
+                    <div class="tw-flex tw-flex-row tw-space-x-3">
+                        <div class="tw-dy-avatar">
+                            <div class="tw-w-20 tw-rounded-full">
+                                <img 
+                                    class="tw-rounded-full tw-w-full tw-h-full" 
+                                    src="${profile.avatar != null ? profile.avatar : `/webp/no-avatar-96x96.webp`}"
+                                />
+                            </div>
+                        </div>
+        
+                        <div class="tw-flex tw-flex-col tw-w-full tw-justify-center">
+                            <span class="tw-text-xl tw-w-full">${profile.name !== null ? profile.name : profile.handle}</span>
+                            <span class="tw-text-sm tw-w-full tw-opacity-90">@${profile.handle}</span>
+                            <span class="tw-text-sm tw-w-full tw-opacity-90">0 following · 0 followers</span>
+                        </div>
+                    </div>
+                    ${profile.bio !== null ? `<p>${profile.bio}</p>` : ''}
+                </div> -->
+
+                <!-- Profile Tabs -->
+                <!-- <div role="tablist" class="tw-dy-tabs tw-dy-tabs-bordered">
+                    <a href='/profile/${handle}/' role="tab" class="tw-dy-tab ${active === 'POSTS' ? 'tw-dy-tab-active' : ''}">Posts</a>
+                    <a href='/profile/${handle}/replies' role="tab" class="tw-dy-tab ${active === 'REPLIES' ? 'tw-dy-tab-active' : ''}">Replies</a>
+                    <a href='/profile/${handle}/media' role="tab" class="tw-dy-tab ${active === 'MEDIA' ? 'tw-dy-tab-active' : ''}">Media</a>
+                    <a href='/profile/${handle}/likes' role="tab" class="tw-dy-tab ${active === 'LIKES' ? 'tw-dy-tab-active' : ''}">Likes</a>
+                </div> -->
+
+                <!-- Post -->
                 <!-- <div class="tw-flex tw-flex-col tw-p-2 tw-h-full">
                     <div class="tw-flex tw-flex-col tw-p-3.5 tw-gap-2.5 tw-rounded-2xl tw-bg-background-100 dark:tw-bg-background-900">
                         <div class="tw-flex tw-items-center tw-w-full tw-gap-1.5 tw-h-6">
@@ -70,9 +101,9 @@
                                 src="../../../webp/noavatar.webp"
                             />
                         </div>
-                        <div class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis">
+                        <a class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis">
                             ${post.name} · @${post.handle}
-                        </div>
+                        </a>
                         <div class="tw-ml-auto tw-whitespace-nowrap">${moment(post.date).fromNow()}</div>
                         </div>
                     
