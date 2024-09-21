@@ -22,11 +22,11 @@ exports.getAllPosts = function() {
             const posts = rows.map((p) => ({ 
                 id: p.id, 
                 body: p.body, 
-                attachment: p.attachment ? `data:image/jpeg;base64,${p.attachment.toString('base64')}` : null,
+                attachment: p.attachment ? `data:image/webp;base64,${p.attachment.toString('base64')}` : null,
                 date: p.date,
                 handle: p.handle,
                 name: p.name,
-                avatar: p.avatar ? `data:image/jpeg;base64,${p.avatar.toString('base64')}` : null,
+                avatar: p.avatar ? `data:image/webp;base64,${p.avatar.toString('base64')}` : null,
             }))
             resolve(posts)
         })
