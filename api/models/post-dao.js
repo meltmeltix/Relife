@@ -4,6 +4,10 @@ const { rejects } = require('assert')
 const db = require('../database/db.js')
 const sqlite3 = require('sqlite3')
 
+exports.newPost = function() {
+    
+}
+
 exports.getAllPosts = function() {
     return new Promise((resolve, reject) => {
         const query = `

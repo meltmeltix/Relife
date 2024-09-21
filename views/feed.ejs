@@ -57,30 +57,32 @@
 
             <!-- Post Modal -->
             <dialog id="post_modal" class="tw-dy-modal tw-dy-modal-bottom sm:tw-dy-modal-middle">
-                <div class="tw-dy-modal-box tw-flex tw-flex-col tw-gap-4 tw-align-bottom">
+                <div class="tw-dy-modal-box tw-flex tw-flex-col tw-align-bottom">
                     <form method="dialog">
                         <button class="tw-dy-btn tw-dy-btn-ghost tw-dy-btn-square tw-dy-btn-sm tw-absolute tw-right-4 tw-top-4"><i data-lucide="x"></i></button>
                     </form>
 
-                    <span class="tw-text-xl tw-w-full">New post</span>
+                    <form action="/sessions" method="post" class="tw-flex tw-flex-col tw-gap-2">
+                        <span class="tw-text-xl tw-w-full">New post</span>
 
-                    <label class="tw-dy-form-control">
-                        <textarea id="post_textarea" class="tw-dy-textarea tw-dy-textarea-bordered tw-dy-textarea-md tw-h-40 tw-resize-none" maxlength="200" placeholder="Something new to share?"></textarea>
-                        <div class="tw-dy-label">
-                            <span id="post_textarea_counter" class="tw-dy-label-text-alt">0/200</span>
+                        <label class="tw-dy-form-control">
+                            <textarea id="post_textarea" class="tw-dy-textarea tw-dy-textarea-bordered tw-dy-textarea-md tw-h-40 tw-resize-none" maxlength="200" placeholder="Something new to share?"></textarea>
+                            <div class="tw-dy-label">
+                                <span id="post_textarea_counter" class="tw-dy-label-text-alt">0/200</span>
+                            </div>
+                        </label>
+
+                        <label class="tw-dy-form-control">
+                            <input id="post_upload" type="file" class="tw-dy-file-input tw-dy-file-input-bordered">
+                            <div class="tw-dy-label">
+                                <span id="post_textarea_counter" class="tw-dy-label-text-alt">Maximum size: 200kb</span>
+                            </div>
+                        </label>
+
+                        <div class="tw-flex tw-flex-row tw-justify-end">
+                            <button id="post_submit" type="submit" disabled class="tw-dy-btn tw-dy-btn-primary tw-rounded-xl tw-w-28">Post</button>
                         </div>
-                    </label>
-
-                    <label class="tw-dy-form-control">
-                        <input type="file" class="tw-dy-file-input tw-dy-file-input-bordered">
-                        <div class="tw-dy-label">
-                            <span id="post_textarea_counter" class="tw-dy-label-text-alt">Maximum size: 200kb</span>
-                        </div>
-                    </label>
-
-                    <div class="tw-flex tw-flex-row tw-justify-end">
-                        <button class="tw-dy-btn tw-dy-btn-primary tw-rounded-xl tw-w-28">Post</button>
-                    </div>
+                    </form>
                 </div>
             </dialog>
 
@@ -250,14 +252,39 @@
     <script>
         const textarea = document.getElementById('post_textarea')
         const counter = document.getElementById('post_textarea_counter')
+        const upload = document.getElementById('post_upload')
+        const submit = document.getElementById('post_submit')
 
+        function updateCounter() {
+            const maxLength = textarea.getAttribute("maxlength");
+            const currentLength = textarea.value.length;
+            counter.innerHTML = currentLength + ' / ' + maxLength;
+        }
+
+        function checkFormValidity() {
+            const file = upload.files[0];
+            const isTextareaFilled = textarea.value.length > 0;
+            const isFileValid = file && file.size <= 200 * 1024; // 200KB in bytes
+        
+            if (isTextareaFilled || isFileValid) {
+                submit.disabled = false;
+            } else {
+                submit.disabled = true;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            updateCounter();
+            checkFormValidity();
+        });
+        
         textarea.addEventListener("input", ({ currentTarget: target }) => {
-            const maxLength = target.getAttribute("maxlength");
-            const currentLength = target.value.length;
-        
-            if (currentLength > maxLength) return
-        
-            counter.innerHTML = currentLength + ' / ' + maxLength
+            updateCounter();
+            checkFormValidity();
+        });
+
+        upload.addEventListener("change", () => {
+            checkFormValidity();
         });
     </script>
 </body>
