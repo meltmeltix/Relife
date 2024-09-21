@@ -21,8 +21,8 @@ function createPost(post) {
             ${post.attachment != null ? 
                 `
                     <div 
-                        class="tw-w-full tw-h-48 tw-bg-cover tw-bg-center tw-rounded-lg" 
-                        style="background-image: url(${post.attachment})">
+                        class="tw-w-full tw-h-48 tw-bg-cover tw-bg-center tw-rounded-lg tw-bg-base-100" 
+                        style="background-image: url()">
                     </div>
                 ` 
                 : ``
