@@ -109,7 +109,7 @@ exports.getUserProfile = function(handle) {
                 handle: row.handle, 
                 name: row.name, 
                 bio: row.bio,
-                avatar: row.avatar ? `data:image/jpeg;base64,${row.avatar.toString('base64')}` : null,
+                avatar: row.avatar ? `data:image/webp;base64,${row.avatar.toString('base64')}` : null,
             }
             console.log('User found!')
             resolve(user)
