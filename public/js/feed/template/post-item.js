@@ -21,8 +21,8 @@ function createPost(post) {
             ${post.attachment != null ? 
                 `
                     <div 
-                        class="tw-w-full tw-h-48 tw-bg-cover tw-bg-center tw-rounded-lg tw-bg-base-100" 
-                        style="background-image: url()">
+                        class="tw-w-full tw-h-48 tw-bg-cover tw-bg-center tw-rounded-lg tw-bg-base-300" 
+                        style="background-image: url(${post.attachment})">
                     </div>
                 ` 
                 : ``
@@ -32,15 +32,15 @@ function createPost(post) {
                 <div class="tw-grid tw-grid-cols-3 tw-w-full tw-gap-1.5">
                     <button class="tw-dy-btn tw-dy-btn-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                        1k
+                        0
                     </button>
                     <button class="tw-dy-btn tw-dy-btn-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-                        500
+                        0
                     </button>
                     <button class="tw-dy-btn tw-dy-btn-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
-                        1.5k
+                        0
                     </button>
                 </div>
 

@@ -10,8 +10,6 @@ class App {
         this.contentContainer = contentContainer
 
         page('/explore', () => {
-            if (userType == 'USER') page.redirect('/home')
-
             document.title = 'Explore | Relife'
 
             titleBar.innerHTML = 'Explore'
@@ -21,6 +19,8 @@ class App {
         })
 
         page('/home', () => {
+            if (userType == 'GUEST') page.redirect('/explore')
+
             document.title = 'Home | Relife'
 
             titleBar.innerHTML = 'Home'
@@ -84,7 +84,7 @@ class App {
     }
 
     buildProfile = async(handle, page, userType, navDrawer, navBar, titleBar) => {
-        titleBar.innerHTML = `${userType == 'GUEST' ? 'User profile' : ''}`
+        titleBar.innerHTML = `${userType == 'GUEST' ? 'User profile' : 'Profile'}`
         titleBar.classList.add("tw-pl-3")
         
         if (userType == 'USER') {
