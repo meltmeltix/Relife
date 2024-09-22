@@ -13,8 +13,8 @@ const session = require('express-session')
 const sessionRouter = require('./routes/session')
 const accessRouter = require('./routes/access')
 const registerRouter = require('./routes/register')
-const uploadRouter = require('./routes/post')
 
+const newUploadRoute = require('./routes/new-upload')
 const feedRouter = require('./routes/feed')
 
 const userDao = require('./models/user-dao')
@@ -119,16 +119,12 @@ app.get('/api/user-profile', (req, res) => {
         })
 })
 
-app.post('/api/new-post', (req, res) => {
-    
-})
-
 app.use('/', sessionRouter)
 app.use('/', feedRouter)
 app.use('/a', accessRouter)
 app.use('/sessions', sessionRouter)
 app.use('/register', registerRouter)
-app.use('/u')
+app.use('/new', newUploadRoute)
 
 app.use(function (req, res, next) { next(createError(404)) })
 app.use(function (err, req, res, next) {

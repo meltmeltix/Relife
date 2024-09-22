@@ -4,8 +4,23 @@ const { rejects } = require('assert')
 const db = require('../database/db.js')
 const sqlite3 = require('sqlite3')
 
-exports.newPost = function() {
-    
+exports.newPostAttachment = function(body, attachment, date, author) {
+    return new Promise((resolve, reject) => {
+        const query = attachment
+            ? 'INSERT INTO post(body, attachment, date, author) VALUES (?, ?, ?, ?)'
+            : 'INSERT INTO post(body, date, author VALUES (?, ?, ?)'
+        const post = attachment
+            ? [body, attachment, date, author]
+            : [body, date, author]
+
+        db.run(query, post, (err) => {
+            if (err) {
+                console.error('Error executing query:', err)
+                return reject(err)
+            }
+            resolve({author})
+        })
+    })
 }
 
 exports.getAllPosts = function() {

@@ -62,18 +62,20 @@
                         <button class="tw-dy-btn tw-dy-btn-ghost tw-dy-btn-square tw-dy-btn-sm tw-absolute tw-right-4 tw-top-4"><i data-lucide="x"></i></button>
                     </form>
 
-                    <form action="/sessions" method="post" class="tw-flex tw-flex-col tw-gap-2">
+                    <form action="/new/post" method="post" class="tw-flex tw-flex-col tw-gap-2" enctype="multipart/form-data">
+                        <input name="author" id="post_author" type="hidden">
+
                         <span class="tw-text-xl tw-w-full">New post</span>
 
                         <label class="tw-dy-form-control">
-                            <textarea id="post_textarea" class="tw-dy-textarea tw-dy-textarea-bordered tw-dy-textarea-md tw-h-40 tw-resize-none" maxlength="200" placeholder="Something new to share?"></textarea>
+                            <textarea name="body" id="post_textarea" class="tw-dy-textarea tw-dy-textarea-bordered tw-dy-textarea-md tw-h-40 tw-resize-none" maxlength="200" placeholder="Something new to share?"></textarea>
                             <div class="tw-dy-label">
                                 <span id="post_textarea_counter" class="tw-dy-label-text-alt">0/200</span>
                             </div>
                         </label>
 
                         <label class="tw-dy-form-control">
-                            <input id="post_upload" type="file" class="tw-dy-file-input tw-dy-file-input-bordered">
+                            <input name="attachment" id="post_upload" type="file" accept="image/png, image/jpeg" class="tw-dy-file-input tw-dy-file-input-bordered">
                             <div class="tw-dy-label">
                                 <span id="post_textarea_counter" class="tw-dy-label-text-alt">Maximum size: 200kb</span>
                             </div>
@@ -254,6 +256,8 @@
         const counter = document.getElementById('post_textarea_counter')
         const upload = document.getElementById('post_upload')
         const submit = document.getElementById('post_submit')
+
+        document.getElementById('post_author').value = loggedUser
 
         function updateCounter() {
             const maxLength = textarea.getAttribute("maxlength");
