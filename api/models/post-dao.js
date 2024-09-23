@@ -4,11 +4,11 @@ const { rejects } = require('assert')
 const db = require('../database/db.js')
 const sqlite3 = require('sqlite3')
 
-exports.newPostAttachment = function(body, attachment, date, author) {
+exports.newPost = function(body, attachment, date, author) {
     return new Promise((resolve, reject) => {
         const query = attachment
             ? 'INSERT INTO post(body, attachment, date, author) VALUES (?, ?, ?, ?)'
-            : 'INSERT INTO post(body, date, author VALUES (?, ?, ?)'
+            : 'INSERT INTO post(body, date, author) VALUES (?, ?, ?)'
         const post = attachment
             ? [body, attachment, date, author]
             : [body, date, author]
@@ -21,6 +21,10 @@ exports.newPostAttachment = function(body, attachment, date, author) {
             resolve({author})
         })
     })
+}
+
+exports.newReply + function(body, attachment, date, author) {
+    
 }
 
 exports.getAllPosts = function() {
