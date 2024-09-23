@@ -10,7 +10,7 @@ function createPost(post) {
                         src="${post.avatar != null ? post.avatar : `/webp/no-avatar-24x24.webp`}"
                     />
                 </div>
-                <a href="/profile/${post.handle}" class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis">
+                <a href="/${post.handle}" class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis">
                     ${post.name} · @${post.handle}
                 </a>
                 <div class="tw-ml-auto tw-whitespace-nowrap">${moment(post.date).fromNow()}</div>

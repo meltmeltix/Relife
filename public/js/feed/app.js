@@ -51,30 +51,26 @@ class App {
             navBar.insertAdjacentHTML('beforeend', returnNavBarItems('SEARCH', loggedUser) )
         })
 
-        page('/profile', () => {
-            // handle logic to send guest back to explore and registered user to personal profile
-        })
-
-        page('/profile/:handle', (ctx) => {
+        page('/:handle', (ctx) => {
             const handle = ctx.params.handle
             document.title = handle + ' | Relife'
             this.buildProfile(handle, 'POSTS', userType, navDrawer, navBar, titleBar)
             this.getUserPosts(handle)
         })
 
-        page('/profile/:handle/replies', (ctx) => {
+        page('/:handle/replies', (ctx) => {
             const handle = ctx.params.handle
             document.title = 'Posts replied by ' + handle + ' | Relife'
             this.buildProfile(handle, 'REPLIES', userType, navDrawer, navBar, titleBar)
         })
 
-        page('/profile/:handle/media', (ctx) => {
+        page('/:handle/media', (ctx) => {
             const handle = ctx.params.handle
             document.title = 'Media uploaded by ' + handle + ' | Relife'
             this.buildProfile(handle, 'MEDIA', userType, navDrawer, navBar, titleBar)
         })
 
-        page('/profile/:handle/likes', (ctx) => {
+        page('/:handle/likes', (ctx) => {
             const handle = ctx.params.handle
             document.title = 'Posts liked by ' + handle + ' | Relife'
             this.buildProfile(handle, 'LIKES', userType, navDrawer, navBar, titleBar)
