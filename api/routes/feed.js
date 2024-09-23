@@ -18,10 +18,6 @@ router.get('/search', function(req, res, next) {
     else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 
-router.get('/profile', function(req, res, next) {
-    if(!req.isAuthenticated()) res.redirect('/explore')
-    else res.redirect('/home')
-})
 
 router.get('/:handle', function(req, res, next) {
     if(!req.isAuthenticated()) res.render('feed', { sessionType: "GUEST", userHandle: null })
@@ -29,7 +25,7 @@ router.get('/:handle', function(req, res, next) {
 })
 
 router.get('/:handle/replies', function(req, res, next) {
-    if(!req.isAuthenticated()) res.render('feed', { sessionType: "GUEST", userHandle: null })
+    if(!req.isAuthenticated()) res.redirect('/' + req.params.handle)
     else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 
@@ -43,6 +39,13 @@ router.get('/:handle/likes', function(req, res, next) {
     else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 
-router.get('/:handle')
+
+router.get('/:handle/status', function(req, res, next) {
+    res.redirect('/' + req.params.handle)
+})
+
+router.get('/:handle/status/:post', function(req, res, next) {
+
+})
 
 module.exports = router

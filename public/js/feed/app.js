@@ -2,7 +2,7 @@ import Api from './api.js'
 import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
 import { returnProfileHeader } from './template/profile-layout.js'
-import { createPost } from './template/post-item.js'
+import { createPost, createFocusedPost } from './template/post-item.js'
 import { returnNavBarItems, returnDrawerItems, returnTabRow } from './template/navigation-item.js'
 
 class App {
@@ -76,6 +76,11 @@ class App {
             this.buildProfile(handle, 'LIKES', userType, navDrawer, navBar, titleBar)
         })
 
+        page('/:handle/status/', (ctx) => {
+            const handle = ctx.params.handle
+            page.redirect('/' + handle)
+        })
+
         page()
     }
 
@@ -119,9 +124,11 @@ class App {
         const profile = await Api.getProfile(handle)
 
         this.contentContainer.innerHTML = ''
-        this.contentContainer.classList.remove('tw-p-2')
+        this.contentContainer.classList.add('tw-p-2')
         this.contentContainer.insertAdjacentHTML('beforeend', returnProfileHeader(profile))
-        this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow(active, handle, userType))
+
+        if (userType != 'GUEST')
+            this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow(active, handle))
     }
 }
 

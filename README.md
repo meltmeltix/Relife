@@ -34,7 +34,7 @@ The application's user concept consists of three different types of users. Each 
   - Create an account
   - Explore the global feed
   - Search users
-  - Check users profile: can only see posts and replies, not media or likes
+  - Check users profile: can only see posts
 - 👨‍💻 **User** - Registered user
   - All of the above: can now see media and likes of a user
   - Login and change password
