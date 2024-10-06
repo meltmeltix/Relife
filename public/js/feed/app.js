@@ -2,7 +2,7 @@ import Api from './api.js'
 import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
 import { returnProfileHeader } from './template/profile-layout.js'
-import { createPost, createFocusedPost } from './template/post-item.js'
+import { createPost } from './template/post-item.js'
 import { returnNavBarItems, returnDrawerItems, returnTabRow } from './template/navigation-item.js'
 
 class App {
@@ -15,7 +15,7 @@ class App {
             titleBar.innerHTML = 'Explore'
             titleBar.classList.add("tw-pl-3")
 
-            this.getPosts()
+            this.getAllPosts()
         })
 
         page('/home', () => {
@@ -32,7 +32,7 @@ class App {
             navBar.innerHTML = '';
             navBar.insertAdjacentHTML('beforeend', returnNavBarItems('HOME', loggedUser) )
 
-            this.getPosts()
+            this.getAllPosts()
         })
 
         page('/search', () => {
@@ -81,7 +81,23 @@ class App {
             page.redirect('/' + handle)
         })
 
+        page('/:handle/status/:post', (ctx) => {
+            const handle = ctx.params.handle
+            const post = ctx.params.post
+
+            if (userType == 'GUEST') page.redirect('/' + handle)
+
+            this.buildStatus(hande, post, userType, navDrawer, navBar, titleBar)
+        })
+
         page()
+    }
+
+    buildStatus = async(hande, post, userType, navDrawer, navBar, titleBar) => {
+        titleBar.innerHTML = 'Post'
+        titleBar.classList.add("tw-pl-3")
+
+        // TODO
     }
 
     buildProfile = async(handle, page, userType, navDrawer, navBar, titleBar) => {
@@ -99,13 +115,13 @@ class App {
         this.getProfile(handle, page, userType)
     }
 
-    getPosts = async () => {
-        const posts = await Api.getPosts()
+    getAllPosts = async () => {
+        const posts = await Api.getAllPosts()
 
         this.contentContainer.innerHTML = ''
         this.contentContainer.classList.add('tw-p-2')
         for (let post of posts) {
-            const p = createPost(post)
+            const p = createPost(post, false)
             this.contentContainer.insertAdjacentHTML('beforeend', p)
         }
     }
@@ -118,6 +134,11 @@ class App {
             const p = createPost(post)
             this.contentContainer.insertAdjacentHTML('beforeend', p)
         }
+    }
+
+    getStatus = async (id) => {
+        const post = await Api.getPost(id, handle)
+
     }
 
     getProfile = async (handle, active, userType) => {

@@ -66,8 +66,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 1000 * 60 * 60
+        secure: process.env.NODE_ENV === 'production'
     }
 }))
 
@@ -102,6 +101,22 @@ app.get('/api/posts', (req, res) => {
                 res.status(500).end()
             })
     }
+})
+
+app.get('/api/status', (req, res) => {
+    const id = req.query.id
+    const handle = req.query.handle
+    console.log('Fetching post with id', id)
+
+    postDao.getStatus(id, handle)
+        .then((status) => {
+            console.log('Fetching post with id', id, ': Success')
+            res.json(status)
+        })
+        .catch(() => {
+            console.log('Fetching post with id', id, ': Failure')
+            res.status(500).end()
+        })
 })
 
 app.get('/api/user-profile', (req, res) => {

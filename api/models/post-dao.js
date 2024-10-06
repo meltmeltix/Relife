@@ -1,6 +1,5 @@
 'use strict'
 
-const { rejects } = require('assert')
 const db = require('../database/db.js')
 const sqlite3 = require('sqlite3')
 
@@ -83,6 +82,41 @@ exports.getUserPosts = function(handle) {
                 avatar: p.avatar ? `data:image/jpeg;base64,${p.avatar.toString('base64')}` : null,
             }))
             resolve(posts)
+        })
+    })
+}
+
+exports.getStatus = function(id, handle) {
+    return new Promise((resolve, rejects) => {
+        console.log('Querying for user', handle, 'status with id', id)
+
+        const query = `
+            SELECT id, body, attachment, date, handle, name, avatar
+            FROM post, user
+            WHERE id = ? AND handle = ?
+        `
+
+        db.get(query, [id, handle], (err, row) => {
+            if (err) {
+                console.error('Database error:', err)
+                return reject(err)
+            }
+            if(!row) {
+                console.log('Status not found')
+                return resolve({ error: 'Post not found' })
+            }
+
+            const status = {
+                id: row.id, 
+                body: row.body, 
+                attachment: row.attachment ? `data:image/jpeg;base64,${row.attachment.toString('base64')}` : null,
+                date: row.date,
+                handle: row.handle,
+                name: row.name,
+                avatar: row.avatar ? `data:image/jpeg;base64,${row.avatar.toString('base64')}` : null,
+            }
+
+            resolve({ status })
         })
     })
 }

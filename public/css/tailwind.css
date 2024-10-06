@@ -3060,6 +3060,10 @@ html:has(.tw-dy-drawer-toggle:checked) {
   display: none;
 }
 
+.tw-h-10 {
+  height: 2.5rem;
+}
+
 .tw-h-2 {
   height: 0.5rem;
 }
@@ -3096,12 +3100,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   height: 100%;
 }
 
-.tw-h-10 {
-  height: 2.5rem;
-}
-
 .tw-min-h-\[100svh\] {
   min-height: 100svh;
+}
+
+.tw-w-10 {
+  width: 2.5rem;
 }
 
 .tw-w-20 {
@@ -3139,10 +3143,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 .tw-w-min {
   width: -moz-min-content;
   width: min-content;
-}
-
-.tw-w-10 {
-  width: 2.5rem;
 }
 
 .tw-flex-1 {
@@ -3221,12 +3221,12 @@ html:has(.tw-dy-drawer-toggle:checked) {
   gap: 0.75rem;
 }
 
-.tw-gap-6 {
-  gap: 1.5rem;
-}
-
 .tw-gap-4 {
   gap: 1rem;
+}
+
+.tw-gap-6 {
+  gap: 1.5rem;
 }
 
 .tw-gap-x-2 {
@@ -3340,10 +3340,6 @@ html:has(.tw-dy-drawer-toggle:checked) {
 
 .tw-p-0 {
   padding: 0px;
-}
-
-.tw-p-2 {
-  padding: 0.5rem;
 }
 
 .tw-p-3 {
@@ -3493,6 +3489,26 @@ html:has(.tw-dy-drawer-toggle:checked) {
   .tw-inverted-background {
     --tw-bg-opacity: 1;
     background-color: rgb(67 65 35 / var(--tw-bg-opacity));
+  }
+}
+
+.tw-post {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  border-radius: 1rem;
+  padding: 0.875rem;
+}
+
+.tw-post-background {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 236 221 / var(--tw-bg-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  .tw-post-background {
+    --tw-bg-opacity: 1;
+    background-color: rgb(34 32 17 / var(--tw-bg-opacity));
   }
 }
 
