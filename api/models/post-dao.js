@@ -116,7 +116,7 @@ exports.getStatus = function(id, handle) {
                 avatar: row.avatar ? `data:image/jpeg;base64,${row.avatar.toString('base64')}` : null,
             }
 
-            resolve({ status })
+            resolve(status)
         })
     })
 }

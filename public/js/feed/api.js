@@ -11,8 +11,8 @@ class Api {
     }
 
     static getStatus = async(id, handle) => {
-        let reponse = await fetch('/api/status?' + new URLSearchParams({id: id, handle: handle}))
-        const statusJson = await reponse.json()
+        let response = await fetch('/api/status?' + new URLSearchParams({id: id, handle: handle}))
+        const statusJson = await response.json()
 
         if (response.ok) return Post.from(statusJson)
         else throw statusJson

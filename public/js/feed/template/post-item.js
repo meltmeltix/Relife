@@ -2,7 +2,7 @@
 
 function createPost(post, isFocused) {
     return `
-        <div class="tw-post tw-post-background">
+        <div class="tw-post ${isFocused ? '' : 'tw-post-background'}">
             ${isFocused ? `
                     <a href="/${post.handle}" class="tw-flex tw-items-center tw-w-full tw-gap-4 tw-h-10">
                         <div class="avatar tw-w-10">
@@ -11,10 +11,10 @@ function createPost(post, isFocused) {
                                 src="${post.avatar != null ? post.avatar : `/webp/no-avatar-24x24.webp`}"
                             />
                         </div>
-                        <a  class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis tw-leading-5">
+                        <div class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis tw-leading-5">
                             ${post.name}<br>
                             <span class="tw-opacity-90 tw-text-sm">@${post.handle}</span>
-                        </a>
+                        </div>
                     </a>
                 ` : `
                     <a href="/${post.handle}" class="tw-flex tw-items-center tw-w-full tw-gap-1.5 tw-h-6">

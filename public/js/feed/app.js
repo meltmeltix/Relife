@@ -77,8 +77,7 @@ class App {
         })
 
         page('/:handle/status/', (ctx) => {
-            const handle = ctx.params.handle
-            page.redirect('/' + handle)
+            console.log("THROW ERROR")
         })
 
         page('/:handle/status/:post', (ctx) => {
@@ -87,17 +86,23 @@ class App {
 
             if (userType == 'GUEST') page.redirect('/' + handle)
 
-            this.buildStatus(hande, post, userType, navDrawer, navBar, titleBar)
+            this.buildStatus(handle, post, navDrawer, navBar, titleBar)
         })
 
         page()
     }
 
-    buildStatus = async(hande, post, userType, navDrawer, navBar, titleBar) => {
+    buildStatus = async(handle, post, navDrawer, navBar, titleBar) => {
         titleBar.innerHTML = 'Post'
         titleBar.classList.add("tw-pl-3")
 
-        // TODO
+        navDrawer.innerHTML = ''
+        navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('', loggedUser))
+
+        navBar.innerHTML = ''
+        navBar.insertAdjacentHTML('beforeend', returnNavBarItems('', loggedUser))
+
+        this.getStatus(post, handle)
     }
 
     buildProfile = async(handle, page, userType, navDrawer, navBar, titleBar) => {
@@ -105,10 +110,10 @@ class App {
         titleBar.classList.add("tw-pl-3")
         
         if (userType == 'USER') {
-            navDrawer.innerHTML = '';
+            navDrawer.innerHTML = ''
             navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
 
-            navBar.innerHTML = '';
+            navBar.innerHTML = ''
             navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
         }
 
@@ -136,9 +141,12 @@ class App {
         }
     }
 
-    getStatus = async (id) => {
-        const post = await Api.getPost(id, handle)
+    getStatus = async (id, handle) => {
+        const post = await Api.getStatus(id, handle)
 
+        this.contentContainer.innerHTML = ''
+        this.contentContainer.classList.add('tw-p-2')
+        this.contentContainer.insertAdjacentHTML('beforeend', createPost(post, true))
     }
 
     getProfile = async (handle, active, userType) => {

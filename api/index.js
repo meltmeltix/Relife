@@ -106,15 +106,15 @@ app.get('/api/posts', (req, res) => {
 app.get('/api/status', (req, res) => {
     const id = req.query.id
     const handle = req.query.handle
-    console.log('Fetching post with id', id)
+    console.log('Fetching post with', id, 'as id')
 
     postDao.getStatus(id, handle)
         .then((status) => {
-            console.log('Fetching post with id', id, ': Success')
+            console.log('Fetching post with', id, 'as id: Success')
             res.json(status)
         })
         .catch(() => {
-            console.log('Fetching post with id', id, ': Failure')
+            console.log('Fetching post with', id, 'as id: Failure')
             res.status(500).end()
         })
 })
