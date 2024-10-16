@@ -1,9 +1,12 @@
+'use strict'
+
 import Api from './api.js'
 import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
 import { returnProfileHeader } from './template/profile-layout.js'
 import { createPost } from './template/post-item.js'
-import { returnNavBarItems, returnDrawerItems, returnTabRow } from './template/navigation-item.js'
+import { returnTabRow } from './template/navigation-item.js'
+import appNavigation from './util/functions/navigation.js'
 
 class App {
     constructor(userType, loggedUser, navDrawer, navBar, titleBar, contentContainer) {
@@ -26,11 +29,7 @@ class App {
             titleBar.innerHTML = 'Home'
             titleBar.classList.add("tw-pl-3")
 
-            navDrawer.innerHTML = '';
-            navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('HOME', loggedUser) )
-
-            navBar.innerHTML = '';
-            navBar.insertAdjacentHTML('beforeend', returnNavBarItems('HOME', loggedUser) )
+            appNavigation('HOME', navDrawer, navBar, loggedUser)
 
             this.getAllPosts()
         })
@@ -44,11 +43,7 @@ class App {
             this.contentContainer.innerHTML = ''
             this.contentContainer.classList.add('tw-p-2')
 
-            navDrawer.innerHTML = '';
-            navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('SEARCH', loggedUser) )
-
-            navBar.innerHTML = '';
-            navBar.insertAdjacentHTML('beforeend', returnNavBarItems('SEARCH', loggedUser) )
+            appNavigation('SEARCH', navDrawer, navBar, loggedUser)
         })
 
         page('/:handle', (ctx) => {
@@ -96,11 +91,7 @@ class App {
         titleBar.innerHTML = 'Post'
         titleBar.classList.add("tw-pl-3")
 
-        navDrawer.innerHTML = ''
-        navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('', loggedUser))
-
-        navBar.innerHTML = ''
-        navBar.insertAdjacentHTML('beforeend', returnNavBarItems('', loggedUser))
+        appNavigation('', navDrawer, navBar, loggedUser)
 
         this.getStatus(post, handle)
     }
@@ -109,13 +100,7 @@ class App {
         titleBar.innerHTML = `${userType == 'GUEST' ? 'User profile' : 'Profile'}`
         titleBar.classList.add("tw-pl-3")
         
-        if (userType == 'USER') {
-            navDrawer.innerHTML = ''
-            navDrawer.insertAdjacentHTML('beforeend', returnDrawerItems('PROFILE', loggedUser) )
-
-            navBar.innerHTML = ''
-            navBar.insertAdjacentHTML('beforeend', returnNavBarItems('PROFILE', loggedUser) )
-        }
+        appNavigation('PROFILE', navDrawer, navBar, loggedUser)
 
         this.getProfile(handle, page, userType)
     }

@@ -44,7 +44,7 @@ function createPost(post, isFocused) {
                 : ``
             }
 
-            ${isFocused ? `<span>${moment(post.date).format('h:mm · DD MMM YY')}</span>` : ''}
+            ${isFocused ? `<span class="tw-opacity-70">${moment(post.date).format('h:mm · DD MMM YY')}</span>` : ''}
 
             <div class="tw-flex tw-flex-row tw-gap-1.5 tw-w-full">
                 <div class="tw-grid tw-grid-cols-3 tw-w-full tw-gap-1.5">

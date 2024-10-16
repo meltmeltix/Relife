@@ -1,5 +1,5 @@
-import Post from './objects/post.js'
-import Profile from './objects/profile.js'
+import Post from './data/classes/post.js'
+import Profile from './data/classes/profile.js'
 
 class Api {
     static getAllPosts = async() => {
