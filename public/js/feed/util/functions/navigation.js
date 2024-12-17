@@ -1,7 +1,7 @@
 'use strict'
 
-import { destinationList } from "../../data/constants/navigation.js"
-import { bottomNavItem, drawerItem } from "../../template/navigation-item.js"
+import {destinationList, profileTabs} from "../../data/constants/navigation.js"
+import {bottomNavItem, drawerItem, tabRowItem} from "../../template/navigation-item.js"
 
 async function appNavigation(active, navDrawer, navBar, loggedUser) {
     navDrawer.innerHTML = ''
@@ -15,8 +15,14 @@ async function appNavigation(active, navDrawer, navBar, loggedUser) {
     })
 }
 
-async function profileNavigation(active, loggedUser) {
+async function profileNavigation(active, tabRow, loggedUser) {
+    tabRow.innerHTML = ''
 
+    profileTabs[destinationList.length - 1].url = loggedUser
+
+    profileTabs.forEach(dest => {
+        tabRow.insertAdjacentHTML('beforeend', tabRowItem(active, loggedUser, dest));
+    })
 }
 
-export default { appNavigation, profileNavigation }
+export {appNavigation, profileNavigation}

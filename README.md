@@ -8,9 +8,9 @@
 
 ## 🤔 About
 
-Relife is a social media platform that focuses mainly on discussions about plants, inspired by other renowed social media platforms, built using Tailwind CSS, Daisy UI, Bootstrap CSS, Express.js and SQLite.
+Relife is a social media platform that focuses mainly on discussions about plants, inspired by other renowned social media platforms, built using Tailwind CSS, Daisy UI, Bootstrap CSS, Express.js and SQLite.
 
-This website is the main assignment of the course [Web Programming Metodologies](https://of.uniupo.it/syllabus/didattica.php/en/2023/1932#176019), part of the 2023/2024 Academic Program.
+This website is the main assignment of the course [Web Programming Methodologies](https://of.uniupo.it/syllabus/didattica.php/en/2023/1932#176019), part of the 2023/2024 Academic Program.
 
 <br>
 

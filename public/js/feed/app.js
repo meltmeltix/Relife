@@ -6,7 +6,7 @@ import { returnSearchBar } from './template/search-components.js'
 import { returnProfileHeader } from './template/profile-layout.js'
 import { createPost } from './template/post-item.js'
 import { returnTabRow } from './template/navigation-item.js'
-import appNavigation from './util/functions/navigation.js'
+import { appNavigation } from './util/functions/navigation.js'
 
 class App {
     constructor(userType, loggedUser, navDrawer, navBar, titleBar, contentContainer) {
@@ -22,7 +22,7 @@ class App {
         })
 
         page('/home', () => {
-            if (userType == 'GUEST') page.redirect('/explore')
+            if (userType === 'GUEST') page.redirect('/explore')
 
             document.title = 'Home | Relife'
 
@@ -49,8 +49,9 @@ class App {
         page('/:handle', (ctx) => {
             const handle = ctx.params.handle
             document.title = handle + ' | Relife'
-            this.buildProfile(handle, 'POSTS', userType, navDrawer, navBar, titleBar)
-            this.getUserPosts(handle)
+            this
+                .buildProfile(handle, 'POSTS', userType, navDrawer, navBar, titleBar)
+                .then(this.getUserPosts(handle))
         })
 
         page('/:handle/replies', (ctx) => {
@@ -79,7 +80,7 @@ class App {
             const handle = ctx.params.handle
             const post = ctx.params.post
 
-            if (userType == 'GUEST') page.redirect('/' + handle)
+            if (userType === 'GUEST') page.redirect('/' + handle)
 
             this.buildStatus(handle, post, navDrawer, navBar, titleBar)
         })
@@ -97,7 +98,7 @@ class App {
     }
 
     buildProfile = async(handle, page, userType, navDrawer, navBar, titleBar) => {
-        titleBar.innerHTML = `${userType == 'GUEST' ? 'User profile' : 'Profile'}`
+        titleBar.innerHTML = `${userType === 'GUEST' ? 'User profile' : 'Profile'}`
         titleBar.classList.add("tw-pl-3")
         
         appNavigation('PROFILE', navDrawer, navBar, loggedUser)
@@ -141,7 +142,7 @@ class App {
         this.contentContainer.classList.add('tw-p-2')
         this.contentContainer.insertAdjacentHTML('beforeend', returnProfileHeader(profile))
 
-        if (userType != 'GUEST')
+        if (userType !== 'GUEST')
             this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow(active, handle))
     }
 }
