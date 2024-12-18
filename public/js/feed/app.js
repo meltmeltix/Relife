@@ -3,10 +3,11 @@
 import Api from './api.js'
 import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
-import { returnProfileHeader } from './template/profile-layout.js'
+import { buildProfile } from './template/profile-layout.js'
 import { createPost } from './template/post-item.js'
 import { returnTabRow } from './template/navigation-item.js'
 import { appNavigation } from './util/functions/navigation.js'
+import { renderProfile } from './util/functions/profile.js';
 
 class App {
     constructor(userType, loggedUser, navDrawer, navBar, titleBar, contentContainer) {
@@ -49,27 +50,29 @@ class App {
         page('/:handle', (ctx) => {
             const handle = ctx.params.handle
             document.title = handle + ' | Relife'
-            this
-                .buildProfile(handle, 'POSTS', userType, navDrawer, navBar, titleBar)
-                .then(this.getUserPosts(handle))
+
+            appNavigation('PROFILE', navDrawer, navBar, loggedUser)
+
+            renderProfile(handle, userType, titleBar, contentContainer)
+                .then()
         })
 
         page('/:handle/replies', (ctx) => {
             const handle = ctx.params.handle
             document.title = 'Posts replied by ' + handle + ' | Relife'
-            this.buildProfile(handle, 'REPLIES', userType, navDrawer, navBar, titleBar)
+            //this.buildProfile(handle, 'REPLIES', userType, navDrawer, navBar, titleBar)
         })
 
         page('/:handle/media', (ctx) => {
             const handle = ctx.params.handle
             document.title = 'Media uploaded by ' + handle + ' | Relife'
-            this.buildProfile(handle, 'MEDIA', userType, navDrawer, navBar, titleBar)
+            //this.buildProfile(handle, 'MEDIA', userType, navDrawer, navBar, titleBar)
         })
 
         page('/:handle/likes', (ctx) => {
             const handle = ctx.params.handle
             document.title = 'Posts liked by ' + handle + ' | Relife'
-            this.buildProfile(handle, 'LIKES', userType, navDrawer, navBar, titleBar)
+            //this.buildProfile(handle, 'LIKES', userType, navDrawer, navBar, titleBar)
         })
 
         page('/:handle/status/', (ctx) => {
@@ -95,15 +98,6 @@ class App {
         appNavigation('', navDrawer, navBar, loggedUser)
 
         this.getStatus(post, handle)
-    }
-
-    buildProfile = async(handle, page, userType, navDrawer, navBar, titleBar) => {
-        titleBar.innerHTML = `${userType === 'GUEST' ? 'User profile' : 'Profile'}`
-        titleBar.classList.add("tw-pl-3")
-        
-        appNavigation('PROFILE', navDrawer, navBar, loggedUser)
-
-        this.getProfile(handle, page, userType)
     }
 
     getAllPosts = async () => {
@@ -133,17 +127,6 @@ class App {
         this.contentContainer.innerHTML = ''
         this.contentContainer.classList.add('tw-p-2')
         this.contentContainer.insertAdjacentHTML('beforeend', createPost(post, true))
-    }
-
-    getProfile = async (handle, active, userType) => {
-        const profile = await Api.getProfile(handle)
-
-        this.contentContainer.innerHTML = ''
-        this.contentContainer.classList.add('tw-p-2')
-        this.contentContainer.insertAdjacentHTML('beforeend', returnProfileHeader(profile))
-
-        if (userType !== 'GUEST')
-            this.contentContainer.insertAdjacentHTML('beforeend', returnTabRow(active, handle))
     }
 }
 
