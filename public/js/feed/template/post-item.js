@@ -75,4 +75,8 @@ function createPost(post, isFocused) {
     `
 }
 
+function buildPost(post, isFocused) {
+
+}
+
 export { createPost }

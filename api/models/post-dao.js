@@ -22,7 +22,7 @@ exports.newPost = function(body, attachment, date, author) {
     })
 }
 
-exports.newReply + function(body, attachment, date, author) {
+exports.newReply = function(body, attachment, date, author) {
     
 }
 

@@ -48,30 +48,42 @@ class App {
         page('/:handle', (ctx) => {
             const handle = ctx.params.handle
             document.title = handle + ' | Relife'
-
             appNavigation('PROFILE', navDrawer, navBar, loggedUser)
 
-            renderProfile(handle, userType, titleBar, this.contentContainer).then(() => {
-                profileNavigation('POSTS', loggedUser, this.contentContainer)
-            })
+            renderProfile(handle, userType, titleBar, this.contentContainer)
+                .then(() => {
+                    profileNavigation('POSTS', handle, this.contentContainer)
+                })
         })
 
         page('/:handle/replies', (ctx) => {
             const handle = ctx.params.handle
             document.title = 'Posts replied by ' + handle + ' | Relife'
-            //this.buildProfile(handle, 'REPLIES', userType, navDrawer, navBar, titleBar)
+
+            renderProfile(handle, userType, titleBar, this.contentContainer)
+                .then(() => {
+                    profileNavigation('REPLIES', handle, this.contentContainer)
+                })
         })
 
         page('/:handle/media', (ctx) => {
             const handle = ctx.params.handle
             document.title = 'Media uploaded by ' + handle + ' | Relife'
-            //this.buildProfile(handle, 'MEDIA', userType, navDrawer, navBar, titleBar)
+
+            renderProfile(handle, userType, titleBar, this.contentContainer)
+                .then(() => {
+                    profileNavigation('MEDIA', handle, this.contentContainer)
+                })
         })
 
         page('/:handle/likes', (ctx) => {
             const handle = ctx.params.handle
             document.title = 'Posts liked by ' + handle + ' | Relife'
-            //this.buildProfile(handle, 'LIKES', userType, navDrawer, navBar, titleBar)
+
+            renderProfile(handle, userType, titleBar, this.contentContainer)
+                .then(() => {
+                    profileNavigation('LIKES', handle, this.contentContainer)
+                })
         })
 
         page('/:handle/status/', (ctx) => {
