@@ -25,9 +25,9 @@ export const destinationList = [
 
 export const profileTabs = [
     new Destination(
-        'POST',
-        'post',
-        'Post',
+        'POSTS',
+        '',
+        'Posts',
         ''
     ),
     new Destination(

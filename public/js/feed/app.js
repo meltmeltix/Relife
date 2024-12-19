@@ -3,10 +3,8 @@
 import Api from './api.js'
 import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
-import { buildProfile } from './template/profile-layout.js'
 import { createPost } from './template/post-item.js'
-import { returnTabRow } from './template/navigation-item.js'
-import { appNavigation } from './util/functions/navigation.js'
+import { appNavigation, profileNavigation } from './util/functions/navigation.js'
 import { renderProfile } from './util/functions/profile.js';
 
 class App {
@@ -53,8 +51,9 @@ class App {
 
             appNavigation('PROFILE', navDrawer, navBar, loggedUser)
 
-            renderProfile(handle, userType, titleBar, contentContainer)
-                .then()
+            renderProfile(handle, userType, titleBar, this.contentContainer).then(() => {
+                profileNavigation('POSTS', loggedUser, this.contentContainer)
+            })
         })
 
         page('/:handle/replies', (ctx) => {

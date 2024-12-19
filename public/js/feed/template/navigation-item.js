@@ -34,7 +34,7 @@ function tabRowItem(active, handle, dest) {
         <a 
             href='/${handle}/${dest.url}' 
             role="tab"
-            class="tw-dy-tab ${active === dest.id ? 'tw-dy-active' : ''}">
+            class="tw-dy-tab ${active === dest.id ? 'tw-dy-tab-active' : ''}">
                 ${dest.friendlyName}
         </a>
     `
@@ -43,7 +43,7 @@ function tabRowItem(active, handle, dest) {
 function returnTabRow(active, handle) {
     return `
         <div role="tablist" class="tw-dy-tabs tw-dy-tabs-bordered">
-            <a href='/${handle}/' role="tab" class="tw-dy-tab ${active === 'POSTS' ? 'tw-dy-tab-active' : ''}">Posts</a>
+            <a href='/${handle}' role="tab" class="tw-dy-tab ${active === 'POSTS' ? 'tw-dy-tab-active' : ''}">Posts</a>
             <a href='/${handle}/replies' role="tab" class="tw-dy-tab ${active === 'REPLIES' ? 'tw-dy-tab-active' : ''}">Replies</a>
             <a href='/${handle}/media' role="tab" class="tw-dy-tab ${active === 'MEDIA' ? 'tw-dy-tab-active' : ''}">Media</a>
             <a href='/${handle}/likes' role="tab" class="tw-dy-tab ${active === 'LIKES' ? 'tw-dy-tab-active' : ''}">Likes</a>

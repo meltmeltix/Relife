@@ -15,14 +15,17 @@ async function appNavigation(active, navDrawer, navBar, loggedUser) {
     })
 }
 
-async function profileNavigation(active, tabRow, loggedUser) {
+function profileNavigation(active, loggedUser, contentContainer) {
+    const tabRow = document.createElement('div')
+    tabRow.classList.add('tw-dy-tabs', 'tw-dy-tabs-bordered')
+    tabRow.role = 'tablist'
     tabRow.innerHTML = ''
-
-    profileTabs[destinationList.length - 1].url = loggedUser
 
     profileTabs.forEach(dest => {
         tabRow.insertAdjacentHTML('beforeend', tabRowItem(active, loggedUser, dest));
     })
+
+    contentContainer.appendChild(tabRow)
 }
 
 export {appNavigation, profileNavigation}

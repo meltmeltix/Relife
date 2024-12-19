@@ -7,16 +7,8 @@ async function renderProfile(handle, userType, titleBar, contentContainer) {
     titleBar.innerHTML = `${userType === 'GUEST' ? 'User profile' : 'Profile'}`
     titleBar.classList.add("tw-pl-3")
 
-    Api.getProfile(handle)
-        .then((profile) => {
-            fetchProfileEjs(contentContainer, profile)
-        })
-}
-
-function fetchProfileEjs(contentContainer, profile) {
-    contentContainer.innerHTML = ''
+    const profile = await Api.getProfile(handle)
     contentContainer.classList.add('tw-p-2')
-
     contentContainer.innerHTML = buildProfile(profile)
 }
 
