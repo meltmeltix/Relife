@@ -58,7 +58,11 @@
             <dialog id="post_modal" class="tw-dy-modal tw-dy-modal-bottom sm:tw-dy-modal-middle">
                 <div class="tw-dy-modal-box tw-flex tw-flex-col tw-align-bottom">
                     <form method="dialog">
-                        <button class="tw-dy-btn tw-dy-btn-ghost tw-dy-btn-square tw-dy-btn-sm tw-absolute tw-right-4 tw-top-4"><i data-lucide="x"></i></button>
+                        <button
+                            aria-label="Close post creation modal"
+                            class="tw-dy-btn tw-dy-btn-ghost tw-dy-btn-square tw-dy-btn-sm tw-absolute tw-right-4 tw-top-4">
+                                <i data-lucide="x"></i>
+                        </button>
                     </form>
 
                     <form action="/new/post" method="post" class="tw-flex tw-flex-col tw-gap-2" enctype="multipart/form-data">
@@ -67,7 +71,14 @@
                         <span class="tw-text-xl tw-w-full">New post</span>
 
                         <label class="tw-dy-form-control">
-                            <textarea name="body" id="post_textarea" class="tw-dy-textarea tw-dy-textarea-bordered tw-dy-textarea-md tw-h-40 tw-resize-none" maxlength="200" placeholder="Something new to share?"></textarea>
+                            <textarea
+                                name="body"
+                                id="post_textarea"
+                                class="tw-dy-textarea tw-dy-textarea-bordered tw-dy-textarea-md tw-h-40 tw-resize-none"
+                                maxlength="200"
+                                placeholder="Something new to share?">
+                            </textarea>
+
                             <div class="tw-dy-label">
                                 <span id="post_textarea_counter" class="tw-dy-label-text-alt">0/200</span>
                             </div>
@@ -269,7 +280,7 @@
         <!-- Drawer -->
         <aside class="tw-dy-drawer-side">
             <nav class="tw-flex tw-flex-col tw-w-64 tw-h-full tw-p-3 tw-bg-base-100">
-                <a href="/home" class="tw-dy-btn tw-dy-btn-ghost tw-w-min">
+                <a href="/home" aria-label="Home" class="tw-dy-btn tw-dy-btn-ghost tw-w-min">
                     <svg class="tw-h-7 tw-fill-text-700 dark:tw-fill-text-300" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
                 </a>
 

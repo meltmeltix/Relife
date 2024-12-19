@@ -1,11 +1,12 @@
 // Create avatar HTML
-function createAvatar(avatar) {
+function createAvatar(avatar, name) {
     return `
         <div class="tw-dy-avatar">
             <div class="tw-w-20 tw-rounded-full">
                 <img 
                     class="tw-rounded-full tw-w-full tw-h-full" 
                     src="${avatar || '/webp/no-avatar-96x96.webp'}"
+                    alt="${name}'s profile picture"
                 />
             </div>
         </div>
@@ -30,7 +31,7 @@ function createBio(bio) {
 
 // Main function to return the full profile header
 function buildProfile(profile) {
-    const avatarHtml = createAvatar(profile.avatar);
+    const avatarHtml = createAvatar(profile.avatar, profile.name);
     const userInfoHtml = createUserInfo(profile);
     const bioHtml = createBio(profile.bio);
 
