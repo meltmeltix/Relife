@@ -1,11 +1,12 @@
 'use strict'
 
-import Api from './api.js'
+import Api from './service/api.js'
 import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
 import { createPost } from './template/post-item.js'
 import { appNavigation, profileNavigation } from './util/functions/navigation.js'
 import { renderProfile } from './util/functions/profile.js';
+import Posts from "./service/posts.js";
 
 class App {
     constructor(userType, loggedUser, navDrawer, navBar, titleBar, contentContainer) {
@@ -17,7 +18,7 @@ class App {
             titleBar.innerHTML = 'Explore'
             titleBar.classList.add("tw-pl-3")
 
-            this.getAllPosts()
+            Posts.getAllPosts()
         })
 
         page('/home', () => {
@@ -30,7 +31,7 @@ class App {
 
             appNavigation('HOME', navDrawer, navBar, loggedUser)
 
-            this.getAllPosts()
+            Posts.getAllPosts()
         })
 
         page('/search', () => {
@@ -53,6 +54,7 @@ class App {
             renderProfile(handle, userType, titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('POSTS', handle, this.contentContainer)
+                    Posts.getUserPosts(handle, null, this.contentContainer).then(() => {})
                 })
         })
 
@@ -73,6 +75,7 @@ class App {
             renderProfile(handle, userType, titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('MEDIA', handle, this.contentContainer)
+                    Posts.getUserPosts(handle, 'MEDIA', this.contentContainer).then(() => {})
                 })
         })
 
@@ -109,27 +112,6 @@ class App {
         appNavigation('', navDrawer, navBar, loggedUser)
 
         this.getStatus(post, handle)
-    }
-
-    getAllPosts = async () => {
-        const posts = await Api.getAllPosts()
-
-        this.contentContainer.innerHTML = ''
-        this.contentContainer.classList.add('tw-p-2')
-        for (let post of posts) {
-            const p = createPost(post, false)
-            this.contentContainer.insertAdjacentHTML('beforeend', p)
-        }
-    }
-
-    getUserPosts = async(handle) => {
-        const posts = await Api.getUserPosts(handle)
-
-        // TODO Add padding to content
-        for (let post of posts) {
-            const p = createPost(post)
-            this.contentContainer.insertAdjacentHTML('beforeend', p)
-        }
     }
 
     getStatus = async (id, handle) => {

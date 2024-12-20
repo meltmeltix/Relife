@@ -1,6 +1,6 @@
 'use strict'
 
-import Api from "../../api.js";
+import Api from "../../service/api.js";
 import {buildProfile} from "../../template/profile-layout.js";
 
 async function renderProfile(handle, userType, titleBar, contentContainer) {

@@ -1,5 +1,5 @@
-import Post from './data/classes/post.js'
-import Profile from './data/classes/profile.js'
+import Post from '../data/classes/post.js'
+import Profile from '../data/classes/profile.js'
 
 class Api {
     static getAllPosts = async() => {
@@ -18,8 +18,11 @@ class Api {
         else throw statusJson
     }
 
-    static getUserPosts = async(handle) => {
-        let response = await fetch('/api/posts?' + new URLSearchParams({handle: handle}))
+    static getUserPosts = async(handle, postType) => {
+        let params = new URLSearchParams({handle: handle})
+        if (postType) { params.append('postType', postType) }
+
+        let response = await fetch('/api/posts?' + params)
         const postsJson = await response.json()
 
         if (response.ok) return postsJson.map((pt) => Post.from(pt))

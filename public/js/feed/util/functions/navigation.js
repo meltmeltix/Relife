@@ -3,16 +3,18 @@
 import {destinationList, profileTabs} from "../../data/constants/navigation.js"
 import {bottomNavItem, drawerItem, tabRowItem} from "../../template/navigation-item.js"
 
-async function appNavigation(active, navDrawer, navBar, loggedUser) {
-    navDrawer.innerHTML = ''
-    navBar.innerHTML = ''
+function appNavigation(active, navDrawer, navBar, loggedUser) {
+    if (navDrawer && navBar) {
+        navDrawer.innerHTML = ''
+        navBar.innerHTML = ''
 
-    destinationList[destinationList.length - 1].url = loggedUser
+        destinationList[destinationList.length - 1].url = loggedUser
 
-    destinationList.forEach(dest => {
-        navDrawer.insertAdjacentHTML('beforeend', drawerItem(active, dest));
-        navBar.insertAdjacentHTML('beforeend', bottomNavItem(active, dest));
-    })
+        destinationList.forEach(dest => {
+            navDrawer.insertAdjacentHTML('beforeend', drawerItem(active, dest));
+            navBar.insertAdjacentHTML('beforeend', bottomNavItem(active, dest));
+        })
+    }
 }
 
 function profileNavigation(active, loggedUser, contentContainer) {

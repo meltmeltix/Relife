@@ -75,11 +75,12 @@ app.use(passport.session())
 
 app.get('/api/posts', (req, res) => {
     const handle = req.query.handle
+    const postType = req.query.postType
 
     if (handle) {
         console.log('Fetching', handle, 'posts...')
 
-        postDao.getUserPosts(handle)
+        postDao.getUserPosts(handle, postType)
             .then((posts) => {
                 console.log('Fetching', handle, 'posts: Success')
                 res.json(posts)

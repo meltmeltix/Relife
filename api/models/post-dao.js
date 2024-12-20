@@ -55,16 +55,27 @@ exports.getAllPosts = function() {
     })
 }
 
-exports.getUserPosts = function(handle) {
+exports.getUserPosts = function(handle, postType) {
     return new Promise((resolve, reject) => {
         console.log('Querying for posts with handle:', handle)
 
-        const query = `
-            SELECT id, body, attachment, date, handle, name, avatar
-            FROM post, user
-            WHERE author = handle AND author = ?
-            ORDER BY date DESC
-        `
+        let query
+
+        if (postType === 'MEDIA') {
+            query = `
+                SELECT id, body, attachment, date, handle, name, avatar
+                FROM post, user
+                WHERE author = handle AND author = ? AND attachment IS NOT NULL
+                ORDER BY date DESC
+            `
+        } else {
+            query = `
+                SELECT id, body, attachment, date, handle, name, avatar
+                FROM post, user
+                WHERE author = handle AND author = ?
+                ORDER BY date DESC
+            `
+        }
 
         db.all(query, [handle], (err, rows) => {
             if (err) {
