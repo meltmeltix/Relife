@@ -2,6 +2,7 @@
 
 import Api from "../../service/api.js";
 import {buildProfile} from "../../template/profile-layout.js";
+import {buildPost} from "../../template/post-layout.js";
 
 async function renderProfile(handle, userType, titleBar, contentContainer) {
     titleBar.innerHTML = `${userType === 'GUEST' ? 'User profile' : 'Profile'}`
@@ -12,4 +13,14 @@ async function renderProfile(handle, userType, titleBar, contentContainer) {
     contentContainer.innerHTML = buildProfile(profile)
 }
 
-export { renderProfile }
+async function renderStatus(handle, postId, titleBar, contentContainer) {
+    titleBar.innerHTML = 'Post'
+    titleBar.classList.add("tw-pl-3")
+
+    const post = await Api.getStatus(postId, handle)
+    contentContainer.innerHTML = ''
+    contentContainer.classList.add('tw-p-2')
+    contentContainer.insertAdjacentHTML('beforeend', buildPost(post, true))
+}
+
+export { renderProfile, renderStatus }

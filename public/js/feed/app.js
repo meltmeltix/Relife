@@ -1,11 +1,9 @@
 'use strict'
 
-import Api from './service/api.js'
 import page from '//unpkg.com/page/page.mjs'
 import { returnSearchBar } from './template/search-components.js'
-import { createPost } from './template/post-item.js'
 import { appNavigation, profileNavigation } from './util/functions/navigation.js'
-import { renderProfile } from './util/functions/profile.js';
+import { renderProfile, renderStatus } from './util/functions/profile.js';
 import Posts from "./service/posts.js";
 
 class App {
@@ -95,31 +93,17 @@ class App {
 
         page('/:handle/status/:post', (ctx) => {
             const handle = ctx.params.handle
-            const post = ctx.params.post
-
+            const postId = ctx.params.post
             if (userType === 'GUEST') page.redirect('/' + handle)
 
-            this.buildStatus(handle, post, navDrawer, navBar, titleBar)
+            appNavigation('', navDrawer, navBar, loggedUser)
+
+            renderStatus(handle, postId, titleBar, contentContainer).then(() => {
+
+            })
         })
 
         page()
-    }
-
-    buildStatus = async(handle, post, navDrawer, navBar, titleBar) => {
-        titleBar.innerHTML = 'Post'
-        titleBar.classList.add("tw-pl-3")
-
-        appNavigation('', navDrawer, navBar, loggedUser)
-
-        this.getStatus(post, handle)
-    }
-
-    getStatus = async (id, handle) => {
-        const post = await Api.getStatus(id, handle)
-
-        this.contentContainer.innerHTML = ''
-        this.contentContainer.classList.add('tw-p-2')
-        this.contentContainer.insertAdjacentHTML('beforeend', createPost(post, true))
     }
 }
 
