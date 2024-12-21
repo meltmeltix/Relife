@@ -18,7 +18,7 @@ class App {
             titleBar.innerHTML = 'Explore'
             titleBar.classList.add("tw-pl-3")
 
-            Posts.getAllPosts()
+            Posts.getAllPosts(contentContainer)
         })
 
         page('/home', () => {
@@ -31,7 +31,7 @@ class App {
 
             appNavigation('HOME', navDrawer, navBar, loggedUser)
 
-            Posts.getAllPosts()
+            Posts.getAllPosts(contentContainer)
         })
 
         page('/search', () => {
