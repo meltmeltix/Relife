@@ -1,37 +1,37 @@
 'use strict';
 
-function renderAvatar(handle, avatar, size = 10) {
+function renderAvatar(authorHandle, authorAvatar, size = 10) {
     return `
         <div class="avatar tw-w-${size}">
             <img 
                 class="tw-rounded-full tw-w-full tw-h-full" 
-                src="${avatar || `/webp/no-avatar-24x24.webp`}" 
-                alt="${handle}'s avatar"
+                src="${authorAvatar || `/webp/no-avatar-24x24.webp`}" 
+                alt="${authorHandle}'s avatar"
             />
         </div>
     `;
 }
 
-function createHeader({ handle, avatar, name, date }, isFocused) {
-    const avatarHtml = renderAvatar(handle, avatar, isFocused ? 10 : 6);
+function createHeader({ authorHandle, authorAvatar, authorName, date }, isFocused) {
+    const avatarHtml = renderAvatar(authorHandle, authorAvatar, isFocused ? 10 : 6);
 
     return `
         <a 
-            href="/${handle}" class="tw-flex tw-items-center tw-w-full ${
+            href="/${authorHandle}" class="tw-flex tw-items-center tw-w-full ${
         isFocused ? 'tw-gap-4 tw-h-10' : 'tw-gap-1.5 tw-h-6'
     }">
             ${avatarHtml}
             <div class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis ${
         isFocused ? 'tw-leading-5' : ''
     }">
-                ${name}${isFocused ? `<br><span class="tw-opacity-90 tw-text-sm">@${handle}</span>` : ` · @${handle}`}
+                ${authorName}${isFocused ? `<br><span class="tw-opacity-90 tw-text-sm">@${authorHandle}</span>` : ` · @${authorHandle}`}
             </div>
             ${!isFocused ? `<div class="tw-ml-auto tw-whitespace-nowrap">${moment(date).fromNow()}</div>` : ''}
         </a>
     `;
 }
 
-function createBody({ handle, id, body, attachment, date }, isFocused) {
+function createBody({ authorHandle, id, body, attachment, date }, isFocused) {
     const formattedDate = isFocused ? `<span class="tw-opacity-70">${moment(date).format('h:mm · DD MMM YY')}</span>` : '';
 
     const attachmentHtml = attachment
@@ -47,7 +47,7 @@ function createBody({ handle, id, body, attachment, date }, isFocused) {
     return `
         ${!isFocused ? `
             <a 
-                href="/${handle}/status/${id}"
+                href="/${authorHandle}/status/${id}"
                 class="tw-flex tw-flex-col tw-gap-1.5">
                 ${body || ''}
                 ${attachmentHtml}

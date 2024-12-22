@@ -46,9 +46,9 @@ exports.getAllPosts = function() {
                 body: p.body, 
                 attachment: p.attachment ? `data:image/webp;base64,${p.attachment.toString('base64')}` : null,
                 date: p.date,
-                handle: p.handle,
-                name: p.name,
-                avatar: p.avatar ? `data:image/webp;base64,${p.avatar.toString('base64')}` : null,
+                authorHandle: p.handle,
+                authorName: p.name,
+                authorAvatar: p.avatar ? `data:image/webp;base64,${p.avatar.toString('base64')}` : null,
             }))
             resolve(posts)
         })
@@ -63,17 +63,37 @@ exports.getUserPosts = function(handle, postType) {
 
         if (postType === 'MEDIA') {
             query = `
-                SELECT id, body, attachment, date, handle, name, avatar
-                FROM post, user
-                WHERE author = handle AND author = ? AND attachment IS NOT NULL
-                ORDER BY date DESC
+                SELECT
+                    p.id, p.body, p.attachment, p.date,
+                    u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar,
+                    t.handle AS thread_handle, t.name AS thread_name
+                FROM
+                    post p
+                        LEFT JOIN
+                    user u ON p.author = u.handle
+                        LEFT JOIN
+                    post pt ON p.thread = pt.id
+                        LEFT JOIN
+                    user t ON pt.author = t.handle
+                WHERE u.handle = ? AND attachment IS NOT NULL
+                ORDER BY p.date DESC;
             `
         } else {
             query = `
-                SELECT id, body, attachment, date, handle, name, avatar
-                FROM post, user
-                WHERE author = handle AND author = ?
-                ORDER BY date DESC
+                SELECT
+                    p.id, p.body, p.attachment, p.date,
+                    u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar,
+                    t.handle AS thread_handle, t.name AS thread_name
+                FROM
+                    post p 
+                        LEFT JOIN
+                    user u ON p.author = u.handle
+                        LEFT JOIN
+                    post pt ON p.thread = pt.id
+                        LEFT JOIN
+                    user t ON pt.author = t.handle
+                WHERE u.handle = ?
+                ORDER BY p.date DESC;
             `
         }
 
@@ -88,9 +108,11 @@ exports.getUserPosts = function(handle, postType) {
                 body: p.body, 
                 attachment: p.attachment ? `data:image/jpeg;base64,${p.attachment.toString('base64')}` : null,
                 date: p.date,
-                handle: p.handle,
-                name: p.name,
-                avatar: p.avatar ? `data:image/jpeg;base64,${p.avatar.toString('base64')}` : null,
+                authorHandle: p.author_handle,
+                authorName: p.author_name,
+                authorAvatar: p.author_avatar ? `data:image/jpeg;base64,${p.author_avatar.toString('base64')}` : null,
+                threadHandle: p.thread_handle,
+                threadName: p.thread_name
             }))
             resolve(posts)
         })
@@ -122,9 +144,9 @@ exports.getStatus = function(id, handle) {
                 body: row.body, 
                 attachment: row.attachment ? `data:image/jpeg;base64,${row.attachment.toString('base64')}` : null,
                 date: row.date,
-                handle: row.handle,
-                name: row.name,
-                avatar: row.avatar ? `data:image/jpeg;base64,${row.avatar.toString('base64')}` : null,
+                authorHandle: row.handle,
+                authorName: row.name,
+                authorAvatar: row.avatar ? `data:image/jpeg;base64,${row.avatar.toString('base64')}` : null,
             }
 
             resolve(status)
