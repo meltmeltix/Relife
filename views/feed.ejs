@@ -38,20 +38,23 @@
         <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
             <!-- Top Bar -->
             <nav class="tw-dy-navbar tw-sticky tw-top-0 tw-bg-base-100 tw-z-50 tw-space-x-3">
-
                 <div id="title-bar" class="tw-flex-row tw-w-full"></div>
 
-                <!-- Meatball Menu -->
-                <% if (sessionType !== 'GUEST') { %>
-                    <div class="tw-flex-none tw-dy-dropdown tw-dy-dropdown-end sm:tw-hidden">
-                        <div tabindex="0" role="button" class="tw-dy-btn tw-dy-btn-square tw-dy-btn-ghost"><i data-lucide="ellipsis-vertical"></i></div>
+                <!--<div id="title-bar" class="tw-flex-row tw-w-full"><span class="tw-w-full tw-ml-2">Home</span><div class="tw-flex-none tw-dy-dropdown tw-dy-dropdown-end sm:tw-hidden">
+                        <div tabindex="0" role="button" class="tw-dy-btn tw-dy-btn-square tw-dy-btn-ghost">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical">
+                                <circle cx="12" cy="12" r="1"></circle>
+                                <circle cx="12" cy="5" r="1"></circle>
+                                <circle cx="12" cy="19" r="1"></circle>
+                            </svg>
+                        </div>
                         <form action="/logout" method="post">
                             <ul tabindex="0" class="tw-dy-dropdown-content">
                                 <li><input type="submit" value="Log out"></li>
                             </ul>
                         </form>
                     </div>
-                <% } %>
+                </div>-->
             </nav>
 
             <!-- Post Modal -->

@@ -75,7 +75,7 @@ exports.getUserPosts = function(handle, postType) {
                     post pt ON p.thread = pt.id
                         LEFT JOIN
                     user t ON pt.author = t.handle
-                WHERE u.handle = ? AND attachment IS NOT NULL
+                WHERE u.handle = ? AND p.attachment IS NOT NULL
                 ORDER BY p.date DESC;
             `
         } else {

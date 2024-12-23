@@ -7,8 +7,7 @@ class Profile {
     }
 
     static from(json) {
-        const p = Object.assign(new Profile(), json)
-        return p
+        return Object.assign(new Profile(), json)
     }
 }
 

@@ -8,9 +8,12 @@ const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 /**
  * Given a user object, retrieve all of it's information
  * and insert into the user table to create a new user
- * 
- * @param {*} user          Contains all the information about the new user
+ *
  * @returns
+ * @param handle
+ * @param mail
+ * @param password
+ * @param birthDate
  */
 exports.createUser = function(handle, mail, password, birthDate) {
     return new Promise((resolve, reject) => {

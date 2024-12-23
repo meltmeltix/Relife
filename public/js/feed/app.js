@@ -1,8 +1,7 @@
 'use strict'
 
 import page from '//unpkg.com/page/page.mjs'
-import { returnSearchBar } from './template/search-components.js'
-import { appNavigation, profileNavigation } from './util/functions/navigation.js'
+import {appNavigation, populateTitleBar, profileNavigation} from './util/functions/navigation.js'
 import { renderProfile, renderStatus } from './util/functions/profile.js';
 import Posts from "./service/posts.js";
 
@@ -13,10 +12,10 @@ class App {
         page('/explore', () => {
             document.title = 'Explore | Relife'
 
-            titleBar.innerHTML = 'Explore'
-            titleBar.classList.add("tw-pl-3")
+            populateTitleBar(titleBar, 'Explore', false, false, false)
+            Posts.getAllPosts(contentContainer).catch((error) => {
 
-            Posts.getAllPosts(contentContainer)
+            })
         })
 
         page('/home', () => {
@@ -24,31 +23,30 @@ class App {
 
             document.title = 'Home | Relife'
 
-            titleBar.innerHTML = 'Home'
-            titleBar.classList.add("tw-pl-3")
-
+            populateTitleBar(titleBar, 'Home', false, false, true)
             appNavigation('HOME', navDrawer, navBar, loggedUser)
+            Posts.getAllPosts(contentContainer).catch((error) => {
 
-            Posts.getAllPosts(contentContainer)
+            })
         })
 
         page('/search', () => {
             document.title = 'Search | Relife'
-            titleBar.innerHTML = returnSearchBar()
-            titleBar.classList.remove("tw-pl-3")
             
             // to remove
             this.contentContainer.innerHTML = ''
             this.contentContainer.classList.add('tw-p-2')
 
+            populateTitleBar(titleBar, 'Search', false, true, false)
             appNavigation('SEARCH', navDrawer, navBar, loggedUser)
         })
 
         page('/:handle', (ctx) => {
             const handle = ctx.params.handle
             document.title = handle + ' | Relife'
-            appNavigation('PROFILE', navDrawer, navBar, loggedUser)
 
+            appNavigation('PROFILE', navDrawer, navBar, loggedUser)
+            populateTitleBar(titleBar, userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true)
             renderProfile(handle, userType, titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('POSTS', handle, this.contentContainer)
@@ -96,8 +94,8 @@ class App {
             const postId = ctx.params.post
             if (userType === 'GUEST') page.redirect('/' + handle)
 
+            populateTitleBar(titleBar, 'Post', true, false, false)
             appNavigation('', navDrawer, navBar, loggedUser)
-
             renderStatus(handle, postId, titleBar, contentContainer).then(() => {
 
             })
