@@ -2,8 +2,9 @@
 
 import page from '//unpkg.com/page/page.mjs'
 import {appNavigation, populateTitleBar, profileNavigation} from './util/functions/navigation.js'
-import { renderProfile, renderStatus } from './util/functions/profile.js';
+import {renderProfile, renderStatus} from './util/functions/profile.js';
 import Posts from "./service/posts.js";
+import {renderSearch} from "./util/functions/search.js";
 
 class App {
     constructor(userType, loggedUser, navDrawer, navBar, titleBar, contentContainer) {
@@ -32,13 +33,10 @@ class App {
 
         page('/search', () => {
             document.title = 'Search | Relife'
-            
-            // to remove
-            this.contentContainer.innerHTML = ''
-            this.contentContainer.classList.add('tw-p-2')
 
             populateTitleBar(titleBar, 'Search', false, true, false)
             appNavigation('SEARCH', navDrawer, navBar, loggedUser)
+            renderSearch(this.contentContainer)
         })
 
         page('/:handle', (ctx) => {
@@ -96,9 +94,10 @@ class App {
 
             populateTitleBar(titleBar, 'Post', true, false, false)
             appNavigation('', navDrawer, navBar, loggedUser)
-            renderStatus(handle, postId, titleBar, contentContainer).then(() => {
+            renderStatus(handle, postId, titleBar, contentContainer)
+                .then(() => {
 
-            })
+                })
         })
 
         page()

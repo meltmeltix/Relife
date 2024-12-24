@@ -12,9 +12,8 @@ async function renderProfile(handle, userType, titleBar, contentContainer) {
 
 async function renderStatus(handle, postId, titleBar, contentContainer) {
     const post = await Api.getStatus(postId, handle)
-    contentContainer.innerHTML = ''
     contentContainer.classList.add('tw-p-2')
-    contentContainer.insertAdjacentHTML('beforeend', buildPost(post, true))
+    contentContainer.innerHTML = buildPost(post, true)
 }
 
 export { renderProfile, renderStatus }

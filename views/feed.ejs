@@ -343,11 +343,7 @@
             const isTextareaFilled = textarea.value.length > 0;
             const isFileValid = file && file.size <= 200 * 1024; // 200KB in bytes
         
-            if (isTextareaFilled || isFileValid) {
-                submit.disabled = false;
-            } else {
-                submit.disabled = true;
-            }
+            submit.disabled = !(isTextareaFilled || isFileValid);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
