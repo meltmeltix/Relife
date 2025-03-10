@@ -6,7 +6,7 @@ const titleBar = document.querySelector('#title-bar')
 
 const contentContainer = document.querySelector('#content-container')
 
-const navDrawer = document.querySelector('#nav-drawer')
-const navBar = document.querySelector('#nav-bar')
+const sideNavigation = document.querySelector('#side-navigation')
+const bottomNavigation = document.querySelector('#bottom-navigation')
 
-const app = new App(userType, loggedUser, navDrawer, navBar, titleBar, contentContainer)
+const app = new App(userType, loggedUser, titleBar, contentContainer, sideNavigation, bottomNavigation)

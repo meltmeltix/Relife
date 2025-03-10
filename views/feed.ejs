@@ -252,9 +252,12 @@
                 <!-- REMOVE WHEN DONE -->
 
             </div>
-                
+
+
+            <div id="bottom-navigation" class="tw-sticky tw-bottom-0 tw-w-full"></div>
+
             <!-- Navigation bar -->
-            <% if (sessionType === 'GUEST') { %>
+            <!--<% if (sessionType === 'GUEST') { %>
                 <div class="tw-w-full tw-sticky tw-bottom-0 tw-bg-base-100 tw-border-t-2 tw-border-background-100 dark:tw-border-background-900 sm:tw-hidden">
                     <div class="tw-grid tw-grid-cols-2 tw-gap-y-1 tw-gap-x-2 tw-p-6">
                         <a href="/a/signup"><button class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-primary tw-w-full">Sign up</button></a>
@@ -276,7 +279,7 @@
                 <% } %>
 
                 <nav id="nav-bar" class="tw-dy-btm-nav tw-dy-btm-nav-sm"></nav>
-            <% } %>
+            <% } %>-->
         </div>
 
         <!-- Drawer -->
@@ -287,8 +290,10 @@
                 </a>
 
                 <div class="tw-h-2"></div>
+
+                <div id="side-navigation" class="tw-flex tw-flex-col tw-w-full"></div>
         
-                <% if (sessionType === 'GUEST') { %>
+                <!--<% if (sessionType === 'GUEST') { %>
                     <div class="tw-w-full tw-px-3">Sign up or log in to engage with the community</div>
 
                     <div class="tw-h-3"></div>
@@ -304,7 +309,7 @@
                     <% } %>
                 
                     <% if (sessionType === 'MODERATOR') { %>
-                        <!-- Show moderator specific stuff here -->
+                        &lt;!&ndash; Show moderator specific stuff here &ndash;&gt;
                     <% } %>
                 
                     <ul id="nav-drawer" class="tw-dy-menu tw-p-0 tw-gap-2 text-base-content"></ul>
@@ -314,7 +319,7 @@
                             <li><button type="submit"><i data-lucide="log-out"></i> Log out</button></li>
                         </ul>
                     </form>
-                <% } %>                
+                <% } %>     -->
             </nav>
         </aside>
     </div>

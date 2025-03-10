@@ -1,19 +1,22 @@
 'use strict'
 
 import page from '//unpkg.com/page/page.mjs'
-import {appNavigation, populateTitleBar, profileNavigation} from './util/functions/navigation.js'
+import {appNavigation, populateTitleBar, profileNavigation, renderNavigation} from './util/functions/navigation.js'
 import {renderProfile, renderStatus} from './util/functions/profile.js';
 import Posts from "./service/posts.js";
 import {renderSearch} from "./util/functions/search.js";
 
 class App {
-    constructor(userType, loggedUser, navDrawer, navBar, titleBar, contentContainer) {
+    constructor(userType, loggedUser, titleBar, contentContainer, sideNavigation, bottomNavigation) {
         this.contentContainer = contentContainer
+        this.sideNavigation = sideNavigation
+        this.bottomNavigation = bottomNavigation
 
         page('/explore', () => {
             document.title = 'Explore | Relife'
 
             populateTitleBar(titleBar, 'Explore', false, false, false)
+            renderNavigation(userType, loggedUser, '', this.sideNavigation, this.bottomNavigation)
             Posts.getAllPosts(contentContainer).catch((error) => {
 
             })
@@ -25,7 +28,7 @@ class App {
             document.title = 'Home | Relife'
 
             populateTitleBar(titleBar, 'Home', false, false, true)
-            appNavigation('HOME', navDrawer, navBar, loggedUser)
+            renderNavigation(userType, loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation)
             Posts.getAllPosts(contentContainer).catch((error) => {
 
             })
@@ -35,7 +38,7 @@ class App {
             document.title = 'Search | Relife'
 
             populateTitleBar(titleBar, 'Search', false, true, false)
-            appNavigation('SEARCH', navDrawer, navBar, loggedUser)
+            renderNavigation(userType, loggedUser, 'SEARCH', this.sideNavigation, this.bottomNavigation)
             renderSearch(this.contentContainer)
         })
 
@@ -43,7 +46,7 @@ class App {
             const handle = ctx.params.handle
             document.title = handle + ' | Relife'
 
-            appNavigation('PROFILE', navDrawer, navBar, loggedUser)
+            renderNavigation(userType, loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation)
             populateTitleBar(titleBar, userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true)
             renderProfile(handle, userType, titleBar, this.contentContainer)
                 .then(() => {
@@ -93,7 +96,7 @@ class App {
             if (userType === 'GUEST') page.redirect('/' + handle)
 
             populateTitleBar(titleBar, 'Post', true, false, false)
-            appNavigation('', navDrawer, navBar, loggedUser)
+            renderNavigation(userType, loggedUser, '', this.sideNavigation, this.bottomNavigation)
             renderStatus(handle, postId, titleBar, contentContainer)
                 .then(() => {
 

@@ -1,20 +1,42 @@
 'use strict'
 
 import {destinationList, profileTabs} from "../../data/constants/navigation.js"
-import {bottomNavItem, drawerItem, tabRowItem} from "../../template/navigation-item.js"
+import {navItem, bottomNavItem, drawerItem, tabRowItem} from "../../template/navigation-item.js"
 
-function appNavigation(active, navDrawer, navBar, loggedUser) {
-    if (navDrawer && navBar) {
-        navDrawer.innerHTML = ''
-        navBar.innerHTML = ''
-
-        destinationList[destinationList.length - 1].url = loggedUser
-
-        destinationList.forEach(dest => {
-            navDrawer.insertAdjacentHTML('beforeend', drawerItem(active, dest));
-            navBar.insertAdjacentHTML('beforeend', bottomNavItem(active, dest));
-        })
+function renderNavigation(userType, loggedUser, active, sideNavigation, bottomNavigation) {
+    if (userType === 'GUEST')
+        guestNavigation(sideNavigation, bottomNavigation)
+    else if (userType === 'USER') {
+        appNavigation(active, sideNavigation, bottomNavigation, loggedUser)
     }
+}
+
+function guestNavigation() {
+
+}
+
+function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
+    const actionButton = document.createElement('button');
+    actionButton.classList.add('tw-dy-btn', 'tw-dy-btn-secondary', 'tw-w-full', 'tw-px-3', 'tw-rounded-2xl');
+    actionButton.setAttribute('onclick', 'post_modal.showModal()');
+    actionButton.innerHTML = `Post`
+
+    const navDrawer = document.createElement('ul')
+    navDrawer.classList.add('tw-dy-menu', 'tw-p-0', 'tw-gap-2', 'text-base-content')
+    navDrawer.innerHTML = ''
+
+    destinationList[destinationList.length - 1].url = loggedUser
+
+    destinationList.forEach(dest => {
+        navDrawer.appendChild(navItem(active, dest, true));
+        bottomNavigation.appendChild(navItem(active, dest, false));
+        //navDrawer.insertAdjacentHTML('beforeend', navItem(active, dest));
+        //bottomNavigation.insertAdjacentHTML('beforeend', bottomNavItem(active, dest));
+    })
+
+    sideNavigation.innerHTML = ''
+    sideNavigation.appendChild(actionButton)
+    sideNavigation.appendChild(navDrawer)
 }
 
 function profileNavigation(active, loggedUser, contentContainer) {
@@ -38,7 +60,6 @@ function populateTitleBar(
     dropDownMenu = true
 ) {
     titleBar.innerHTML = ''
-
     if (backButton) {
         const backButton = document.createElement('button')
         backButton.classList.add('tw-dy-btn', 'tw-dy-btn-square', 'tw-dy-btn-ghost')
@@ -96,4 +117,4 @@ function populateTitleBar(
     }
 }
 
-export {appNavigation, profileNavigation, populateTitleBar}
+export {renderNavigation, appNavigation, profileNavigation, populateTitleBar}
