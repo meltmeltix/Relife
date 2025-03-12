@@ -77,6 +77,6 @@ module.exports = {
       }, }, 
     ]
   },
-  prefix: 'tw-',
+  prefix: 'tw:',
 }
 

@@ -1,10 +1,10 @@
 // Create avatar HTML
 function createAvatar(avatar, name) {
     return `
-        <div class="tw-dy-avatar">
-            <div class="tw-w-20 tw-rounded-full">
+        <div class="tw:dy-avatar">
+            <div class="tw:w-20 tw:rounded-full">
                 <img 
-                    class="tw-rounded-full tw-w-full tw-h-full" 
+                    class="tw:rounded-full tw:w-full tw:h-full" 
                     src="${avatar || '/webp/no-avatar-96x96.webp'}"
                     alt="${name}'s profile picture"
                 />
@@ -16,10 +16,10 @@ function createAvatar(avatar, name) {
 // Create user information HTML
 function createUserInfo(profile) {
     return `
-        <div class="tw-flex tw-flex-col tw-w-full tw-justify-center">
-            <span class="tw-text-xl tw-w-full">${profile.name || profile.handle}</span>
-            <span class="tw-text-sm tw-w-full tw-opacity-90">@${profile.handle}</span>
-            <span class="tw-text-sm tw-w-full tw-opacity-90">0 following · 0 followers</span>
+        <div class="tw:flex tw:flex-col tw:w-full tw:justify-center">
+            <span class="tw:text-xl tw:w-full">${profile.name || profile.handle}</span>
+            <span class="tw:text-sm tw:w-full tw:opacity-90">@${profile.handle}</span>
+            <span class="tw:text-sm tw:w-full tw:opacity-90">0 following · 0 followers</span>
         </div>
     `;
 }
@@ -36,8 +36,8 @@ function buildProfile(profile) {
     const bioHtml = createBio(profile.bio);
 
     return `
-        <div class="tw-flex tw-flex-col tw-p-4 tw-space-y-2.5">
-            <div class="tw-flex tw-flex-row tw-space-x-3">
+        <div class="tw:flex tw:flex-col tw:p-4 tw:space-y-2.5">
+            <div class="tw:flex tw:flex-row tw:space-x-3">
                 ${avatarHtml}
                 ${userInfoHtml}
             </div>

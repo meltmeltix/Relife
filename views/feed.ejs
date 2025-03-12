@@ -20,7 +20,7 @@
     <script defer type="module" src="/js/feed/main.js"></script>
 </head>
 
-<body class="tw-flex tw-flex-col tw-text-current">
+<body class="tw:flex tw:flex-col tw:text-current">
     <!-- Logo -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
         <defs>
@@ -31,17 +31,17 @@
         </defs>
     </svg>
 
-    <div class="tw-dy-drawer sm:tw-dy-drawer-open md:tw-px-16 lg:tw-px-44 xl:tw-px-[18rem]">
-        <input id="daisy-drawer" type="checkbox" class="tw-dy-drawer-toggle" />
+    <div class="tw:dy-drawer tw:sm:dy-drawer-open tw:md:px-16 tw:lg:px-44 tw:xl:px-[18rem]">
+        <input id="daisy-drawer" type="checkbox" class="tw:dy-drawer-toggle" />
 
         <!-- Content -->
-        <div class="tw-dy-drawer-content tw-flex tw-flex-col tw-min-h-[100svh]">
+        <div class="tw:dy-drawer-content tw:flex tw:flex-col tw:min-h-[100svh]">
             <!-- Top Bar -->
-            <nav class="tw-dy-navbar tw-sticky tw-top-0 tw-bg-base-100 tw-z-50 tw-space-x-3">
-                <div id="title-bar" class="tw-flex-row tw-w-full"></div>
+            <nav class="tw:dy-navbar tw:sticky tw:top-0 tw:bg-base-100 tw:z-50 tw:space-x-3">
+                <div id="title-bar" class="tw:flex-row tw:w-full"></div>
 
-                <!--<div id="title-bar" class="tw-flex-row tw-w-full"><span class="tw-w-full tw-ml-2">Home</span><div class="tw-flex-none tw-dy-dropdown tw-dy-dropdown-end sm:tw-hidden">
-                        <div tabindex="0" role="button" class="tw-dy-btn tw-dy-btn-square tw-dy-btn-ghost">
+                <!--<div id="title-bar" class="tw:flex-row tw:w-full"><span class="tw:w-full tw:ml-2">Home</span><div class="tw:flex-none tw:dy-dropdown tw:dy-dropdown-end tw:sm:hidden">
+                        <div tabindex="0" role="button" class="tw:dy-btn tw:dy-btn-square tw:dy-btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical">
                                 <circle cx="12" cy="12" r="1"></circle>
                                 <circle cx="12" cy="5" r="1"></circle>
@@ -49,7 +49,7 @@
                             </svg>
                         </div>
                         <form action="/logout" method="post">
-                            <ul tabindex="0" class="tw-dy-dropdown-content">
+                            <ul tabindex="0" class="tw:dy-dropdown-content">
                                 <li><input type="submit" value="Log out"></li>
                             </ul>
                         </form>
@@ -58,97 +58,97 @@
             </nav>
 
             <!-- Post Modal -->
-            <dialog id="post_modal" class="tw-dy-modal tw-dy-modal-bottom sm:tw-dy-modal-middle">
-                <div class="tw-dy-modal-box tw-flex tw-flex-col tw-align-bottom">
+            <dialog id="post_modal" class="tw:dy-modal tw:dy-modal-bottom sm:tw:dy-modal-middle">
+                <div class="tw:dy-modal-box tw:flex tw:flex-col tw:align-bottom">
                     <form method="dialog">
                         <button
                             aria-label="Close post creation modal"
-                            class="tw-dy-btn tw-dy-btn-ghost tw-dy-btn-square tw-dy-btn-sm tw-absolute tw-right-4 tw-top-4">
+                            class="tw:dy-btn tw:dy-btn-ghost tw:dy-btn-square tw:dy-btn-sm tw:absolute tw:right-4 tw:top-4">
                                 <i data-lucide="x"></i>
                         </button>
                     </form>
 
-                    <form action="/new/post" method="post" class="tw-flex tw-flex-col tw-gap-2" enctype="multipart/form-data">
+                    <form action="/new/post" method="post" class="tw:flex tw:flex-col tw:gap-2" enctype="multipart/form-data">
                         <input name="author" id="post_author" type="hidden">
 
-                        <span class="tw-text-xl tw-w-full">New post</span>
+                        <span class="tw:text-xl tw:w-full">New post</span>
 
-                        <label class="tw-dy-form-control">
+                        <label class="tw:dy-form-control">
                             <textarea
                                 name="body"
                                 id="post_textarea"
-                                class="tw-dy-textarea tw-dy-textarea-bordered tw-dy-textarea-md tw-h-40 tw-resize-none"
+                                class="tw:dy-textarea tw:dy-textarea-bordered tw:dy-textarea-md tw:h-40 tw:resize-none"
                                 maxlength="200"
                                 placeholder="Something new to share?"></textarea>
 
-                            <div class="tw-dy-label">
-                                <span id="post_textarea_counter" class="tw-dy-label-text-alt">0/200</span>
+                            <div class="tw:dy-label">
+                                <span id="post_textarea_counter" class="tw:dy-label-text-alt">0/200</span>
                             </div>
                         </label>
 
-                        <label class="tw-dy-form-control">
-                            <input name="attachment" id="post_upload" type="file" accept="image/png, image/jpeg" class="tw-dy-file-input tw-dy-file-input-bordered">
-                            <div class="tw-dy-label">
-                                <span id="post_textarea_counter" class="tw-dy-label-text-alt">Maximum size: 200kb</span>
+                        <label class="tw:dy-form-control">
+                            <input name="attachment" id="post_upload" type="file" accept="image/png, image/jpeg" class="tw:dy-file-input tw:dy-file-input-bordered">
+                            <div class="tw:dy-label">
+                                <span id="post_textarea_counter" class="tw:dy-label-text-alt">Maximum size: 200kb</span>
                             </div>
                         </label>
 
-                        <div class="tw-flex tw-flex-row tw-justify-end">
-                            <button id="post_submit" type="submit" disabled class="tw-dy-btn tw-dy-btn-primary tw-rounded-xl tw-w-28">Post</button>
+                        <div class="tw:flex tw:flex-row tw:justify-end">
+                            <button id="post_submit" type="submit" disabled class="tw:dy-btn tw:dy-btn-primary tw:rounded-xl tw:w-28">Post</button>
                         </div>
                     </form>
                 </div>
             </dialog>
 
-            <div id="content-container" class="tw-w-full tw-h-full tw-space-y-2 tw-pb-20 sm:tw-pb-2">
-                <div id="spinner" class="tw-flex tw-flex-col tw-h-full tw-items-center tw-justify-center">
-                    <span class="tw-dy-loading tw-dy-loading-spinner tw-dy-loading-lg"></span>
+            <div id="content-container" class="tw:w-full tw:h-full tw:space-y-2 tw:pb-20 tw:sm:pb-2">
+                <div id="spinner" class="tw:flex tw:flex-col tw:h-full tw:items-center tw:justify-center">
+                    <span class="tw:dy-loading tw:dy-loading-spinner tw:dy-loading-lg"></span>
                 </div>
 
                 <!-- REMOVE WHEN DONE -->
 
                 <!-- Profile Layout -->
-                <!-- <div class="tw-flex tw-flex-col tw-p-4 tw-space-y-2.5">
-                    <div class="tw-flex tw-flex-row tw-space-x-3">
-                        <div class="tw-dy-avatar">
-                            <div class="tw-w-20 tw-rounded-full">
+                <!-- <div class="tw:flex tw:flex-col tw:p-4 tw:space-y-2.5">
+                    <div class="tw:flex tw:flex-row tw:space-x-3">
+                        <div class="tw:dy-avatar">
+                            <div class="tw:w-20 tw:rounded-full">
                                 <img 
-                                    class="tw-rounded-full tw-w-full tw-h-full" 
+                                    class="tw:rounded-full tw:w-full tw:h-full" 
                                     src="${profile.avatar != null ? profile.avatar : `/webp/no-avatar-96x96.webp`}"
                                 />
                             </div>
                         </div>
         
-                        <div class="tw-flex tw-flex-col tw-w-full tw-justify-center">
-                            <span class="tw-text-xl tw-w-full">${profile.name !== null ? profile.name : profile.handle}</span>
-                            <span class="tw-text-sm tw-w-full tw-opacity-90">@${profile.handle}</span>
-                            <span class="tw-text-sm tw-w-full tw-opacity-90">0 following · 0 followers</span>
+                        <div class="tw:flex tw:flex-col tw:w-full tw:justify-center">
+                            <span class="tw:text-xl tw:w-full">${profile.name !== null ? profile.name : profile.handle}</span>
+                            <span class="tw:text-sm tw:w-full tw:opacity-90">@${profile.handle}</span>
+                            <span class="tw:text-sm tw:w-full tw:opacity-90">0 following · 0 followers</span>
                         </div>
                     </div>
                     ${profile.bio !== null ? `<p>${profile.bio}</p>` : ''}
                 </div> -->
 
                 <!-- Profile Tabs -->
-                <!-- <div role="tablist" class="tw-dy-tabs tw-dy-tabs-bordered">
-                    <a href='/profile/${handle}/' role="tab" class="tw-dy-tab tw-dy-tab-active">Posts</a>
-                    <a href='/profile/${handle}/replies' role="tab" class="tw-dy-tab">Replies</a>
-                    <a href='/profile/${handle}/media' role="tab" class="tw-dy-tab">Media</a>
-                    <a href='/profile/${handle}/likes' role="tab" class="tw-dy-tab">Likes</a>
+                <!-- <div role="tablist" class="tw:dy-tabs tw:dy-tabs-bordered">
+                    <a href='/profile/${handle}/' role="tab" class="tw:dy-tab tw:dy-tab-active">Posts</a>
+                    <a href='/profile/${handle}/replies' role="tab" class="tw:dy-tab">Replies</a>
+                    <a href='/profile/${handle}/media' role="tab" class="tw:dy-tab">Media</a>
+                    <a href='/profile/${handle}/likes' role="tab" class="tw:dy-tab">Likes</a>
                 </div> -->
 
                 <!-- Post -->
-                <!-- <div class="tw-post ${isFocused ? '' : 'tw-post-background'}">
-                    <a href="/${post.handle}" class="tw-flex tw-items-center tw-w-full tw-gap-1.5 tw-h-6">
-                        <div class="avatar tw-w-6">
+                <!-- <div class="tw:post ${isFocused ? '' : 'tw:post-background'}">
+                    <a href="/${post.handle}" class="tw:flex tw:items-center tw:w-full tw:gap-1.5 tw:h-6">
+                        <div class="avatar tw:w-6">
                             <img 
-                                class="tw-rounded-full tw-w-full tw-h-full" 
+                                class="tw:rounded-full tw:w-full tw:h-full" 
                                 src="${post.avatar != null ? post.avatar : `/webp/no-avatar-24x24.webp`}"
                             />
                         </div>
-                        <div class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis">
+                        <div class="tw:flex-1 tw:overflow-hidden tw:whitespace-nowrap tw:text-ellipsis">
                             ${post.name} · @${post.handle}
                         </div>
-                        <div class="tw-ml-auto tw-whitespace-nowrap">${moment(post.date).fromNow()}</div>
+                        <div class="tw:ml-auto tw:whitespace-nowrap">${moment(post.date).fromNow()}</div>
                     </a>
 
                     ${post.body != null ? post.body : ''}
@@ -156,7 +156,7 @@
                     ${post.attachment != null ? 
                         `
                             <div 
-                                class="tw-w-full tw-h-48 tw-bg-cover tw-bg-center tw-rounded-lg tw-bg-base-300" 
+                                class="tw:w-full tw:h-48 tw:bg-cover tw:bg-center tw:rounded-lg tw:bg-base-300" 
                                 style="background-image: url(${post.attachment})">
                             </div>
                         ` 
@@ -165,27 +165,27 @@
 
                     ${isFocused ? `<span>${moment(post.date).format('h:mm · DD MMM YY')}</span>` : ''}
 
-                    <div class="tw-flex tw-flex-row tw-gap-1.5 tw-w-full">
-                        <div class="tw-grid tw-grid-cols-3 tw-w-full tw-gap-1.5">
-                            <button class="tw-dy-btn tw-dy-btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    <div class="tw:flex tw:flex-row tw:gap-1.5 tw:w-full">
+                        <div class="tw:grid tw:grid-cols-3 tw:w-full tw:gap-1.5">
+                            <button class="tw:dy-btn tw:dy-btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw:w-5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
                                 0
                             </button>
-                            <button class="tw-dy-btn tw-dy-btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                            <button class="tw:dy-btn tw:dy-btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw:w-5"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
                                 0
                             </button>
-                            <button class="tw-dy-btn tw-dy-btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
+                            <button class="tw:dy-btn tw:dy-btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw:w-5"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
                                 0
                             </button>
                         </div>
 
-                        <div class="tw-dy-dropdown tw-dy-dropdown-left tw-dy-dropdown-end">
-                            <div tabindex="0" role="button"  class="tw-dy-btn tw-dy-btn-square tw-dy-btn-sm tw-z-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                        <div class="tw:dy-dropdown tw:dy-dropdown-left tw:dy-dropdown-end">
+                            <div tabindex="0" role="button"  class="tw:dy-btn tw:dy-btn-square tw:dy-btn-sm tw:z-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw:w-5"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                             </div>
-                            <ul tabindex="0" class="tw-dy-dropdown-content">
+                            <ul tabindex="0" class="tw:dy-dropdown-content">
                                 <li><a>Report</a></li>
                             </ul>
                         </div>
@@ -194,17 +194,17 @@
                 -->
 
                 <!-- Post Focused -->
-                <!-- <div class="tw-post tw-post-background">
-                    <a href="/${post.handle}" class="tw-flex tw-items-center tw-w-full tw-gap-4 tw-h-10">
-                        <div class="avatar tw-w-10">
+                <!-- <div class="tw:post tw:post-background">
+                    <a href="/${post.handle}" class="tw:flex tw:items-center tw:w-full tw:gap-4 tw:h-10">
+                        <div class="avatar tw:w-10">
                             <img 
-                                class="tw-rounded-full tw-w-full tw-h-full" 
+                                class="tw:rounded-full tw:w-full tw:h-full" 
                                 src="${post.avatar != null ? post.avatar : `/webp/no-avatar-24x24.webp`}"
                             />
                         </div>
-                        <a  class="tw-flex-1 tw-overflow-hidden tw-whitespace-nowrap tw-text-ellipsis tw-leading-5">
+                        <a  class="tw:flex-1 tw:overflow-hidden tw:whitespace-nowrap tw:text-ellipsis tw:leading-5">
                             ${post.name}<br>
-                            <span class="tw-opacity-90 tw-text-sm">@${post.handle}</span>
+                            <span class="tw:opacity-90 tw:text-sm">@${post.handle}</span>
                         </a>
                     </a>
         
@@ -213,7 +213,7 @@
                     ${post.attachment != null ? 
                         `
                             <div 
-                                class="tw-w-full tw-h-48 tw-bg-cover tw-bg-center tw-rounded-lg tw-bg-base-300" 
+                                class="tw:w-full tw:h-48 tw:bg-cover tw:bg-center tw:rounded-lg tw:bg-base-300" 
                                 style="background-image: url(${post.attachment})">
                             </div>
                         ` 
@@ -222,27 +222,27 @@
         
                     <span>${moment(post.date).format('h:mm · DD MMM YY')}</span>
         
-                    <div class="tw-flex tw-flex-row tw-gap-1.5 tw-w-full">
-                        <div class="tw-grid tw-grid-cols-3 tw-w-full tw-gap-1.5">
-                            <button class="tw-dy-btn tw-dy-btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    <div class="tw:flex tw:flex-row tw:gap-1.5 tw:w-full">
+                        <div class="tw:grid tw:grid-cols-3 tw:w-full tw:gap-1.5">
+                            <button class="tw:dy-btn tw:dy-btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw:w-5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
                                 0
                             </button>
-                            <button class="tw-dy-btn tw-dy-btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                            <button class="tw:dy-btn tw:dy-btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw:w-5"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
                                 0
                             </button>
-                            <button class="tw-dy-btn tw-dy-btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
+                            <button class="tw:dy-btn tw:dy-btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw:w-5"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
                                 0
                             </button>
                         </div>
         
-                        <div class="tw-dy-dropdown tw-dy-dropdown-left tw-dy-dropdown-end">
-                            <div tabindex="0" role="button"  class="tw-dy-btn tw-dy-btn-square tw-dy-btn-sm tw-z-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-5"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                        <div class="tw:dy-dropdown tw:dy-dropdown-left tw:dy-dropdown-end">
+                            <div tabindex="0" role="button"  class="tw:dy-btn tw:dy-btn-square tw:dy-btn-sm tw:z-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw:w-5"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                             </div>
-                            <ul tabindex="0" class="tw-dy-dropdown-content">
+                            <ul tabindex="0" class="tw:dy-dropdown-content">
                                 <li><a>Report</a></li>
                             </ul>
                         </div>
@@ -254,20 +254,20 @@
             </div>
 
 
-            <div id="bottom-navigation" class="tw-sticky tw-bottom-0 tw-w-full"></div>
+            <div id="bottom-navigation" class="tw:sticky tw:bottom-0 tw:w-full"></div>
 
             <!-- Navigation bar -->
             <!--<% if (sessionType === 'GUEST') { %>
-                <div class="tw-w-full tw-sticky tw-bottom-0 tw-bg-base-100 tw-border-t-2 tw-border-background-100 dark:tw-border-background-900 sm:tw-hidden">
-                    <div class="tw-grid tw-grid-cols-2 tw-gap-y-1 tw-gap-x-2 tw-p-6">
-                        <a href="/a/signup"><button class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-primary tw-w-full">Sign up</button></a>
-                        <a href="/a/login"><button class="tw-dy-btn tw-dy-btn-sm tw-w-full">Log in</button></a>
+                <div class="tw:w-full tw:sticky tw:bottom-0 tw:bg-base-100 tw:border-t-2 tw:border-background-100 tw:dark:border-background-900 tw:sm:hidden">
+                    <div class="tw:grid tw:grid-cols-2 tw:gap-y-1 tw:gap-x-2 tw:p-6">
+                        <a href="/a/signup"><button class="tw:dy-btn tw:dy-btn-sm tw:dy-btn-primary tw:w-full">Sign up</button></a>
+                        <a href="/a/login"><button class="tw:dy-btn tw:dy-btn-sm tw:w-full">Log in</button></a>
                     </div>
                 </div>
             <% } else { %>
                 <% if (sessionType === 'USER') { %>
-                    <nav class="tw-sticky tw-w-full tw-flex tw-flex-row tw-px-3 tw-justify-end tw-bottom-16 tw-pointer-events-none">
-                        <button onclick="post_modal.showModal()" class="tw-dy-btn tw-dy-btn-secondary tw-bottom-16 tw-rounded-2xl sm:tw-hidden tw-pointer-events-auto">
+                    <nav class="tw:sticky tw:w-full tw:flex tw:flex-row tw:px-3 tw:justify-end tw:bottom-16 tw:pointer-events-none">
+                        <button onclick="post_modal.showModal()" class="tw:dy-btn tw:dy-btn-secondary tw:bottom-16 tw:rounded-2xl tw:sm:hidden tw:pointer-events-auto">
                             <i data-lucide="square-pen"></i>
                             Post
                         </button>
@@ -278,44 +278,44 @@
 
                 <% } %>
 
-                <nav id="nav-bar" class="tw-dy-btm-nav tw-dy-btm-nav-sm"></nav>
+                <nav id="nav-bar" class="tw:dy-btm-nav tw:dy-btm-nav-sm"></nav>
             <% } %>-->
         </div>
 
         <!-- Drawer -->
-        <aside class="tw-dy-drawer-side">
-            <nav class="tw-flex tw-flex-col tw-w-64 tw-h-full tw-p-3 tw-bg-base-100">
-                <a href="/home" aria-label="Home" class="tw-dy-btn tw-dy-btn-ghost tw-w-min">
-                    <svg class="tw-h-7 tw-fill-text-700 dark:tw-fill-text-300" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
+        <aside class="tw:dy-drawer-side">
+            <nav class="tw:flex tw:flex-col tw:w-64 tw:h-full tw:p-3 tw:bg-base-100">
+                <a href="/home" aria-label="Home" class="tw:dy-btn tw:dy-btn-ghost tw:w-min">
+                    <svg class="tw:h-7 tw:fill-text-700 tw:dark:fill-text-300" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
                 </a>
 
-                <div class="tw-h-2"></div>
+                <div class="tw:h-2"></div>
 
-                <div id="side-navigation" class="tw-flex tw-flex-col tw-w-full"></div>
+                <div id="side-navigation" class="tw:flex tw:flex-col tw:w-full"></div>
         
                 <!--<% if (sessionType === 'GUEST') { %>
-                    <div class="tw-w-full tw-px-3">Sign up or log in to engage with the community</div>
+                    <div class="tw:w-full tw:px-3">Sign up or log in to engage with the community</div>
 
-                    <div class="tw-h-3"></div>
+                    <div class="tw:h-3"></div>
 
-                    <div class="tw-grid tw-grid-cols-2 tw-gap-2 tw-px-3">
-                        <a href="/a/signup"><button class="tw-dy-btn tw-dy-btn-sm tw-dy-btn-primary tw-w-full">Sign up</button></a>
-                        <a href="/a/login"><button class="tw-dy-btn tw-dy-btn-sm tw-w-full">Log in</button></a>
+                    <div class="tw:grid tw:grid-cols-2 tw:gap-2 tw:px-3">
+                        <a href="/a/signup"><button class="tw:dy-btn tw:dy-btn-sm tw:dy-btn-primary tw:w-full">Sign up</button></a>
+                        <a href="/a/login"><button class="tw:dy-btn tw:dy-btn-sm tw:w-full">Log in</button></a>
                     </div>
                 <% } else { %>
                     <% if (sessionType === 'USER') { %>
-                        <button onclick="post_modal.showModal()" class="tw-dy-btn tw-dy-btn-secondary tw-w-full tw-px-3 tw-rounded-2xl">Post</button>
-                        <div class="tw-h-4"></div>
+                        <button onclick="post_modal.showModal()" class="tw:dy-btn tw:dy-btn-secondary tw:w-full tw:px-3 tw:rounded-2xl">Post</button>
+                        <div class="tw:h-4"></div>
                     <% } %>
                 
                     <% if (sessionType === 'MODERATOR') { %>
                         &lt;!&ndash; Show moderator specific stuff here &ndash;&gt;
                     <% } %>
                 
-                    <ul id="nav-drawer" class="tw-dy-menu tw-p-0 tw-gap-2 text-base-content"></ul>
+                    <ul id="nav-drawer" class="tw:dy-menu tw:p-0 tw:gap-2 text-base-content"></ul>
 
                     <form action="/logout" method="post">
-                        <ul class="tw-dy-menu tw-w-60 tw-p-0 tw-pb-3 tw-absolute tw-bottom-0">
+                        <ul class="tw:dy-menu tw:w-60 tw:p-0 tw:pb-3 tw:absolute tw:bottom-0">
                             <li><button type="submit"><i data-lucide="log-out"></i> Log out</button></li>
                         </ul>
                     </form>

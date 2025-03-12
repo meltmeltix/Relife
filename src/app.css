@@ -1,0 +1,177 @@
+@import 'tailwindcss' prefix(tw);
+@theme {
+    --font-sans: Roboto Flex, sans-serif;
+    --font-serif: Noto Serif, serif;
+
+    --color-text-50:  oklch(97.1% 0.0106 106.59);
+    --color-text-100: oklch(94.2% 0.0199 106.78);
+    --color-text-200: oklch(88.61% 0.0426 107.24);
+    --color-text-300: oklch(82.72% 0.0626 107.69);
+    --color-text-400: oklch(77.07% 0.0845 108.23);
+    --color-text-500: oklch(71.11% 0.1021 108.74);
+    --color-text-600: oklch(60.54% 0.0862 108.72);
+    --color-text-700: oklch(49.17% 0.0673 108.64);
+    --color-text-800: oklch(37.44% 0.0494 108.56);
+    --color-text-900: oklch(24.3% 0.0264 108.22);
+    --color-text-950: oklch(17.48% 0.0156 107.91);
+
+    --color-background-50:  oklch(97.1% 0.0106 106.59);
+    --color-background-100: oklch(94.06% 0.02 100.59);
+    --color-background-200: oklch(88.21% 0.0401 104.06);
+    --color-background-300: oklch(82.16% 0.0602 103.4);
+    --color-background-400: oklch(76.07% 0.0797 103.23);
+    --color-background-500: oklch(70.08% 0.0974 104.56);
+    --color-background-600: oklch(59.48% 0.0814 103.5);
+    --color-background-700: oklch(48.53% 0.0646 104.05);
+    --color-background-800: oklch(36.92% 0.0466 105.12);
+    --color-background-900: oklch(24.11% 0.0264 101.61);
+    --color-background-950: oklch(17.17% 0.0139 100.91);
+}
+
+@plugin 'daisyui' {
+    prefix: 'dy-';
+    themes: relife-light --default, relife-dark --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+    name: "relife-light";
+    default: true;
+    prefersdark: false;
+    color-scheme: "light";
+
+    --color-base-100: oklch(94.06% 0.020 100.59);
+    --color-base-200: oklch(88.21% 0.040 104.06);
+    --color-base-300: oklch(82.16% 0.060 103.40);
+    --color-base-content: oklch(24.30% 0.026 108.22);
+    --color-primary: oklch(71.88% 0.113 100.65);
+    --color-primary-content: oklch(24.30% 0.026 108.22);
+    --color-secondary: oklch(83.78% 0.073 134.61);
+    --color-secondary-content: oklch(24.30% 0.026 108.22);
+    --color-accent: oklch(59.75% 0.115 140.11);
+    --color-accent-content: oklch(24.30% 0.026 108.22);
+    --color-neutral: oklch(30.49% 0.0362 103.82);
+    --color-neutral-content: oklch(98% 0.003 247.858);
+    --color-info: oklch(47.8% 0.0865 235.79);
+    --color-info-content: oklch(94.20% 0.020 106.78);
+    --color-success: oklch(47.56% 0.0906 136.95);
+    --color-success-content: oklch(94.20% 0.020 106.78);
+    --color-warning: oklch(48.44% 0.0949 88.25);
+    --color-warning-content: oklch(94.20% 0.020 106.78);
+    --color-error: oklch(50.6% 0.1927 27.7);
+    --color-error-content: oklch(94.20% 0.020 106.78);
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.28125rem;
+    --size-field: 0.28125rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+
+
+
+@plugin "daisyui/theme" {
+    name: "relife-dark";
+    default: false;
+    prefersdark: true;
+    color-scheme: "dark";
+    --color-base-100: oklch(24.11% 0.026 101.61);
+    --color-base-200: oklch(36.92% 0.047 105.12);
+    --color-base-300: oklch(48.53% 0.065 104.05);
+    --color-base-content: oklch(97.10% 0.011 106.59);
+    --color-primary: oklch(71.88% 0.1132 100.65);
+    --color-primary-content: oklch(17.48% 0.016 107.91);
+    --color-secondary: oklch(43.08% 0.082 135.53);
+    --color-secondary-content: oklch(94.20% 0.020 106.78);
+    --color-accent: oklch(71.13% 0.112 139.71);
+    --color-accent-content: oklch(17.48% 0.016 107.91);
+    --color-neutral: oklch(30.49% 0.0362 103.82);
+    --color-neutral-content: oklch(94.20% 0.020 106.78);
+    --color-info: oklch(82.44% 0.0825 237.59);
+    --color-info-content: oklch(30.66% 0.064653 234.5678);
+    --color-success: oklch(81.77% 0.0975 135.17);
+    --color-success-content: oklch(30.38% 0.0838 138.3);
+    --color-warning: oklch(82.76% 0.113 87.17);
+    --color-warning-content: oklch(31.09% 0.063551 87.7101);
+    --color-error: oklch(83.83% 0.0891 26.76);
+    --color-error-content: oklch(32.75% 0.1336 27.32);
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.3125rem;
+    --size-field: 0.28125rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+
+
+/*@config '../tailwind.config.js';*/
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+/*@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}*/
+
+@utility dy-active {
+  @apply tw:text-primary;
+}
+
+@utility dy-btm-nav {
+  @apply tw:border-t-2 tw:border-background-100 tw:dark:border-background-900 tw:sm:hidden;
+}
+
+@utility dy-dropdown-content {
+  @apply tw:z-1 tw:dy-menu tw:p-2 tw:shadow tw:bg-background-200 tw:dark:bg-background-100 tw:rounded-box tw:w-32;
+}
+
+@utility h-viewport {
+  @apply tw:h-[100svh];
+}
+
+@utility dy-inactive {
+  @apply tw:text-base-content;
+}
+
+@utility inverted-background {
+  /* Complementary class for active */
+  @apply tw:bg-background-200 tw:dark:bg-background-800;
+}
+
+@utility post {
+  @apply tw:flex tw:flex-col tw:p-3.5 tw:gap-2.5 tw:rounded-2xl;
+}
+
+@utility post-background {
+  @apply tw:bg-background-100 tw:dark:bg-background-900;
+}
+
+@layer utilities {
+}
+
+@layer base {
+    @font-face {
+        font-family: 'Noto Serif';
+        font-display: swap;
+        src: url(/fonts/NotoSerif.ttf) format('truetype');
+    }
+    @font-face {
+        font-family: 'Roboto Flex';
+        font-display: swap;
+        src: url(/fonts/RobotoFlex.ttf) format('truetype');
+    }
+}
