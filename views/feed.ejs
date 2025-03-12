@@ -37,25 +37,7 @@
         <!-- Content -->
         <div class="tw:dy-drawer-content tw:flex tw:flex-col tw:min-h-[100svh]">
             <!-- Top Bar -->
-            <nav class="tw:dy-navbar tw:sticky tw:top-0 tw:bg-base-100 tw:z-50 tw:space-x-3">
-                <div id="title-bar" class="tw:flex-row tw:w-full"></div>
-
-                <!--<div id="title-bar" class="tw:flex-row tw:w-full"><span class="tw:w-full tw:ml-2">Home</span><div class="tw:flex-none tw:dy-dropdown tw:dy-dropdown-end tw:sm:hidden">
-                        <div tabindex="0" role="button" class="tw:dy-btn tw:dy-btn-square tw:dy-btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical">
-                                <circle cx="12" cy="12" r="1"></circle>
-                                <circle cx="12" cy="5" r="1"></circle>
-                                <circle cx="12" cy="19" r="1"></circle>
-                            </svg>
-                        </div>
-                        <form action="/logout" method="post">
-                            <ul tabindex="0" class="tw:dy-dropdown-content">
-                                <li><input type="submit" value="Log out"></li>
-                            </ul>
-                        </form>
-                    </div>
-                </div>-->
-            </nav>
+            <nav id="title-bar" class="tw:dy-navbar tw:sticky tw:top-0 tw:bg-base-100 tw:z-50 tw:space-x-3"></nav>
 
             <!-- Post Modal -->
             <dialog id="post_modal" class="tw:dy-modal tw:dy-modal-bottom sm:tw:dy-modal-middle">
@@ -250,36 +232,20 @@
                 </div> -->
 
                 <!-- REMOVE WHEN DONE -->
-
             </div>
 
 
-            <div id="bottom-navigation" class="tw:sticky tw:bottom-0 tw:w-full"></div>
+            <div id="bottom-navigation" class="tw:sticky tw:bottom-0 tw:w-full tw:sm:hidden"></div>
 
             <!-- Navigation bar -->
-            <!--<% if (sessionType === 'GUEST') { %>
+            <!--
                 <div class="tw:w-full tw:sticky tw:bottom-0 tw:bg-base-100 tw:border-t-2 tw:border-background-100 tw:dark:border-background-900 tw:sm:hidden">
                     <div class="tw:grid tw:grid-cols-2 tw:gap-y-1 tw:gap-x-2 tw:p-6">
                         <a href="/a/signup"><button class="tw:dy-btn tw:dy-btn-sm tw:dy-btn-primary tw:w-full">Sign up</button></a>
                         <a href="/a/login"><button class="tw:dy-btn tw:dy-btn-sm tw:w-full">Log in</button></a>
                     </div>
                 </div>
-            <% } else { %>
-                <% if (sessionType === 'USER') { %>
-                    <nav class="tw:sticky tw:w-full tw:flex tw:flex-row tw:px-3 tw:justify-end tw:bottom-16 tw:pointer-events-none">
-                        <button onclick="post_modal.showModal()" class="tw:dy-btn tw:dy-btn-secondary tw:bottom-16 tw:rounded-2xl tw:sm:hidden tw:pointer-events-auto">
-                            <i data-lucide="square-pen"></i>
-                            Post
-                        </button>
-                    </nav>
-                <% } %>
-
-                <% if (sessionType === 'MODERATOR') { %>
-
-                <% } %>
-
-                <nav id="nav-bar" class="tw:dy-btm-nav tw:dy-btm-nav-sm"></nav>
-            <% } %>-->
+            -->
         </div>
 
         <!-- Drawer -->
@@ -292,34 +258,6 @@
                 <div class="tw:h-2"></div>
 
                 <div id="side-navigation" class="tw:flex tw:flex-col tw:w-full"></div>
-        
-                <!--<% if (sessionType === 'GUEST') { %>
-                    <div class="tw:w-full tw:px-3">Sign up or log in to engage with the community</div>
-
-                    <div class="tw:h-3"></div>
-
-                    <div class="tw:grid tw:grid-cols-2 tw:gap-2 tw:px-3">
-                        <a href="/a/signup"><button class="tw:dy-btn tw:dy-btn-sm tw:dy-btn-primary tw:w-full">Sign up</button></a>
-                        <a href="/a/login"><button class="tw:dy-btn tw:dy-btn-sm tw:w-full">Log in</button></a>
-                    </div>
-                <% } else { %>
-                    <% if (sessionType === 'USER') { %>
-                        <button onclick="post_modal.showModal()" class="tw:dy-btn tw:dy-btn-secondary tw:w-full tw:px-3 tw:rounded-2xl">Post</button>
-                        <div class="tw:h-4"></div>
-                    <% } %>
-                
-                    <% if (sessionType === 'MODERATOR') { %>
-                        &lt;!&ndash; Show moderator specific stuff here &ndash;&gt;
-                    <% } %>
-                
-                    <ul id="nav-drawer" class="tw:dy-menu tw:p-0 tw:gap-2 text-base-content"></ul>
-
-                    <form action="/logout" method="post">
-                        <ul class="tw:dy-menu tw:w-60 tw:p-0 tw:pb-3 tw:absolute tw:bottom-0">
-                            <li><button type="submit"><i data-lucide="log-out"></i> Log out</button></li>
-                        </ul>
-                    </form>
-                <% } %>     -->
             </nav>
         </aside>
     </div>

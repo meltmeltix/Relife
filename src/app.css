@@ -127,10 +127,6 @@
   }
 }*/
 
-@utility dy-active {
-  @apply tw:text-primary;
-}
-
 @utility dy-btm-nav {
   @apply tw:border-t-2 tw:border-background-100 tw:dark:border-background-900 tw:sm:hidden;
 }
