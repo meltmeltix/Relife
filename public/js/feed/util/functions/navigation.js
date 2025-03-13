@@ -133,4 +133,4 @@ function populateTitleBar(
     }
 }
 
-export {renderNavigation, appNavigation, profileNavigation, populateTitleBar}
+export {renderNavigation, profileNavigation, populateTitleBar}
