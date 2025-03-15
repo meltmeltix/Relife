@@ -1,7 +1,6 @@
 'use strict'
 
-import page from '//unpkg.com/page/page.mjs'
-import {appNavigation, populateTitleBar, profileNavigation, renderNavigation} from './util/functions/navigation.js'
+import {populateTitleBar, profileNavigation, renderNavigation} from './util/functions/navigation.js'
 import {renderProfile, renderStatus} from './util/functions/profile.js';
 import Posts from "./service/posts.js";
 import {renderSearch} from "./util/functions/search.js";

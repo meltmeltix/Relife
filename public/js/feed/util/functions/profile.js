@@ -6,14 +6,14 @@ import {buildPost} from "../../template/post-layout.js";
 
 async function renderProfile(handle, userType, titleBar, contentContainer) {
     const profile = await Api.getProfile(handle)
-    contentContainer.classList.add('tw-p-2')
+    contentContainer.classList.add('tw:p-2')
     contentContainer.innerHTML = buildProfile(profile)
 }
 
 async function renderStatus(handle, postId, titleBar, contentContainer) {
     const post = await Api.getStatus(postId, handle)
-    contentContainer.classList.add('tw-p-2')
-    contentContainer.innerHTML = buildPost(post, true)
+    contentContainer.classList.add('tw:p-2')
+    contentContainer.appendChild(buildPost(post, true))
 }
 
 export { renderProfile, renderStatus }

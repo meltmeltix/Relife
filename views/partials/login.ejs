@@ -1,13 +1,13 @@
-<form action="/sessions" method="post" class="tw-flex tw-flex-col tw-p-6 tw-justify-between tw-h-viewport tw-gap-10 sm: sm:tw-h-full sm:tw-p-8">
-    <div class="tw-flex tw-flex-col tw-gap-3">
-        <h1 class="tw-font-serif tw-font-semibold tw-text-2xl tw-pb-3">Log in to Relife</h1>
+<form action="/sessions" method="post" class="tw:flex tw:flex-col tw:p-6 tw:justify-between tw:h-viewport tw:gap-10 sm: tw:sm:h-full tw:sm:p-8">
+    <div class="tw:flex tw:flex-col tw:gap-3">
+        <h1 class="tw:font-serif tw:font-semibold tw:text-2xl tw:pb-3">Log in to Relife</h1>
 
-        <input type="text" name="username" placeholder="Mail or username" class="tw-dy-input tw-dy-input-bordered tw-w-full" required autofocus/>
-        <input type="password" name="password" placeholder="Password" class="tw-dy-input tw-dy-input-bordered tw-w-full" required/>
+        <input type="text" name="username" placeholder="Mail or username" class="tw:dy-input tw:dy-input-bordered tw:w-full" required autofocus/>
+        <input type="password" name="password" placeholder="Password" class="tw:dy-input tw:dy-input-bordered tw:w-full" required/>
         
         <% if (message != null) { %>
             <% if (messageType === "SUCCESS") { %>
-                <div role="alert" class="tw-dy-alert tw-dy-alert-success">
+                <div role="alert" class="tw:dy-alert tw:dy-alert-success">
                     <svg 
                         xmlns="http://www.w3.org/2000/svg" 
                         width="24" 
@@ -23,7 +23,7 @@
                     <span><%- message -%></span>
                 </div>
             <% } else if (messageType === "ERROR") { %>
-                <div role="alert" class="tw-dy-alert tw-dy-alert-error">
+                <div role="alert" class="tw:dy-alert tw:dy-alert-error">
                     <svg 
                         xmlns="http://www.w3.org/2000/svg" 
                         width="24" 
@@ -44,13 +44,13 @@
             <% } %>
         <% } %>
 
-        <a class="tw-dy-link tw-dy-link-hover tw-dy-link-accent">Forgot your password?</a>
-        <p class="tw-inline">Need an account? <a href="/a/signup" class="tw-inline-block tw-dy-link tw-dy-link-hover tw-dy-link-accent">Sign up</a></p>
+        <a class="tw:dy-link tw:dy-link-hover tw:dy-link-accent">Forgot your password?</a>
+        <p class="tw:inline">Need an account? <a href="/a/signup" class="tw:inline-block tw:dy-link tw:dy-link-hover tw:dy-link-accent">Sign up</a></p>
     </div>
 
-    <div class="tw-grid tw-grid-cols-2 sm:tw-grid-cols-3 tw-gap-3">
-        <div><a href="/" id="backButton" class="tw-dy-btn tw-rounded-2xl tw-w-full">Back</a></div>
-        <div class="tw-hidden sm:tw-block sm:tw-w-10"></div>
-        <div><button id="nextButton" type="submit" class="tw-dy-btn tw-rounded-2xl tw-dy-btn-primary tw-w-full">Log in</button></div>
+    <div class="tw:grid tw:grid-cols-2 tw:sm:grid-cols-3 tw:gap-3">
+        <div><a href="/" id="backButton" class="tw:dy-btn tw:w-full">Back</a></div>
+        <div class="tw:hidden tw:sm:block tw:sm:w-10"></div>
+        <div><button id="nextButton" type="submit" class="tw:dy-btn tw:dy-btn-primary tw:w-full">Log in</button></div>
     </div>
 </form>

@@ -11,19 +11,14 @@
     <title><%- title -%></title>
 </head>
 
-<body class="tw-flex tw-flex-col tw-h-viewport tw-items-center tw-justify-center tw-bg-base-300">
-    <div class="tw-w-full sm:tw-w-96 sm:tw-rounded-3xl tw-bg-base-100">
+<body class="tw:flex tw:flex-col tw:h-viewport tw:items-center tw:justify-center tw:bg-base-300">
+    <div class="tw:w-full tw:sm:w-96 tw:sm:rounded-3xl tw:bg-base-100">
         <% if (accessType === "LOGIN") { %>
             <%- include('partials/login') -%>
         <% } else if (accessType === "SIGNUP") { %>
             <%- include('partials/signup') -%>
         <% } %>
     </div>
-
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        lucide.createIcons();
-    </script>
 </body>
 
 </html>

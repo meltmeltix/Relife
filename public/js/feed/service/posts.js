@@ -8,16 +8,14 @@ class Posts {
         const posts = await Api.getAllPosts()
 
         contentContainer.innerHTML = ''
-        contentContainer.classList.add('tw-p-2')
         for (let post of posts) {
-            const p = buildPost(post, false)
-            contentContainer.insertAdjacentHTML('beforeend', p)
+            contentContainer.appendChild(buildPost(post, true))
         }
     }
 
     static async getUserPosts(handle, postType, contentContainer) {
         const postList = document.createElement('div')
-        postList.classList.add('tw-p-2', 'tw-space-y-2')
+        postList.classList.add('tw:p-2', 'tw:space-y-2')
         postList.innerHTML = ''
 
         const posts = await Api.getUserPosts(handle, postType)
@@ -32,7 +30,7 @@ class Posts {
 
     static async getStatusComments() {
         const commentsList = document.createElement('div')
-        commentsList.classList.add('tw-p-2', 'tw-space-y-2')
+        commentsList.classList.add('tw:p-2', 'tw:space-y-2')
         commentsList.innerHTML = ''
 
 
