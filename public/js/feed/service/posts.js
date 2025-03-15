@@ -8,10 +8,8 @@ class Posts {
         const posts = await Api.getAllPosts()
 
         contentContainer.innerHTML = ''
-        contentContainer.classList.add('tw:p-2')
         for (let post of posts) {
-            const p = buildPost(post, false)
-            contentContainer.insertAdjacentHTML('beforeend', p)
+            contentContainer.appendChild(buildPost(post, true))
         }
     }
 
