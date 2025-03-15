@@ -2,10 +2,10 @@
 
 function createAvatar(picture, handle) {
     const avatar = document.createElement('div');
-    avatar.classList.add('tw:dy-avatar', 'tw:size-10');
+    avatar.classList.add('avatar', 'size-10');
     avatar.innerHTML = `
         <img 
-            class="tw:rounded-full" 
+            class="rounded-full" 
             src="${picture || `/webp/no-avatar-24x24.webp`}" 
             alt="${handle}'s avatar"
         />
@@ -16,14 +16,14 @@ function createAvatar(picture, handle) {
 
 function createHeader(name, handle, date) {
     const header = document.createElement('div');
-    header.classList.add('tw:dy-card-title', 'tw:h-10', 'tw:flex-1', 'tw:font-sans', 'tw:font-normal');
+    header.classList.add('card-title', 'h-10', 'flex-1', 'font-sans', 'font-normal');
     header.innerHTML = `
-        <div class="tw:flex-1 tw:overflow-hidden tw:whitespace-nowrap tw:text-ellipsis tw:leading-4">
+        <div class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis leading-4">
             ${name} <br>
-            <span class="tw:text-sm tw:opacity-90">@${handle}</span>
+            <span class="text-sm opacity-90">@${handle}</span>
         </div>
         
-        <div class="tw:ml-auto tw:whitespace-nowrap">${moment(date).fromNow()}</div>
+        <div class="ml-auto whitespace-nowrap">${moment(date).fromNow()}</div>
     `;
 
     return header;
@@ -38,8 +38,8 @@ function createParagraph(body) {
 function createAttachment(attachment) {
     const container = document.createElement('div');
     container.classList.add(
-        'tw:w-full', 'tw:h-48', 'tw:bg-cover',
-        'tw:bg-center', 'tw:rounded-lg', 'tw:bg-base-200'
+        'w-full', 'h-48', 'bg-cover',
+        'bg-center', 'rounded-lg', 'bg-base-200'
     );
     container.style.backgroundImage = `url(${attachment})`;
     container.ariaLabel = 'Post attachment';
@@ -49,10 +49,10 @@ function createAttachment(attachment) {
 
 function createActions() {
     const actions = document.createElement('div');
-    actions.classList.add('tw:dy-card-actions', 'tw:place-content-between', 'tw:space-x-5');
+    actions.classList.add('card-actions', 'place-content-between', 'space-x-5');
 
     const comments = document.createElement('a');
-    comments.classList.add('tw:dy-btn', 'tw:dy-btn-xs', 'tw:dy-btn-ghost');
+    comments.classList.add('btn', 'btn-xs', 'btn-ghost');
     comments.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
@@ -63,14 +63,14 @@ function createActions() {
     `
 
     const dropDownMenu = document.createElement('div');
-    dropDownMenu.classList.add('tw:dy-dropdown', 'tw:dy-dropdown-end', 'tw:sm:hidden');
+    dropDownMenu.classList.add('dropdown', 'dropdown-end', 'sm:hidden');
 
     const button = document.createElement('div');
     button.tabIndex = 0;
     button.role = 'button';
     button.classList.add(
-        'tw:dy-btn', 'tw:dy-btn-xs', 'tw:dy-btn-square',
-        'tw:dy-btn-ghost', 'sm:tw:hidden'
+        'btn', 'btn-xs', 'btn-square',
+        'btn-ghost', 'sm:hidden'
     );
     button.innerHTML = `
         <svg 
@@ -89,7 +89,7 @@ function createActions() {
     //form.method = 'POST';
     form.innerHTML = `
         <form action="" method="post">
-            <ul tabindex="0" class="tw:dy-dropdown-content tw:dy-menu tw:bg-base-200 tw:w-32 tw:shadow-sm">
+            <ul tabindex="0" class="dropdown-content menu bg-base-200 w-32 shadow-sm">
                 <li><input type="submit" value="Report"></li>
             </ul>
         </form>
@@ -105,16 +105,16 @@ function createActions() {
 function buildPost(post, isFocused) {
     const card = document.createElement('div');
     card.classList.add(
-        'tw:dy-card', 'tw:dy-card-sm', 'tw:rounded-none',
-        'tw:border-b', 'tw:border-neutral'
+        'card', 'card-sm', 'rounded-none',
+        'border-b', 'border-neutral'
     );
 
     const layout = document.createElement('div');
-    layout.classList.add('tw:dy-card-body', 'tw:pb-2', 'tw:flex', 'tw:flex-row');
+    layout.classList.add('card-body', 'pb-2', 'flex', 'flex-row');
     layout.appendChild(createAvatar(post.authorAvatar, post.authorHandle));
 
     const postBody = document.createElement('div');
-    postBody.classList.add('tw:flex-1', 'tw:flex-col', 'tw:text-base', 'tw:space-y-2');
+    postBody.classList.add('flex-1', 'flex-col', 'text-base', 'space-y-2');
     postBody.appendChild(createHeader(post.authorName, post.authorHandle, post.date));
 
     if (post.body) postBody.appendChild(createParagraph(post.body));

@@ -21,7 +21,7 @@
     <script defer type="module" src="/js/feed/main.js"></script>
 </head>
 
-<body class="tw:flex tw:flex-col tw:text-current">
+<body class="flex flex-col text-current">
     <!-- Logo -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
         <defs>
@@ -32,87 +32,87 @@
         </defs>
     </svg>
 
-    <div class="tw:dy-drawer tw:sm:dy-drawer-open tw:md:px-16 tw:lg:px-44 tw:xl:px-[18rem]">
-        <input id="daisy-drawer" type="checkbox" class="tw:dy-drawer-toggle" />
+    <div class="drawer sm:dy-drawer-open md:px-16 lg:px-44 xl:px-[18rem]">
+        <input id="daisy-drawer" type="checkbox" class="drawer-toggle" />
 
         <!-- Content -->
-        <div class="tw:dy-drawer-content tw:flex tw:flex-col tw:min-h-[100svh]">
+        <div class="drawer-content flex flex-col min-h-[100svh]">
             <!-- Top Bar -->
-            <nav id="title-bar" class="tw:dy-navbar tw:sticky tw:top-0 tw:bg-base-100 tw:z-50 tw:space-x-3"></nav>
+            <nav id="title-bar" class="navbar sticky top-0 bg-base-100 z-50 space-x-3"></nav>
 
             <!-- Post Modal -->
-            <dialog id="post_modal" class="tw:dy-modal tw:dy-modal-bottom sm:tw:dy-modal-middle">
-                <div class="tw:dy-modal-box tw:flex tw:flex-col tw:align-bottom">
+            <dialog id="post_modal" class="modal modal-bottom sm:modal-middle">
+                <div class="modal-box flex flex-col align-bottom">
                     <form method="dialog">
                         <button
                             aria-label="Close post creation modal"
-                            class="tw:dy-btn tw:dy-btn-ghost tw:dy-btn-square tw:dy-btn-sm tw:absolute tw:right-4 tw:top-4">
+                            class="btn btn-ghost btn-square btn-sm absolute right-4 top-4">
                                 <i data-lucide="x"></i>
                         </button>
                     </form>
 
-                    <form action="/new/post" method="post" class="tw:flex tw:flex-col tw:gap-2" enctype="multipart/form-data">
+                    <form action="/new/post" method="post" class="flex flex-col gap-2" enctype="multipart/form-data">
                         <input name="author" id="post_author" type="hidden">
 
-                        <span class="tw:text-xl tw:w-full">New post</span>
+                        <span class="text-xl w-full">New post</span>
 
-                        <label class="tw:dy-form-control">
+                        <label class="form-control">
                             <textarea
                                 name="body"
                                 id="post_textarea"
-                                class="tw:dy-textarea tw:dy-textarea-bordered tw:dy-textarea-md tw:h-40 tw:resize-none"
+                                class="textarea textarea-bordered textarea-md h-40 resize-none"
                                 maxlength="200"
                                 placeholder="Something new to share?"></textarea>
 
-                            <div class="tw:dy-label">
-                                <span id="post_textarea_counter" class="tw:dy-label-text-alt">0/200</span>
+                            <div class="label">
+                                <span id="post_textarea_counter" class="label-text-alt">0/200</span>
                             </div>
                         </label>
 
-                        <label class="tw:dy-form-control">
-                            <input name="attachment" id="post_upload" type="file" accept="image/png, image/jpeg" class="tw:dy-file-input tw:dy-file-input-bordered">
-                            <div class="tw:dy-label">
-                                <span id="post_textarea_counter" class="tw:dy-label-text-alt">Maximum size: 200kb</span>
+                        <label class="form-control">
+                            <input name="attachment" id="post_upload" type="file" accept="image/png, image/jpeg" class="file-input file-input-bordered">
+                            <div class="label">
+                                <span id="post_textarea_counter" class="label-text-alt">Maximum size: 200kb</span>
                             </div>
                         </label>
 
-                        <div class="tw:flex tw:flex-row tw:justify-end">
-                            <button id="post_submit" type="submit" disabled class="tw:dy-btn tw:dy-btn-primary tw:rounded-xl tw:w-28">Post</button>
+                        <div class="flex flex-row justify-end">
+                            <button id="post_submit" type="submit" disabled class="btn btn-primary rounded-xl w-28">Post</button>
                         </div>
                     </form>
                 </div>
             </dialog>
 
-            <div id="content-container" class="tw:w-full tw:h-full tw:pb-20 tw:sm:pb-2">
-                <div id="spinner" class="tw:flex tw:flex-col tw:h-full tw:items-center tw:justify-center">
-                    <span class="tw:dy-loading tw:dy-loading-spinner tw:dy-loading-lg"></span>
+            <div id="content-container" class="w-full h-full pb-20 sm:pb-2">
+                <div id="spinner" class="flex flex-col h-full items-center justify-center">
+                    <span class="loading loading-spinner loading-lg"></span>
                 </div>
             </div>
 
 
-            <div id="bottom-navigation" class="tw:sticky tw:bottom-0 tw:w-full tw:sm:hidden"></div>
+            <div id="bottom-navigation" class="sticky bottom-0 w-full sm:hidden"></div>
 
             <!-- Navigation bar -->
             <!--
-                <div class="tw:w-full tw:sticky tw:bottom-0 tw:bg-base-100 tw:border-t-2 tw:border-background-100 tw:dark:border-background-900 tw:sm:hidden">
-                    <div class="tw:grid tw:grid-cols-2 tw:gap-y-1 tw:gap-x-2 tw:p-6">
-                        <a href="/a/signup"><button class="tw:dy-btn tw:dy-btn-sm tw:dy-btn-primary tw:w-full">Sign up</button></a>
-                        <a href="/a/login"><button class="tw:dy-btn tw:dy-btn-sm tw:w-full">Log in</button></a>
+                <div class="w-full sticky bottom-0 bg-base-100 border-t-2 border-background-100 dark:border-background-900 sm:hidden">
+                    <div class="grid grid-cols-2 gap-y-1 gap-x-2 p-6">
+                        <a href="/a/signup"><button class="btn btn-sm btn-primary w-full">Sign up</button></a>
+                        <a href="/a/login"><button class="btn btn-sm w-full">Log in</button></a>
                     </div>
                 </div>
             -->
         </div>
 
         <!-- Drawer -->
-        <aside class="tw:dy-drawer-side">
-            <nav class="tw:flex tw:flex-col tw:w-64 tw:h-full tw:p-3 tw:bg-base-100">
-                <a href="/home" aria-label="Home" class="tw:dy-btn tw:dy-btn-ghost tw:w-min">
-                    <svg class="tw:h-7 tw:fill-text-700 tw:dark:fill-text-300" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
+        <aside class="drawer-side">
+            <nav class="flex flex-col w-64 h-full p-3 bg-base-100">
+                <a href="/home" aria-label="Home" class="btn btn-ghost w-min">
+                    <svg class="h-7 fill-text-700 dark:fill-text-300" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
                 </a>
 
-                <div class="tw:h-2"></div>
+                <div class="h-2"></div>
 
-                <div id="side-navigation" class="tw:flex tw:flex-col tw:w-full"></div>
+                <div id="side-navigation" class="flex flex-col w-full"></div>
             </nav>
         </aside>
     </div>
