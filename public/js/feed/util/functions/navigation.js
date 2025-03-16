@@ -17,16 +17,16 @@ function guestNavigation() {
 
 function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     const actionButton = document.createElement('button');
-    actionButton.classList.add('tw:dy-btn', 'tw:dy-btn-secondary', 'tw:w-full', 'tw:px-3', 'tw:rounded-2xl');
+    actionButton.classList.add('btn', 'btn-secondary', 'w-full', 'px-3', 'rounded-2xl');
     actionButton.setAttribute('onclick', 'post_modal.showModal()');
     actionButton.innerHTML = `Post`
 
     const navDrawer = document.createElement('ul')
-    navDrawer.classList.add('tw:dy-menu', 'tw:p-0', 'tw:gap-2', 'tw:w-full', 'tw:py-2')
+    navDrawer.classList.add('menu', 'p-0', 'gap-2', 'w-full', 'py-2')
     navDrawer.innerHTML = ''
 
     const navBar = document.createElement('div');
-    navBar.classList.add('tw:dy-dock', 'tw:dy-dock-sm');
+    navBar.classList.add('dock', 'dock-sm');
     navBar.innerHTML = ''
 
     destinationList[destinationList.length - 1].url = loggedUser
@@ -46,7 +46,7 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
 
 function profileNavigation(active, loggedUser, contentContainer) {
     const tabRow = document.createElement('div')
-    tabRow.classList.add('tw:dy-tabs', 'tw:dy-tabs-bordered')
+    tabRow.classList.add('tabs', 'tabs-bordered')
     tabRow.role = 'tablist'
     tabRow.innerHTML = ''
 
@@ -67,7 +67,7 @@ function populateTitleBar(
     titleBar.innerHTML = ''
     if (backButton) {
         const backButton = document.createElement('button')
-        backButton.classList.add('tw:dy-btn', 'tw:dy-btn-square', 'tw:dy-btn-ghost')
+        backButton.classList.add('btn', 'btn-square', 'btn-ghost')
         backButton.innerHTML = `
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -84,13 +84,13 @@ function populateTitleBar(
     if (searchBar) {
         const searchBar = document.createElement('input')
         searchBar.type = 'search'
-        searchBar.classList.add('tw:dy-input', 'tw:w-full', 'tw:pl-2')
+        searchBar.classList.add('input', 'w-full', 'pl-2')
         searchBar.placeholder = 'Search...'
 
         titleBar.appendChild(searchBar)
     } else {
         const headlineText = document.createElement('span')
-        headlineText.classList.add('tw:w-full', 'tw:ml-2')
+        headlineText.classList.add('w-full', 'ml-2')
         headlineText.innerText = headline
 
         titleBar.appendChild(headlineText)
@@ -98,12 +98,12 @@ function populateTitleBar(
 
     if (dropDownMenu) {
         const dropDownMenu = document.createElement('div');
-        dropDownMenu.classList.add('tw:dy-dropdown', 'tw:dy-dropdown-end', 'tw:sm:hidden');
+        dropDownMenu.classList.add('dropdown', 'dropdown-end', 'sm:hidden');
 
         const button = document.createElement('div');
         button.tabIndex = 0;
         button.role = 'button';
-        button.classList.add('tw:dy-btn', 'tw:dy-btn-square', 'tw:dy-btn-ghost', 'sm:tw:hidden');
+        button.classList.add('btn', 'btn-square', 'btn-ghost', 'sm:hidden');
         button.innerHTML = `
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -121,7 +121,7 @@ function populateTitleBar(
         form.method = 'POST';
         form.innerHTML = `
             <form action="/logout" method="post">
-                <ul tabindex="0" class="tw:dy-dropdown-content tw:dy-menu tw:bg-base-200 tw:w-32 tw:shadow-sm">
+                <ul tabindex="0" class="dropdown-content menu bg-base-200 w-32 shadow-sm">
                     <li><input type="submit" value="Log out"></li>
                 </ul>
             </form>

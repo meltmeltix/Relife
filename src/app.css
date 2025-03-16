@@ -1,4 +1,4 @@
-@import 'tailwindcss' prefix(tw);
+@import 'tailwindcss';
 @theme {
     --font-sans: Roboto Flex, sans-serif;
     --font-serif: Noto Serif, serif;
@@ -29,7 +29,6 @@
 }
 
 @plugin 'daisyui' {
-    prefix: 'dy-';
     themes: relife-light --default, relife-dark --prefersdark;
 }
 
@@ -69,8 +68,6 @@
     --noise: 0;
 }
 
-
-
 @plugin "daisyui/theme" {
     name: "relife-dark";
     default: false;
@@ -106,54 +103,17 @@
     --noise: 0;
 }
 
-
-/*@config '../tailwind.config.js';*/
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-/*@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-}*/
-
-@utility dy-btm-nav {
-  @apply tw:border-t-2 tw:border-background-100 tw:dark:border-background-900 tw:sm:hidden;
-}
-
-@utility dy-dropdown-content {
-  @apply tw:z-1 tw:dy-menu tw:p-2 tw:shadow tw:bg-background-200 tw:dark:bg-background-100 tw:rounded-box tw:w-32;
+@utility dropdown-content {
+  @apply z-1 menu p-2 shadow-2xl rounded-box w-32;
 }
 
 @utility h-viewport {
-  @apply tw:h-[100svh];
-}
-
-@utility dy-inactive {
-  @apply tw:text-base-content;
+  @apply h-[100svh];
 }
 
 @utility inverted-background {
   /* Complementary class for active */
-  @apply tw:bg-background-200 tw:dark:bg-background-800;
-}
-
-@utility post {
-  @apply tw:flex tw:flex-col tw:p-3.5 tw:gap-2.5 tw:rounded-2xl;
-}
-
-@utility post-background {
-  @apply tw:bg-background-100 tw:dark:bg-background-900;
+  @apply bg-background-200 dark:bg-background-800;
 }
 
 @layer utilities {

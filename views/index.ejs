@@ -10,7 +10,7 @@
     <title>ReLife</title>
 </head>
 
-<body class="tw:flex tw:flex-col tw:md:grid tw:md:grid-cols-5 tw:relative tw:h-viewport tw:inverted-background">
+<body class="flex flex-col md:grid md:grid-cols-5 relative h-viewport inverted-background">
     <!-- Logo -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
         <defs>
@@ -22,7 +22,7 @@
     </svg>
 
     <!-- Pattern -->
-    <svg class="tw:z-0 tw:absolute tw:h-full tw:w-full tw:opacity-10 tw:dark:opacity-45" xmlns="http://www.w3.org/2000/svg">
+    <svg class="z-0 absolute h-full w-full opacity-10 dark:opacity-45" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <pattern id="graphic" width="600" height="600" viewBox="0 0 600 600" patternUnits="userSpaceOnUse">
                 <image href="/svg/topography.svg"></image>
@@ -33,7 +33,7 @@
 
     <!-- Background blobs -->
     <svg 
-        class="tw:z-1 tw:md:hidden tw:absolute tw:bottom-0 tw:object-fill tw:h-[32rem] tw:w-full tw:fill-base-100"
+        class="z-1 md:hidden absolute bottom-0 object-fill h-[32rem] w-full fill-base-100"
         viewBox="0 0 393 595" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
     ><path d="M0.5 184L0 595H393V0C393 0 308.806 74.8472 208.5 125C104.5 177 0.5 184 0.5 184Z"/></svg>
 
     <svg 
-        class="tw:z-1 tw:hidden tw:md:block tw:absolute tw:h-full tw:right-0 tw:sm:w-[55%] tw:md:w-[45%] tw:fill-base-100"
+        class="z-1 hidden md:block absolute h-full right-0 sm:w-[55%] md:w-[45%] fill-base-100"
         viewBox="0 0 761 1024" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
@@ -49,43 +49,43 @@
     ><path d="M42 0H761V1024H42L21.0055 932.942C6.50716 870.06 5.79607 804.784 18.9211 741.601L28.3355 696.281C37.272 653.26 34.1773 608.609 19.3913 567.234L17.0409 560.656C-5.28602 498.179 -5.14245 429.873 17.4469 367.49L28.7658 336.231C54.4817 265.213 55.1727 187.543 30.7245 116.079C17.5555 77.5852 21.6783 35.2455 42 0Z"/></svg>
 
     <!-- Left column -->
-    <div class="tw:z-10 tw:hidden tw:md:flex tw:flex-col tw:md:col-span-3 tw:grow tw:h-full tw:justify-center tw:gap-2 tw:pl-16 tw:lg:pl-20">
-        <svg class="tw:fill-text-800 tw:dark:fill-text-200 tw:w-80 tw:lg:w-96 tw:xl:w-[30rem]" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo" /></svg>
-        <h1 class="tw:text-4xl tw:font-serif tw:text-text-800 tw:dark:text-text-200">An ever-growing<br>system</h1>
+    <div class="z-10 hidden md:flex flex-col md:col-span-3 grow h-full justify-center gap-2 pl-16 lg:pl-20">
+        <svg class="fill-text-800 dark:fill-text-200 w-80 lg:w-96 xl:w-[30rem]" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo" /></svg>
+        <h1 class="text-4xl font-serif text-text-800 dark:text-text-200">An ever-growing<br>system</h1>
     </div>
 
     <!-- Right column -->
-    <div class="tw:z-10 tw:flex tw:flex-col tw:md:col-span-2 tw:xl-970:pr-10 tw:grow">
+    <div class="z-10 flex flex-col md:col-span-2 xl-970:pr-10 grow">
         <!-- Content -->
-        <div class="tw:absolute tw:w-full tw:md:relative tw:sm:px-28 tw:p-8 tw:pb-24 tw:md:pt-16 tw:md:p-8 tw:flex tw:flex-col tw:h-full tw:justify-end tw:gap-6 tw:md:gap-10 tw:md:justify-center">
-            <div class="tw:md:hidden tw:grow tw:pt-20">
-                <svg class="tw:fill-text-800 tw:dark:fill-text-200 tw:w-64 tw:sm-500:w-72" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
-                <h1 class="tw:text-2xl tw:font-serif tw:text-text-800 tw:dark:text-text-200">An ever-growing<br>system</h1>
+        <div class="absolute w-full md:relative sm:px-28 p-8 pb-24 md:pt-16 md:p-8 flex flex-col h-full justify-end gap-6 md:gap-10 md:justify-center">
+            <div class="md:hidden grow pt-20">
+                <svg class="fill-text-800 dark:fill-text-200 w-64 sm-500:w-72" viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg"><use href="#logo"/></svg>
+                <h1 class="text-2xl font-serif text-text-800 dark:text-text-200">An ever-growing<br>system</h1>
             </div>
             
-            <div class="tw:flex tw:flex-col tw:gap-1 tw:md:gap-2">
-                <h1 class="tw:font-serif tw:tracking-tighter tw:font-medium tw:text-3xl tw:md:leading-[3rem] tw:lg:leading-[3.8rem] tw:md:text-[2.25rem] tw:lg:text-[2.5rem]">Plant your seed &#127793</h1>
-                <h2 class="tw:md:text-2xl tw:font-medium">Join the community!</h2>
+            <div class="flex flex-col gap-1 md:gap-2">
+                <h1 class="font-serif tracking-tighter font-medium text-3xl md:leading-[3rem] lg:leading-[3.8rem] md:text-[2.25rem] lg:text-[2.5rem]">Plant your seed &#127793</h1>
+                <h2 class="md:text-2xl font-medium">Join the community!</h2>
             </div>
 
             <!-- Buttons -->
-            <div class="tw:grid tw:grid-cols-2 tw:gap-x-3 tw:bottom-0 ">
-                <div class="tw:col-span-2">
-                    <a href="/explore"><button class="tw:dy-btn tw:dy-btn-secondary tw:w-full">Explore</button></a>
+            <div class="grid grid-cols-2 gap-x-3 bottom-0 ">
+                <div class="col-span-2">
+                    <a href="/explore"><button class="btn btn-secondary w-full">Explore</button></a>
                 </div>
-                <div class="tw:col-span-2">
-                    <div class="mx-auto tw:dy-divider">or</div>
+                <div class="col-span-2">
+                    <div class="mx-auto divider">or</div>
                 </div>
-                <a href="/a/signup"><button class="tw:dy-btn tw:dy-btn-primary tw:w-full">Sign up</button></a>
-                <a href="/a/login"><button class="tw:dy-btn tw:dy-btn-primary tw:w-full">Log in</button></a>
+                <a href="/a/signup"><button class="btn btn-primary w-full">Sign up</button></a>
+                <a href="/a/login"><button class="btn btn-primary w-full">Log in</button></a>
             </div>
         </div>
         
         
-        <footer class="tw:absolute tw:md:relative tw:bottom-0 tw:w-full tw:flex tw:flex-col tw:text-xs tw:leading-3 tw:fill-light-base tw:dark:fill-dark-base">
-            <p class="tw:w-full tw:text-center tw:mb-1">Website built for educational purposes</p>
-            <p class="tw:w-full tw:text-center tw:mb-1">Made with ♥️ in Italy</p>
-            <a href="https://meltix.vercel.app" class="tw:w-full tw:text-center tw:opacity-70 tw:mb-3 tw:text-current tw:no-underline">&copy 2024 Alessio Cameroni</a>
+        <footer class="absolute md:relative bottom-0 w-full flex flex-col text-xs leading-3 fill-light-base dark:fill-dark-base">
+            <p class="w-full text-center mb-1">Website built for educational purposes</p>
+            <p class="w-full text-center mb-1">Made with ♥️ in Italy</p>
+            <a href="https://meltix.vercel.app" class="w-full text-center opacity-70 mb-3 text-current no-underline">&copy 2024 Alessio Cameroni</a>
         </footer>
     </div>
 </body>
