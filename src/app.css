@@ -68,8 +68,6 @@
     --noise: 0;
 }
 
-
-
 @plugin "daisyui/theme" {
     name: "relife-dark";
     default: false;
@@ -105,54 +103,17 @@
     --noise: 0;
 }
 
-
-/*@config '../tailwind.config.js';*/
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-/*@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-}*/
-
-@utility dy-btm-nav {
-  @apply border-t-2 border-background-100 dark:border-background-900 sm:hidden;
-}
-
-@utility dy-dropdown-content {
-  @apply z-1 menu p-2 shadow bg-background-200 dark:bg-background-100 rounded-box w-32;
+@utility dropdown-content {
+  @apply z-1 menu p-2 shadow-2xl rounded-box w-32;
 }
 
 @utility h-viewport {
   @apply h-[100svh];
 }
 
-@utility dy-inactive {
-  @apply text-base-content;
-}
-
 @utility inverted-background {
   /* Complementary class for active */
   @apply bg-background-200 dark:bg-background-800;
-}
-
-@utility post {
-  @apply flex flex-col p-3.5 gap-2.5 rounded-2xl;
-}
-
-@utility post-background {
-  @apply bg-background-100 dark:bg-background-900;
 }
 
 @layer utilities {
