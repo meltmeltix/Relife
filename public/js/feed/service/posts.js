@@ -15,14 +15,13 @@ class Posts {
 
     static async getUserPosts(handle, postType, contentContainer) {
         const postList = document.createElement('div')
-        postList.classList.add('p-2', 'space-y-2')
         postList.innerHTML = ''
 
         const posts = await Api.getUserPosts(handle, postType)
 
         for (let post of posts) {
             const p = buildPost(post, false)
-            postList.insertAdjacentHTML('beforeend', p)
+            postList.appendChild(p)
         }
 
         contentContainer.appendChild(postList)
@@ -30,7 +29,6 @@ class Posts {
 
     static async getStatusComments() {
         const commentsList = document.createElement('div')
-        commentsList.classList.add('p-2', 'space-y-2')
         commentsList.innerHTML = ''
 
 

@@ -75,16 +75,6 @@ class App {
                 })
         })
 
-        page('/:handle/likes', (ctx) => {
-            const handle = ctx.params.handle
-            document.title = 'Posts liked by ' + handle + ' | Relife'
-
-            renderProfile(handle, userType, titleBar, this.contentContainer)
-                .then(() => {
-                    profileNavigation('LIKES', handle, this.contentContainer)
-                })
-        })
-
         page('/:handle/status/', (ctx) => {
             console.log("THROW ERROR")
         })

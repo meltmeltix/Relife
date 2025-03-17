@@ -24,14 +24,13 @@ function navItem(active, dest, isDrawerItem) {
 }
 
 function tabRowItem(active, handle, dest) {
-    return `
-        <a 
-            href='/${handle}/${dest.url}' 
-            role="tab"
-            class="tab ${active === dest.id ? 'tab-active' : ''}">
-                ${dest.friendlyName}
-        </a>
-    `
+    const tab = document.createElement('a');
+    tab.href = `/${handle}/${dest.url}`
+    tab.role = 'tab';
+    tab.classList.add('tab', active === dest.id ? 'tab-active' : null);
+    tab.innerText = dest.friendlyName;
+
+    return tab;
 }
 
 export { navItem, tabRowItem }

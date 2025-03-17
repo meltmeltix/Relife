@@ -41,11 +41,5 @@ export const profileTabs = [
         'media',
         'Media',
         ''
-    ),
-    new Destination(
-        'LIKES',
-        'likes',
-        'Likes',
-        ''
     )
 ]
