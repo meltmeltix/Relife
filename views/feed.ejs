@@ -47,7 +47,11 @@
                         <button
                             aria-label="Close post creation modal"
                             class="btn btn-ghost btn-square btn-sm absolute right-4 top-4">
-                                <i data-lucide="x"></i>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+                                <path d="M18 6 6 18"/>
+                                <path d="m6 6 12 12"/>
+                            </svg>
                         </button>
                     </form>
 
@@ -60,7 +64,7 @@
                             <textarea
                                 name="body"
                                 id="post_textarea"
-                                class="textarea textarea-bordered textarea-md h-40 resize-none"
+                                class="textarea textarea-bordered textarea-md h-40 resize-none w-full"
                                 maxlength="200"
                                 placeholder="Something new to share?"></textarea>
 
@@ -70,7 +74,7 @@
                         </label>
 
                         <label class="form-control">
-                            <input name="attachment" id="post_upload" type="file" accept="image/png, image/jpeg" class="file-input file-input-bordered">
+                            <input name="attachment" id="post_upload" type="file" accept="image/png, image/jpeg" class="file-input file-input-bordered w-full">
                             <div class="label">
                                 <span id="post_textarea_counter" class="label-text-alt">Maximum size: 200kb</span>
                             </div>
@@ -83,24 +87,18 @@
                 </div>
             </dialog>
 
-            <div id="content-container" class="w-full h-full pb-20 sm:pb-2">
+            <!-- Content -->
+            <div id="content-container" class="w-full h-full pb-20">
                 <div id="spinner" class="flex flex-col h-full items-center justify-center">
                     <span class="loading loading-spinner loading-lg"></span>
                 </div>
             </div>
 
-
-            <div id="bottom-navigation" class="sticky bottom-0 w-full sm:hidden"></div>
-
-            <!-- Navigation bar -->
-            <!--
-                <div class="w-full sticky bottom-0 bg-base-100 border-t-2 border-background-100 dark:border-background-900 sm:hidden">
-                    <div class="grid grid-cols-2 gap-y-1 gap-x-2 p-6">
-                        <a href="/a/signup"><button class="btn btn-sm btn-primary w-full">Sign up</button></a>
-                        <a href="/a/login"><button class="btn btn-sm w-full">Log in</button></a>
-                    </div>
-                </div>
-            -->
+            <!-- Mobile navigation -->
+            <div
+                id="bottom-navigation"
+                class="sticky w-full flex flex-row px-3 justify-end bottom-16 sm:hidden"
+            ></div>
         </div>
 
         <!-- Drawer -->
@@ -117,42 +115,7 @@
         </aside>
     </div>
 
-    <script>
-        const textarea = document.getElementById('post_textarea')
-        const counter = document.getElementById('post_textarea_counter')
-        const upload = document.getElementById('post_upload')
-        const submit = document.getElementById('post_submit')
-
-        document.getElementById('post_author').value = loggedUser
-
-        function updateCounter() {
-            const maxLength = textarea.getAttribute("maxlength");
-            const currentLength = textarea.value.length;
-            counter.innerHTML = currentLength + ' / ' + maxLength;
-        }
-
-        function checkFormValidity() {
-            const file = upload.files[0];
-            const isTextareaFilled = textarea.value.length > 0;
-            const isFileValid = file && file.size <= 200 * 1024; // 200KB in bytes
-        
-            submit.disabled = !(isTextareaFilled || isFileValid);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            updateCounter();
-            checkFormValidity();
-        });
-        
-        textarea.addEventListener("input", ({ currentTarget: target }) => {
-            updateCounter();
-            checkFormValidity();
-        });
-
-        upload.addEventListener("change", () => {
-            checkFormValidity();
-        });
-    </script>
+    <script src="/js/feed/util/functions/postModal.js"></script>
 </body>
 
 </html>

@@ -63,15 +63,12 @@ function createActions() {
     `
 
     const dropDownMenu = document.createElement('div');
-    dropDownMenu.classList.add('dropdown', 'dropdown-end', 'sm:hidden');
+    dropDownMenu.classList.add('dropdown', 'dropdown-end');
 
     const button = document.createElement('div');
     button.tabIndex = 0;
     button.role = 'button';
-    button.classList.add(
-        'btn', 'btn-xs', 'btn-square',
-        'btn-ghost', 'sm:hidden'
-    );
+    button.classList.add('btn', 'btn-xs', 'btn-square', 'btn-ghost');
     button.innerHTML = `
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -106,7 +103,8 @@ function buildPost(post, isFocused) {
     const card = document.createElement('div');
     card.classList.add(
         'card', 'card-sm', 'rounded-none',
-        'border-b', 'border-neutral'
+        'border-b', 'border-neutral',
+        'hover:bg-background-950/15'
     );
 
     const layout = document.createElement('div');
