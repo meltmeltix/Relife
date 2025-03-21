@@ -59,7 +59,7 @@ function createActions() {
             class="size-[1.6em]">
         <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>     
         </svg>
-        100
+        0
     `
 
     const dropDownMenu = document.createElement('div');

@@ -36,6 +36,9 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     navDrawer.classList.add('menu', 'p-0', 'gap-2', 'w-full', 'py-2')
     navDrawer.innerHTML = ''
 
+    const spacer = document.createElement('div')
+    spacer.classList.add('grow', 'w-full', 'h-full')
+
     const navBar = document.createElement('div');
     navBar.classList.add('dock', 'dock-sm');
     navBar.innerHTML = ''
@@ -50,6 +53,8 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     sideNavigation.innerHTML = ''
     sideNavigation.appendChild(actionButton)
     sideNavigation.appendChild(navDrawer)
+    sideNavigation.appendChild(spacer)
+    sideNavigation.appendChild(logOutOption())
 
     bottomNavigation.innerHTML = '';
     bottomNavigation.appendChild(fab)
@@ -143,6 +148,39 @@ function populateTitleBar(
         dropDownMenu.appendChild(form);
         titleBar.appendChild(dropDownMenu);
     }
+}
+
+function logOutOption() {
+    const form = document.createElement('form');
+    form.action = '/logout';
+    form.method = 'POST';
+
+    const menu = document.createElement('div');
+    menu.classList.add('menu', 'p-0', 'gap-2', 'w-full', 'py-2')
+
+    const menuItem = document.createElement('li');
+
+    const logout = document.createElement('button');
+    logout.type = 'submit';
+    logout.innerHTML = `
+        <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" height="24" viewBox="0 0 24 24" 
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+            stroke-linejoin="round" class="size-[1.4em]"
+        >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" x2="9" y1="12" y2="12"/>
+        </svg>
+        Log out
+    `;
+
+    menuItem.appendChild(logout);
+    menu.appendChild(menuItem);
+    form.appendChild(menu);
+
+    return form;
 }
 
 export {renderNavigation, profileNavigation, populateTitleBar}
