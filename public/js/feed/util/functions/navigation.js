@@ -1,6 +1,6 @@
 'use strict'
 
-import {destinationList, profileTabs} from "../../data/constants/navigation.js"
+import {destinationList, profileTabs, guestActions} from "../../data/constants/navigation.js"
 import {navItem, tabRowItem} from "../../template/navigation-item.js"
 
 function renderNavigation(userType, loggedUser, active, sideNavigation, bottomNavigation) {
@@ -11,8 +11,37 @@ function renderNavigation(userType, loggedUser, active, sideNavigation, bottomNa
     }
 }
 
-function guestNavigation() {
+function guestNavigation(sideNavigation, bottomNavigation) {
+    bottomNavigation.classList.remove('bottom-16', 'px-3')
+    bottomNavigation.classList.add('bottom-0')
 
+    const dock = document.createElement('div');
+    dock.classList.add('w-full', 'h-15', 'bg-base-100', 'grid', 'grid-cols-2', 'place-content-center', 'px-3')
+
+    const logo = document.createElement('div')
+
+    logo.innerHTML = `
+        <svg 
+            class="h-7 fill-text-700 dark:fill-text-300" 
+            viewBox="0 0 472 135" xmlns="http://www.w3.org/2000/svg">
+            <use href="#logo"/>
+        </svg>
+    `
+
+    const btnGrid = document.createElement('div');
+    btnGrid.classList.add('grid', 'grid-cols-2', 'gap-2', 'place-content-center')
+    guestActions.forEach(action => {
+        const button = document.createElement('a');
+        button.classList.add('btn', 'btn-sm');
+        button.href = action.url;
+        button.innerText = action.friendlyName;
+
+        btnGrid.appendChild(button);
+    })
+
+    dock.appendChild(logo)
+    dock.appendChild(btnGrid)
+    bottomNavigation.appendChild(dock);
 }
 
 function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {

@@ -1,5 +1,6 @@
 'use strict'
 
+import Action from '../classes/action.js'
 import Destination from "../classes/destination.js"
 
 export const destinationList = [
@@ -41,5 +42,18 @@ export const profileTabs = [
         'media',
         'Media',
         ''
+    )
+]
+
+export const guestActions = [
+    new Action(
+        'Log in',
+        '/a/login',
+        'PRIMARY'
+    ),
+    new Action(
+        'Sign up',
+        '/a/signup',
+        'SECONDARY'
     )
 ]
