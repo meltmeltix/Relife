@@ -19,7 +19,6 @@ function createUserInfo(profile) {
         <div class="flex flex-col w-full justify-center">
             <span class="text-xl w-full">${profile.name || profile.handle}</span>
             <span class="text-sm w-full opacity-90">@${profile.handle}</span>
-            <span class="text-sm w-full opacity-90">0 following · 0 followers</span>
         </div>
     `;
 }

@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 /**
- * Given a user object, retrieve all of it's information
+ * Given a user object, retrieve all of its information
  * and insert into the user table to create a new user
  *
  * @returns

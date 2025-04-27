@@ -29,10 +29,14 @@ exports.newReply = function(body, attachment, date, author) {
 exports.getAllPosts = function() {
     return new Promise((resolve, reject) => {
         const query = `
-            SELECT id, body, attachment, date, handle, name, avatar
-            FROM post, user
-            WHERE author = handle
-            ORDER BY date DESC
+            SELECT
+                post.id, post.body, post.attachment, post.date,
+                user.handle, user.name, user.avatar,
+                (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments
+            FROM post
+            JOIN user ON post.author = user.handle
+            ORDER BY post.date DESC;
         `
 
         db.all(query, (err, rows) => {
@@ -49,6 +53,8 @@ exports.getAllPosts = function() {
                 authorHandle: p.handle,
                 authorName: p.name,
                 authorAvatar: p.avatar ? `data:image/webp;base64,${p.avatar.toString('base64')}` : null,
+                likes: p.likes,
+                comments: p.comments
             }))
             resolve(posts)
         })
@@ -65,17 +71,17 @@ exports.getUserPosts = function(handle, postType) {
             query = `
                 SELECT
                     p.id, p.body, p.attachment, p.date,
-                    u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar,
-                    t.handle AS thread_handle, t.name AS thread_name
+                    u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar, 
+                    t.handle AS thread_handle, t.name AS thread_name,
+                    (SELECT COUNT(*) FROM "like" WHERE "like".post = p.id) AS likes,
+                    (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments
                 FROM
                     post p
-                        LEFT JOIN
-                    user u ON p.author = u.handle
-                        LEFT JOIN
-                    post pt ON p.thread = pt.id
-                        LEFT JOIN
-                    user t ON pt.author = t.handle
-                WHERE u.handle = ? AND p.attachment IS NOT NULL
+                        LEFT JOIN user u ON p.author = u.handle
+                        LEFT JOIN post pt ON p.thread = pt.id
+                        LEFT JOIN user t ON pt.author = t.handle
+                WHERE u.handle = ?
+                AND p.attachment IS NOT NULL
                 ORDER BY p.date DESC;
             `
         } else {
@@ -83,15 +89,14 @@ exports.getUserPosts = function(handle, postType) {
                 SELECT
                     p.id, p.body, p.attachment, p.date,
                     u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar,
-                    t.handle AS thread_handle, t.name AS thread_name
+                    t.handle AS thread_handle, t.name AS thread_name,
+                    (SELECT COUNT(*) FROM "like" WHERE "like".post = p.id) AS likes,
+                    (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments
                 FROM
-                    post p 
-                        LEFT JOIN
-                    user u ON p.author = u.handle
-                        LEFT JOIN
-                    post pt ON p.thread = pt.id
-                        LEFT JOIN
-                    user t ON pt.author = t.handle
+                    post p
+                        LEFT JOIN user u ON p.author = u.handle
+                        LEFT JOIN post pt ON p.thread = pt.id
+                        LEFT JOIN user t ON pt.author = t.handle
                 WHERE u.handle = ?
                 ORDER BY p.date DESC;
             `
@@ -112,7 +117,9 @@ exports.getUserPosts = function(handle, postType) {
                 authorName: p.author_name,
                 authorAvatar: p.author_avatar ? `data:image/jpeg;base64,${p.author_avatar.toString('base64')}` : null,
                 threadHandle: p.thread_handle,
-                threadName: p.thread_name
+                threadName: p.thread_name,
+                likes: p.likes,
+                comments: p.comments
             }))
             resolve(posts)
         })
