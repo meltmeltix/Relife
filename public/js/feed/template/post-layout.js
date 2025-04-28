@@ -112,7 +112,8 @@ function createActions(likesNumber, commentsNumber) {
 }
 
 function buildPost(post, isFocused) {
-    const card = document.createElement('div');
+    const card = document.createElement('a');
+    if (!isFocused) { card.href = `${post.authorHandle}/status/${post.id}` }
     card.classList.add(
         'card', 'card-sm', 'rounded-none',
         'border-b', 'border-neutral',

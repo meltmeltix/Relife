@@ -9,7 +9,7 @@ const fs = require('fs')
 
 router.post('/post', multipartMiddle, async function (req, res, next) {
     console.log(req.body, req.files)
-    const { author, body } = req.body
+    const { author, body, thread } = req.body
     const attachment = req.files.attachment
     const date = new Date().toLocaleDateString('en-CA')
     const time = new Date().toLocaleTimeString('en-GB', { hour12: false })
@@ -19,9 +19,9 @@ router.post('/post', multipartMiddle, async function (req, res, next) {
         const attachmentBuffer = fs.readFileSync(attachment.path)
 
         if (attachment.size > 0) 
-            await postDao.newPost(body, attachmentBuffer, dateTime, author)
+            await postDao.newPost(body, attachmentBuffer, dateTime, author, thread)
         else 
-            await postDao.newPost(body, null, dateTime, author)
+            await postDao.newPost(body, null, dateTime, author, thread)
 
         res.redirect('/home')
     } catch(error) {

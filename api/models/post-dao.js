@@ -3,14 +3,14 @@
 const db = require('../database/db.js')
 const sqlite3 = require('sqlite3')
 
-exports.newPost = function(body, attachment, date, author) {
+exports.newPost = function(body, attachment, date, author, thread) {
     return new Promise((resolve, reject) => {
         const query = attachment
-            ? 'INSERT INTO post(body, attachment, date, author) VALUES (?, ?, ?, ?)'
-            : 'INSERT INTO post(body, date, author) VALUES (?, ?, ?)'
+            ? 'INSERT INTO post(body, attachment, date, author, thread) VALUES (?, ?, ?, ?, ?)'
+            : 'INSERT INTO post(body, date, author, thread) VALUES (?, ?, ?, ?)'
         const post = attachment
-            ? [body, attachment, date, author]
-            : [body, date, author]
+            ? [body, attachment, date, author, thread]
+            : [body, date, author, thread]
 
         db.run(query, post, (err) => {
             if (err) {
@@ -20,10 +20,6 @@ exports.newPost = function(body, attachment, date, author) {
             resolve({author})
         })
     })
-}
-
-exports.newReply = function(body, attachment, date, author) {
-    
 }
 
 exports.getAllPosts = function() {

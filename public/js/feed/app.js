@@ -6,7 +6,7 @@ import Posts from "./service/posts.js";
 import {renderSearch} from "./util/functions/search.js";
 
 class App {
-    constructor(userType, loggedUser, titleBar, contentContainer, sideNavigation, bottomNavigation) {
+    constructor(userType, loggedUser, titleBar, contentContainer, sideNavigation, bottomNavigation, postThread) {
         this.contentContainer = contentContainer
         this.sideNavigation = sideNavigation
         this.bottomNavigation = bottomNavigation
@@ -14,6 +14,7 @@ class App {
         page('/explore', () => {
             document.title = 'Explore | Relife'
 
+            postThread.value = null
             populateTitleBar(titleBar, 'Explore', false, false, false)
             renderNavigation(userType, loggedUser, '', this.sideNavigation, this.bottomNavigation)
             Posts.getAllPosts(contentContainer).catch((error) => {
@@ -22,12 +23,13 @@ class App {
         })
 
         page('/home', () => {
-            if (userType === 'GUEST') page.redirect('/explore')
+            if (userType === 'GUEST') page.redirect('/explore');
 
-            document.title = 'Home | Relife'
+            document.title = 'Home | Relife';
 
-            populateTitleBar(titleBar, 'Home', false, false, true)
-            renderNavigation(userType, loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation)
+            postThread.value = null;
+            populateTitleBar(titleBar, 'Home', false, false, true);
+            renderNavigation(userType, loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
             Posts.getAllPosts(contentContainer).catch((error) => {
 
             })
@@ -36,6 +38,7 @@ class App {
         page('/search', () => {
             document.title = 'Search | Relife'
 
+            postThread.value = null
             populateTitleBar(titleBar, 'Search', false, true, false)
             renderNavigation(userType, loggedUser, 'SEARCH', this.sideNavigation, this.bottomNavigation)
             renderSearch(this.contentContainer)
@@ -45,6 +48,7 @@ class App {
             const handle = ctx.params.handle
             document.title = handle + ' | Relife'
 
+            postThread.value = null
             renderNavigation(userType, loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation)
             populateTitleBar(titleBar, userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true)
             renderProfile(handle, userType, titleBar, this.contentContainer)
@@ -58,6 +62,7 @@ class App {
             const handle = ctx.params.handle
             document.title = 'Posts replied by ' + handle + ' | Relife'
 
+            postThread.value = null
             renderProfile(handle, userType, titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('REPLIES', handle, this.contentContainer)
@@ -68,6 +73,7 @@ class App {
             const handle = ctx.params.handle
             document.title = 'Media uploaded by ' + handle + ' | Relife'
 
+            postThread.value = null
             renderProfile(handle, userType, titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('MEDIA', handle, this.contentContainer)
@@ -84,6 +90,7 @@ class App {
             const postId = ctx.params.post
             if (userType === 'GUEST') page.redirect('/' + handle)
 
+            postThread.value = postId
             populateTitleBar(titleBar, 'Post', true, false, false)
             renderNavigation(userType, loggedUser, '', this.sideNavigation, this.bottomNavigation)
             renderStatus(handle, postId, titleBar, contentContainer)

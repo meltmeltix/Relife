@@ -9,7 +9,7 @@ class Posts {
 
         contentContainer.innerHTML = ''
         for (let post of posts) {
-            contentContainer.appendChild(buildPost(post, true))
+            contentContainer.appendChild(buildPost(post, false))
         }
     }
 
