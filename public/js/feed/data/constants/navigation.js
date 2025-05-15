@@ -42,18 +42,24 @@ export const profileTabs = [
         'media',
         'Media',
         ''
+    ),
+    new Destination(
+        'LIKES',
+        'likes',
+        'Likes',
+        ''
     )
 ]
 
 export const guestActions = [
     new Action(
-        'Log in',
-        '/a/login',
-        'PRIMARY'
-    ),
-    new Action(
         'Sign up',
         '/a/signup',
-        'SECONDARY'
+        true
+    ),
+    new Action(
+        'Log in',
+        '/a/login',
+        false
     )
 ]

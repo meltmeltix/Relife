@@ -1,8 +1,8 @@
 class Action {
-    constructor(friendlyName, url, type) {
+    constructor(friendlyName, url, isPrimary = false) {
         this.friendlyName = friendlyName;
         this.url = url;
-        this.type = type;
+        this.isPrimary = isPrimary;
     }
 }
 

@@ -19,7 +19,6 @@ function guestNavigation(sideNavigation, bottomNavigation) {
     dock.classList.add('w-full', 'h-15', 'bg-base-100', 'grid', 'grid-cols-2', 'place-content-center', 'px-3')
 
     const logo = document.createElement('div')
-
     logo.innerHTML = `
         <svg 
             class="h-7 fill-text-700 dark:fill-text-300" 
@@ -27,6 +26,10 @@ function guestNavigation(sideNavigation, bottomNavigation) {
             <use href="#logo"/>
         </svg>
     `
+
+    const headline = document.createElement('h1')
+    headline.classList.add('font-serif', 'font-medium', 'py-3', 'text-[1.688rem]', 'text-base/8')
+    headline.innerText = 'Join the ecosystem'
 
     const btnGrid = document.createElement('div');
     btnGrid.classList.add('grid', 'grid-cols-2', 'gap-2', 'place-content-center')
@@ -36,11 +39,18 @@ function guestNavigation(sideNavigation, bottomNavigation) {
         button.href = action.url;
         button.innerText = action.friendlyName;
 
+        if (action.isPrimary) button.classList.add('btn-primary')
+
         btnGrid.appendChild(button);
     })
 
+    sideNavigation.innerHTML = ''
+    sideNavigation.appendChild(headline)
+    sideNavigation.appendChild(btnGrid)
+
     dock.appendChild(logo)
-    dock.appendChild(btnGrid)
+    dock.appendChild(btnGrid.cloneNode(true))
+    bottomNavigation.innerHTML = ''
     bottomNavigation.appendChild(dock);
 }
 
@@ -53,12 +63,26 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     const fab = document.createElement('button');
     fab.classList.add('btn', 'btn-secondary')
     fab.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-pen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+            class="lucide lucide-square-pen">
             <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
             <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/>
         </svg>
         Post
     `
+    if (active === 'STATUS') {
+        fab.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+            class="lucide lucide-message-circle-reply-icon lucide-message-circle-reply">
+            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+            <path d="m10 15-3-3 3-3"/>
+            <path d="M7 12h7a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Comment
+        `
+    }
     fab.onclick = () => { post_modal.showModal() }
 
     const navDrawer = document.createElement('ul')
@@ -86,7 +110,7 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     sideNavigation.appendChild(logOutOption())
 
     bottomNavigation.innerHTML = '';
-    bottomNavigation.appendChild(fab)
+    if (active !== 'SEARCH') { bottomNavigation.appendChild(fab) }
     bottomNavigation.appendChild(navBar);
 }
 
