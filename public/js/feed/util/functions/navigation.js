@@ -54,7 +54,29 @@ function guestNavigation(sideNavigation, bottomNavigation) {
     bottomNavigation.appendChild(dock);
 }
 
+function commentsField(hasTopBorder) {
+    const commentField = document.createElement('div')
+    commentField.classList.add(
+        'flex', 'flex-1', 'bg-base-100', 'p-3',
+        hasTopBorder ? 'border-t' : 'border-b',
+        'border-neutral'
+    )
+
+    const textfield = document.createElement('input')
+    textfield.classList.add('input', 'input-sm', 'w-full')
+    textfield.placeholder = 'Comment'
+    textfield.readOnly = true
+    textfield.style.pointerEvents = 'none'
+
+    commentField.appendChild(textfield)
+
+    return commentField;
+}
+
 function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
+    sideNavigation.innerHTML = ''
+    bottomNavigation.innerHTML = '';
+
     const actionButton = document.createElement('button');
     actionButton.classList.add('btn', 'btn-secondary', 'w-full', 'px-3', 'rounded-2xl');
     actionButton.setAttribute('onclick', 'post_modal.showModal()');
@@ -72,16 +94,11 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
         Post
     `
     if (active === 'STATUS') {
-        fab.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-            class="lucide lucide-message-circle-reply-icon lucide-message-circle-reply">
-            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
-            <path d="m10 15-3-3 3-3"/>
-            <path d="M7 12h7a2 2 0 0 1 2 2v1"/>
-            </svg>
-            Comment
-        `
+        fab.hidden = true
+        const field = commentsField(true)
+        field.onclick = () => { post_modal.showModal() }
+
+        bottomNavigation.appendChild(field)
     }
     fab.onclick = () => { post_modal.showModal() }
 
@@ -103,13 +120,11 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
         navBar.appendChild(navItem(active, dest, false));
     })
 
-    sideNavigation.innerHTML = ''
     sideNavigation.appendChild(actionButton)
     sideNavigation.appendChild(navDrawer)
     sideNavigation.appendChild(spacer)
     sideNavigation.appendChild(logOutOption())
 
-    bottomNavigation.innerHTML = '';
     if (active !== 'SEARCH') { bottomNavigation.appendChild(fab) }
     bottomNavigation.appendChild(navBar);
 }
@@ -236,4 +251,4 @@ function logOutOption() {
     return form;
 }
 
-export {renderNavigation, profileNavigation, populateTitleBar}
+export {renderNavigation, profileNavigation, populateTitleBar, commentsField}

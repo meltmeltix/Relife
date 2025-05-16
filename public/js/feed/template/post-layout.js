@@ -23,7 +23,7 @@ function createHeader(name, handle, date) {
             <span class="text-sm opacity-90">@${handle}</span>
         </div>
         
-        <div class="ml-auto whitespace-nowrap">${moment(date).fromNow()}</div>
+        ${date ? '<div class="ml-auto whitespace-nowrap">' + moment(date).fromNow() + '</div>' : ''}
     `;
 
     return header;
@@ -61,6 +61,11 @@ function createActions(likesNumber, commentsNumber) {
         </svg>
         ${likesNumber}
     `
+    likes.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log('Likes button clicked');
+    });
 
     const comments = document.createElement('a');
     comments.classList.add('btn', 'btn-xs', 'btn-ghost');
@@ -72,6 +77,28 @@ function createActions(likesNumber, commentsNumber) {
         </svg>
         ${commentsNumber}
     `
+    comments.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log('Likes button clicked');
+    });
+
+    const share = document.createElement('a');
+    share.classList.add('btn', 'btn-xs', 'btn-ghost');
+    share.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+            class="lucide lucide-share-icon lucide-share">
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+        <polyline points="16 6 12 2 8 6"/>
+        <line x1="12" x2="12" y1="2" y2="15"/>
+        </svg>
+    `
+    share.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log('Likes button clicked');
+    });
 
     const dropDownMenu = document.createElement('div');
     dropDownMenu.classList.add('dropdown', 'dropdown-end');
@@ -91,6 +118,11 @@ function createActions(likesNumber, commentsNumber) {
                 <circle cx="12" cy="19" r="1"/>
         </svg>
     `;
+    dropDownMenu.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log('Likes button clicked');
+    });
 
     const form = document.createElement('form');
     //form.action = '';
@@ -107,18 +139,50 @@ function createActions(likesNumber, commentsNumber) {
 
     actions.appendChild(likes)
     actions.appendChild(comments);
+    actions.appendChild(share);
     actions.appendChild(dropDownMenu);
     return actions;
 }
 
 function buildPost(post, isFocused) {
     const card = document.createElement('a');
-    if (!isFocused) { card.href = `${post.authorHandle}/status/${post.id}` }
+    if (!isFocused) {
+        card.href = `${post.authorHandle}/status/${post.id}`
+        card.classList.add('hover:bg-background-950/15');
+    }
     card.classList.add(
         'card', 'card-sm', 'rounded-none',
-        'border-b', 'border-neutral',
-        'hover:bg-background-950/15'
+        'border-b', 'border-neutral'
     );
+
+    if (isFocused) {
+        const layout = document.createElement('div');
+        layout.classList.add('card-body', 'pb-2', 'flex', 'flex-col');
+
+        const header = document.createElement('div');
+        header.classList.add('flex', 'flex-row', 'space-x-2');
+        header.appendChild(createAvatar(post.authorAvatar, post.authorHandle));
+        header.appendChild(createHeader(post.authorName, post.authorHandle, null));
+
+        layout.appendChild(header);
+
+        const postBody = document.createElement('div');
+        postBody.classList.add('flex-1', 'flex-col', 'text-base', 'space-y-2');
+
+        if (post.body) postBody.appendChild(createParagraph(post.body));
+        if (post.attachment) postBody.appendChild(createAttachment(post.attachment));
+
+        const postDate = document.createElement('div');
+        postDate.classList.add('opacity-70');
+        postDate.innerText = moment(post.date).format('MM/DD/YYYY • HH:mm:ss');
+
+        layout.appendChild(postBody);
+        layout.appendChild(postDate);
+        layout.appendChild(createActions(post.likes, post.comments));
+
+        card.appendChild(layout);
+        return card;
+    }
 
     const layout = document.createElement('div');
     layout.classList.add('card-body', 'pb-2', 'flex', 'flex-row');
@@ -138,4 +202,4 @@ function buildPost(post, isFocused) {
     return card;
 }
 
-export { buildPost };
+export { buildPost, createActions };

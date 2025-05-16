@@ -3,6 +3,7 @@
 import Api from "../../service/api.js";
 import {buildProfile} from "../../template/profile-layout.js";
 import {buildPost} from "../../template/post-layout.js";
+import {commentsField} from "./navigation.js";
 
 async function renderProfile(handle, userType, titleBar, contentContainer) {
     const profile = await Api.getProfile(handle)
@@ -13,6 +14,11 @@ async function renderStatus(handle, postId, titleBar, contentContainer) {
     const post = await Api.getStatus(postId, handle)
     contentContainer.innerHTML = ''
     contentContainer.appendChild(buildPost(post, true))
+
+    const field = commentsField(false).cloneNode(true)
+    field.classList.add('hidden', 'sm:block')
+    field.onclick = () => { post_modal.showModal() }
+    contentContainer.appendChild(field);
 }
 
 export { renderProfile, renderStatus }
