@@ -127,9 +127,14 @@ exports.getStatus = function(id, handle) {
         console.log('Querying for user', handle, 'status with id', id)
 
         const query = `
-            SELECT id, body, attachment, date, handle, name, avatar
-            FROM post, user
-            WHERE id = ? AND handle = ?
+            SELECT
+                post.id, post.body, post.attachment, post.date,
+                user.handle, user.name, user.avatar,
+                (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments
+            FROM post
+            JOIN user ON post.author = user.handle
+            WHERE post.id = ? AND user.handle = ?;
         `
 
         db.get(query, [id, handle], (err, row) => {
@@ -150,9 +155,49 @@ exports.getStatus = function(id, handle) {
                 authorHandle: row.handle,
                 authorName: row.name,
                 authorAvatar: row.avatar ? `data:image/jpeg;base64,${row.avatar.toString('base64')}` : null,
+                likes: row.likes,
+                comments: row.comments
             }
 
             resolve(status)
+        })
+    })
+}
+
+exports.getStatusComments = function (postId) {
+    return new Promise((resolve, reject) => {
+        console.log('Querying comments for status', postId)
+
+        const query = `
+            SELECT
+                post.id, post.body, post.attachment, post.date, post.thread,
+                user.handle, user.name, user.avatar,
+                (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments
+            FROM post
+            JOIN user ON post.author = user.handle
+            WHERE post.thread = ?;
+        `
+
+        db.all(query, [postId], (err, rows) => {
+            if (err) {
+                console.error('Error executing query:', err)
+                return reject(err)
+            }
+
+            const posts = rows.map((p) => ({
+                id: p.id,
+                body: p.body,
+                attachment: p.attachment ? `data:image/jpeg;base64,${p.attachment.toString('base64')}` : null,
+                date: p.date,
+                authorHandle: p.handle,
+                authorName: p.name,
+                authorAvatar: p.avatar ? `data:image/jpeg;base64,${p.avatar.toString('base64')}` : null,
+                likes: p.likes,
+                comments: p.comments
+            }))
+
+            resolve(posts)
         })
     })
 }

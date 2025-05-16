@@ -120,6 +120,21 @@ app.get('/api/status', (req, res) => {
         })
 })
 
+app.get('/api/status/:id/comments', (req, res) => {
+    const id = req.params.id
+    console.log('Fetching comments for post', id)
+
+    postDao.getStatusComments(id)
+        .then((comments) => {
+            console.log('Fetching comments with for post:', id,' Success')
+            res.json(comments)
+        })
+        .catch(() => {
+            console.log('Fetching comments with for post:', id,' Failure')
+            res.status(500).end()
+        })
+})
+
 app.get('/api/user-profile', (req, res) => {
     const handle = req.query.handle
     console.log('Fetching user', handle, 'profile...')

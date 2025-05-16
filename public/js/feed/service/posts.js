@@ -5,9 +5,9 @@ import { buildPost } from "../template/post-layout.js";
 
 class Posts {
     static async getAllPosts(contentContainer) {
-        const posts = await Api.getAllPosts()
-
         contentContainer.innerHTML = ''
+
+        const posts = await Api.getAllPosts()
         for (let post of posts) {
             contentContainer.appendChild(buildPost(post, false))
         }
@@ -18,7 +18,6 @@ class Posts {
         postList.innerHTML = ''
 
         const posts = await Api.getUserPosts(handle, postType)
-
         for (let post of posts) {
             const p = buildPost(post, false)
             postList.appendChild(p)
@@ -27,11 +26,17 @@ class Posts {
         contentContainer.appendChild(postList)
     }
 
-    static async getStatusComments() {
+    static async getStatusComments(thread, contentContainer) {
         const commentsList = document.createElement('div')
         commentsList.innerHTML = ''
 
+        const comments = await Api.getStatusComments(thread)
+        for (let comment of comments) {
+            const c = buildPost(comment, false)
+            commentsList.appendChild(c)
+        }
 
+        contentContainer.appendChild(commentsList)
     }
 }
 

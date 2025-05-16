@@ -81,6 +81,18 @@ class App {
                 })
         })
 
+        page('/:handle/likes', (ctx) => {
+            const handle = ctx.params.handle
+            document.title = 'Liked by ' + handle + ' | Relife'
+
+            postThread.value = null
+            renderProfile(handle, userType, titleBar, this.contentContainer)
+                .then(() => {
+                    profileNavigation('LIKES', handle, this.contentContainer)
+
+                })
+        })
+
         page('/:handle/status/', (ctx) => {
             console.log("THROW ERROR")
         })
@@ -92,10 +104,10 @@ class App {
 
             postThread.value = postId
             populateTitleBar(titleBar, 'Post', true, false, false)
-            renderNavigation(userType, loggedUser, '', this.sideNavigation, this.bottomNavigation)
+            renderNavigation(userType, loggedUser, 'STATUS', this.sideNavigation, this.bottomNavigation)
             renderStatus(handle, postId, titleBar, contentContainer)
                 .then(() => {
-
+                    Posts.getStatusComments(postId, this.contentContainer).then(() => {})
                 })
         })
 

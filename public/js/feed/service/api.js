@@ -18,6 +18,14 @@ class Api {
         else throw statusJson
     }
 
+    static getStatusComments = async(thread) => {
+        let response = await fetch('/api/status/' + thread + '/comments')
+        const commentsJson = await response.json()
+
+        if (response.ok) return commentsJson.map((c) => Post.from(c))
+        else throw commentsJson
+    }
+
     static getUserPosts = async(handle, postType) => {
         let params = new URLSearchParams({handle: handle})
         if (postType) { params.append('postType', postType) }
