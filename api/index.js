@@ -93,6 +93,21 @@ app.get('/api/posts', async (req, res) => {
     }
 })
 
+app.get('/api/likes', async (req, res) => {
+    const handle = req.query.handle;
+
+    console.log(`Fetching ${handle} liked posts`)
+
+    try {
+        const posts = await postDao.getUserLikes(handle)
+        console.log(`Fetching ${handle} liked posts: Success`)
+        res.json(posts);
+    } catch (error) {
+        console.log(`Fetching ${handle} liked posts: Failure`, error);
+        res.status(500).end();
+    }
+})
+
 app.get('/api/status', (req, res) => {
     const id = req.query.id
     const handle = req.query.handle

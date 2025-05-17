@@ -37,16 +37,20 @@ class Api {
         else throw postsJson
     }
 
+    static async getLikedPosts(handle) {
+        let response = await fetch('/api/likes?' + new URLSearchParams({handle: handle}))
+        const likedPostsJson = await response.json()
+
+        if (response.ok) return likedPostsJson.map((pt) => Post.from(pt))
+        else throw likedPostsJson
+    }
+
     static getProfile = async(handle) => {
         let response = await fetch('/api/user-profile?' + new URLSearchParams({handle: handle}))
         const profileJson = await response.json()
 
         if (response.ok) return Profile.from(profileJson)
         else throw profileJson
-    }
-
-    static async getLikedPosts(handle) {
-
     }
 }
 

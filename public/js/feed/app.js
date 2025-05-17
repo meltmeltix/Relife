@@ -131,7 +131,7 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('LIKES', handle, loggedUser, this.contentContainer);
-                    // Possibly missing: Posts.getUserPosts(...)?
+                    Posts.getUserLikes(handle, this.contentContainer);
                 });
         });
 

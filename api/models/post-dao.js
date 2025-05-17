@@ -113,6 +113,57 @@ exports.getUserPosts = function(handle, postType, orderByLikes = false) {
     });
 };
 
+exports.getUserLikes = function(handle) {
+    return new Promise((resolve, reject) => {
+        console.log('Querying for posts liked by user with handle:', handle);
+
+        const query = `
+            SELECT
+                p.id,
+                p.body,
+                p.attachment,
+                p.date,
+                u.handle AS author_handle,
+                u.name AS author_name,
+                u.avatar AS author_avatar,
+                t.handle AS thread_handle,
+                t.name AS thread_name,
+                (SELECT COUNT(*) FROM "like" WHERE "like".post = p.id) AS likes,
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments
+            FROM "like" l
+                JOIN post p ON l.post = p.id
+                LEFT JOIN user u ON p.author = u.handle
+                LEFT JOIN post pt ON p.thread = pt.id
+                LEFT JOIN user t ON pt.author = t.handle
+            WHERE l."user" = ?
+            ORDER BY p.date DESC
+        `;
+
+        db.all(query, [handle], (err, rows) => {
+            if (err) {
+                console.error('Error executing query:', err);
+                return reject(err);
+            }
+
+            const posts = rows.map((p) => ({
+                id: p.id,
+                body: p.body,
+                attachment: p.attachment ? `data:image/jpeg;base64,${p.attachment.toString('base64')}` : null,
+                date: p.date,
+                authorHandle: p.author_handle,
+                authorName: p.author_name,
+                authorAvatar: p.author_avatar ? `data:image/jpeg;base64,${p.author_avatar.toString('base64')}` : null,
+                threadHandle: p.thread_handle,
+                threadName: p.thread_name,
+                likes: p.likes,
+                comments: p.comments
+            }));
+
+            resolve(posts);
+        });
+    });
+};
+
 exports.getStatus = function(id, handle) {
     return new Promise((resolve, reject) => {
         console.log('Querying for user', handle, 'status with id', id)

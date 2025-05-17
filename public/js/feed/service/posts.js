@@ -26,6 +26,19 @@ class Posts {
         contentContainer.appendChild(postList)
     }
 
+    static async getUserLikes(handle, contentContainer) {
+        const likesList = document.createElement('div')
+        likesList.innerHTML = ''
+
+        const likedPosts = await Api.getLikedPosts(handle)
+        for (let likedPost of likedPosts) {
+            const lp = buildPost(likedPost, false)
+            likesList.appendChild(lp)
+        }
+
+        contentContainer.appendChild(likesList)
+    }
+
     static async getStatusComments(thread, contentContainer) {
         const commentsList = document.createElement('div')
         commentsList.innerHTML = ''
