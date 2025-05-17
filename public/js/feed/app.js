@@ -83,7 +83,7 @@ class App {
             renderFeedTabs(this.userType, 'PROFILE', this.feedTabRow);
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
-                    profileNavigation('POSTS', handle, this.contentContainer);
+                    profileNavigation('POSTS', handle, loggedUser, this.contentContainer);
                     Posts.getUserPosts(handle, null, this.contentContainer, true);
                 });
         });
@@ -94,10 +94,12 @@ class App {
             document.title = `Posts replied by ${handle} | Relife`;
 
             this.postThread.value = null;
+            renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
+            populateTitleBar(this.titleBar, this.userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true);
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
-                    profileNavigation('REPLIES', handle, this.contentContainer);
-                    Posts.getUserPosts(handle, 'REPLIES', this.contentContainer, true);
+                    profileNavigation('REPLIES', handle, loggedUser, this.contentContainer);
+                    Posts.getUserPosts(handle, 'REPLIES', this.contentContainer, false);
                 });
         });
 
@@ -107,9 +109,11 @@ class App {
             document.title = `Media uploaded by ${handle} | Relife`;
 
             this.postThread.value = null;
+            renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
+            populateTitleBar(this.titleBar, this.userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true);
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
-                    profileNavigation('MEDIA', handle, this.contentContainer);
+                    profileNavigation('MEDIA', handle, loggedUser, this.contentContainer);
                     Posts.getUserPosts(handle, 'MEDIA', this.contentContainer);
                 });
         });
@@ -117,12 +121,16 @@ class App {
         // Route: /:handle/likes
         page('/:handle/likes', (ctx) => {
             const handle = ctx.params.handle;
+            if (handle !== loggedUser) return page(`/${handle}`)
+
             document.title = `Liked by ${handle} | Relife`;
 
             this.postThread.value = null;
+            renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
+            populateTitleBar(this.titleBar, this.userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true);
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
-                    profileNavigation('LIKES', handle, this.contentContainer);
+                    profileNavigation('LIKES', handle, loggedUser, this.contentContainer);
                     // Possibly missing: Posts.getUserPosts(...)?
                 });
         });

@@ -2,8 +2,8 @@ import Post from '../data/classes/post.js'
 import Profile from '../data/classes/profile.js'
 
 class Api {
-    static getAllPosts = async() => {
-        let response = await fetch('/api/posts')
+    static getAllPosts = async(sortByLikes = false) => {
+        let response = await fetch('/api/posts?' + new URLSearchParams({orderByLikes: sortByLikes}))
         const postsJson = await response.json()
 
         if (response.ok) return postsJson.map((pt) => Post.from(pt))
@@ -26,8 +26,8 @@ class Api {
         else throw commentsJson
     }
 
-    static getUserPosts = async(handle, postType) => {
-        let params = new URLSearchParams({handle: handle})
+    static getUserPosts = async(handle, postType, sortByLikes = false) => {
+        let params = new URLSearchParams({handle: handle, orderByLikes: sortByLikes})
         if (postType) { params.append('postType', postType) }
 
         let response = await fetch('/api/posts?' + params)
@@ -43,6 +43,10 @@ class Api {
 
         if (response.ok) return Profile.from(profileJson)
         else throw profileJson
+    }
+
+    static async getLikedPosts(handle) {
+
     }
 }
 

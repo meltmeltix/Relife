@@ -73,34 +73,23 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.get('/api/posts', (req, res) => {
-    const handle = req.query.handle
-    const postType = req.query.postType
+app.get('/api/posts', async (req, res) => {
+    const { handle, postType, orderByLikes } = req.query;
+    const orderLikes = orderByLikes === 'true';
+    const logPrefix = handle ? `Fetching ${handle} posts` : 'Fetching posts';
 
-    if (handle) {
-        console.log('Fetching', handle, 'posts...')
+    console.log(`${logPrefix}...`);
 
-        postDao.getUserPosts(handle, postType)
-            .then((posts) => {
-                console.log('Fetching', handle, 'posts: Success')
-                res.json(posts)
-            })
-            .catch(() => {
-                console.log('Fetching', handle, 'posts: Failure')
-                res.status(500).end()
-            })
-    } else {
-        console.log('Fetching posts...')
+    try {
+        const posts = handle
+            ? await postDao.getUserPosts(handle, postType, orderLikes)
+            : await postDao.getAllPosts(orderLikes);
 
-        postDao.getAllPosts()
-            .then((posts) => {
-                console.log('Fetching posts: Success')
-                res.json(posts)
-            })
-            .catch(() => {
-                console.log('Fetching posts: Failure')
-                res.status(500).end()
-            })
+        console.log(`${logPrefix}: Success`);
+        res.json(posts);
+    } catch (error) {
+        console.log(`${logPrefix}: Failure`, error);
+        res.status(500).end();
     }
 })
 

@@ -22,8 +22,12 @@ exports.newPost = function(body, attachment, date, author, thread) {
     })
 }
 
-exports.getAllPosts = function() {
+exports.getAllPosts = function(orderByLikes = false) {
     return new Promise((resolve, reject) => {
+        const orderClause = orderByLikes
+            ? 'ORDER BY likes DESC, post.date DESC'
+            : 'ORDER BY post.date DESC';
+
         const query = `
             SELECT
                 post.id, post.body, post.attachment, post.date,
@@ -31,19 +35,19 @@ exports.getAllPosts = function() {
                 (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
                 (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments
             FROM post
-            JOIN user ON post.author = user.handle
-            ORDER BY post.date DESC;
-        `
+                JOIN user ON post.author = user.handle
+                ${orderClause};
+        `;
 
         db.all(query, (err, rows) => {
             if (err) {
-                console.error('Database error: ', err)
-                return reject(err)
+                console.error('Database error: ', err);
+                return reject(err);
             }
 
-            const posts = rows.map((p) => ({ 
-                id: p.id, 
-                body: p.body, 
+            const posts = rows.map((p) => ({
+                id: p.id,
+                body: p.body,
                 attachment: p.attachment ? `data:image/webp;base64,${p.attachment.toString('base64')}` : null,
                 date: p.date,
                 authorHandle: p.handle,
@@ -51,62 +55,48 @@ exports.getAllPosts = function() {
                 authorAvatar: p.avatar ? `data:image/webp;base64,${p.avatar.toString('base64')}` : null,
                 likes: p.likes,
                 comments: p.comments
-            }))
-            resolve(posts)
-        })
-    })
-}
+            }));
+            resolve(posts);
+        });
+    });
+};
 
-exports.getUserPosts = function(handle, postType) {
+exports.getUserPosts = function(handle, postType, orderByLikes = false) {
     return new Promise((resolve, reject) => {
-        console.log('Querying for posts with handle:', handle)
+        console.log('Querying for posts with handle:', handle, 'postType:', postType);
 
-        let query
+        const orderClause = orderByLikes
+            ? 'ORDER BY likes DESC, p.date DESC'
+            : 'ORDER BY p.date DESC';
 
-        if (postType === 'MEDIA') {
-            query = `
-                SELECT
-                    p.id, p.body, p.attachment, p.date,
-                    u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar, 
-                    t.handle AS thread_handle, t.name AS thread_name,
-                    (SELECT COUNT(*) FROM "like" WHERE "like".post = p.id) AS likes,
-                    (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments
-                FROM
-                    post p
-                        LEFT JOIN user u ON p.author = u.handle
-                        LEFT JOIN post pt ON p.thread = pt.id
-                        LEFT JOIN user t ON pt.author = t.handle
-                WHERE u.handle = ?
-                AND p.attachment IS NOT NULL
-                ORDER BY p.date DESC;
-            `
-        } else {
-            query = `
-                SELECT
-                    p.id, p.body, p.attachment, p.date,
-                    u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar,
-                    t.handle AS thread_handle, t.name AS thread_name,
-                    (SELECT COUNT(*) FROM "like" WHERE "like".post = p.id) AS likes,
-                    (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments
-                FROM
-                    post p
-                        LEFT JOIN user u ON p.author = u.handle
-                        LEFT JOIN post pt ON p.thread = pt.id
-                        LEFT JOIN user t ON pt.author = t.handle
-                WHERE u.handle = ?
-                ORDER BY p.date DESC;
-            `
-        }
+        const hasMediaOnly = postType === 'MEDIA';
+        const mediaFilter = hasMediaOnly ? 'AND p.attachment IS NOT NULL' : '';
+
+        const query = `
+            SELECT
+                p.id, p.body, p.attachment, p.date,
+                u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar, 
+                t.handle AS thread_handle, t.name AS thread_name,
+                (SELECT COUNT(*) FROM "like" WHERE "like".post = p.id) AS likes,
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments
+            FROM post p
+            LEFT JOIN user u ON p.author = u.handle
+            LEFT JOIN post pt ON p.thread = pt.id
+            LEFT JOIN user t ON pt.author = t.handle
+            WHERE u.handle = ?
+            ${mediaFilter}
+            ${orderClause};
+        `;
 
         db.all(query, [handle], (err, rows) => {
             if (err) {
-                console.error('Error executing query:', err)
-                return reject(err)
+                console.error('Error executing query:', err);
+                return reject(err);
             }
 
             const posts = rows.map((p) => ({
-                id: p.id, 
-                body: p.body, 
+                id: p.id,
+                body: p.body,
                 attachment: p.attachment ? `data:image/jpeg;base64,${p.attachment.toString('base64')}` : null,
                 date: p.date,
                 authorHandle: p.author_handle,
@@ -116,14 +106,15 @@ exports.getUserPosts = function(handle, postType) {
                 threadName: p.thread_name,
                 likes: p.likes,
                 comments: p.comments
-            }))
-            resolve(posts)
-        })
-    })
-}
+            }));
+
+            resolve(posts);
+        });
+    });
+};
 
 exports.getStatus = function(id, handle) {
-    return new Promise((resolve, rejects) => {
+    return new Promise((resolve, reject) => {
         console.log('Querying for user', handle, 'status with id', id)
 
         const query = `

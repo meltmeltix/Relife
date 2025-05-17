@@ -19,6 +19,7 @@ function guestNavigation(sideNavigation, bottomNavigation) {
     dock.classList.add('w-full', 'h-15', 'bg-base-100', 'grid', 'grid-cols-2', 'place-content-center', 'px-3')
 
     const logo = document.createElement('div')
+    logo.classList.add('grid', 'place-items-center', 'justify-start')
     logo.innerHTML = `
         <svg 
             class="h-7 fill-text-700 dark:fill-text-300" 
@@ -76,9 +77,10 @@ function commentsField(hasTopBorder) {
 function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     sideNavigation.innerHTML = ''
     bottomNavigation.innerHTML = '';
+    bottomNavigation.classList.add('bottom-14', 'p-2')
 
     const actionButton = document.createElement('button');
-    actionButton.classList.add('btn', 'btn-secondary', 'w-full', 'px-3', 'rounded-2xl');
+    actionButton.classList.add('btn', 'btn-secondary', 'w-full', 'rounded-2xl');
     actionButton.setAttribute('onclick', 'post_modal.showModal()');
     actionButton.innerHTML = `Post`
 
@@ -98,6 +100,7 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
         const field = commentsField(true)
         field.onclick = () => { post_modal.showModal() }
 
+        bottomNavigation.classList.remove('p-2')
         bottomNavigation.appendChild(field)
     }
     fab.onclick = () => { post_modal.showModal() }
@@ -140,16 +143,19 @@ function renderFeedTabs(userType, active, tabRow) {
     })
 }
 
-function profileNavigation(active, loggedUser, contentContainer) {
+function profileNavigation(active, handle, loggedUser, contentContainer) {
     const tabRow = document.createElement('div')
     tabRow.classList.add('tabs', 'tabs-border')
     tabRow.role = 'tablist'
     tabRow.innerHTML = ''
 
-    profileTabs.forEach(dest => {
+    const isOwner = loggedUser === handle;
+    const tabsToRender = isOwner ? profileTabs : profileTabs.slice(0, -1);
+
+    tabsToRender.forEach(dest => {
         const tab = tabRowItem(active, dest)
-        tab.href = `/${loggedUser}/${dest.url}`
-        tabRow.appendChild(tab);
+        tab.href = `/${handle}/${dest.url}`
+        tabRow.appendChild(tab)
     })
 
     contentContainer.appendChild(tabRow)
