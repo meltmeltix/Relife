@@ -23,9 +23,8 @@ function navItem(active, dest, isDrawerItem) {
         return a;
 }
 
-function tabRowItem(active, handle, dest) {
+function tabRowItem(active, dest) {
     const tab = document.createElement('a');
-    tab.href = `/${handle}/${dest.url}`
     tab.role = 'tab';
     tab.classList.add('tab', active === dest.id ? 'tab-active' : null);
     tab.innerText = dest.friendlyName;

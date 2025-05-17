@@ -1,6 +1,6 @@
 'use strict'
 
-import {destinationList, profileTabs, guestActions} from "../../data/constants/navigation.js"
+import {destinationList, profileTabs, guestActions, feedTabs} from "../../data/constants/navigation.js"
 import {navItem, tabRowItem} from "../../template/navigation-item.js"
 
 function renderNavigation(userType, loggedUser, active, sideNavigation, bottomNavigation) {
@@ -129,6 +129,17 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     bottomNavigation.appendChild(navBar);
 }
 
+function renderFeedTabs(userType, active, tabRow) {
+    tabRow.innerHTML = ''
+
+    if (active === 'HOME' || active === 'RECENTS')
+    feedTabs.forEach(dest => {
+        const tab = tabRowItem(active, dest)
+        tab.href = `/${dest.url}`
+        tabRow.appendChild(tab);
+    })
+}
+
 function profileNavigation(active, loggedUser, contentContainer) {
     const tabRow = document.createElement('div')
     tabRow.classList.add('tabs', 'tabs-border')
@@ -136,7 +147,9 @@ function profileNavigation(active, loggedUser, contentContainer) {
     tabRow.innerHTML = ''
 
     profileTabs.forEach(dest => {
-        tabRow.appendChild(tabRowItem(active, loggedUser, dest));
+        const tab = tabRowItem(active, dest)
+        tab.href = `/${loggedUser}/${dest.url}`
+        tabRow.appendChild(tab);
     })
 
     contentContainer.appendChild(tabRow)
@@ -251,4 +264,4 @@ function logOutOption() {
     return form;
 }
 
-export {renderNavigation, profileNavigation, populateTitleBar, commentsField}
+export {renderNavigation, profileNavigation, populateTitleBar, commentsField, renderFeedTabs}

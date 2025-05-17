@@ -51,6 +51,21 @@ export const profileTabs = [
     )
 ]
 
+export const feedTabs = [
+    new Destination(
+        'HOME',
+        'home',
+        'Popular',
+        ''
+    ),
+    new Destination(
+        'RECENTS',
+        'recents',
+        'Recents',
+        ''
+    )
+]
+
 export const guestActions = [
     new Action(
         'Sign up',
