@@ -5,14 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/tailwind.css">
+    <link rel="stylesheet" type="text/css" href="/css/toastify.css">
     <link rel="icon" href="/favicon/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <title><%- title -%></title>
+    <script>
+        toastMessage = <%- JSON.stringify(message || '') %>;
+
+        <% if (typeof messageType !== 'undefined') { %>
+        toastType = <%- JSON.stringify(messageType) %>;
+        <% } else { %>
+        toastType = null;
+        <% } %>
+
+        console.log(toastMessage, toastType);
+    </script>
+    <script defer type="module" src="/js/access/main.js"></script>
 </head>
 
 <body class="flex flex-col h-viewport items-center justify-center bg-base-300">
-    <div class="w-full sm:w-96 sm:rounded-3xl bg-base-100">
+    <svg class="z-0 absolute h-full w-full opacity-10 dark:opacity-20" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <pattern id="graphic" width="600" height="600" viewBox="0 0 600 600" patternUnits="userSpaceOnUse">
+                <image href="/svg/topography.svg"></image>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#graphic)"></rect>
+    </svg>
+
+    <div class="w-full sm:w-96 sm:rounded-3xl bg-base-100 z-10">
         <% if (accessType === "LOGIN") { %>
             <%- include('partials/login') -%>
         <% } else if (accessType === "SIGNUP") { %>
