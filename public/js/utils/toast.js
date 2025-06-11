@@ -1,4 +1,4 @@
-import Toastify from "/js/utils/toastify-es.js";
+import Toastify from "/js/utils/libs/toastify-es.js";
 
 if (toastMessage != null) {
     if (toastType === 'SUCCESS') showSuccessToast(toastMessage);

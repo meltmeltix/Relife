@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
-    "daisyui": "^5.0.0"
+    "daisyui": "^5.0.35"
   },
   "name": "relife",
   "version": "1.0.0",
