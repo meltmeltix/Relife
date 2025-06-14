@@ -1,4 +1,5 @@
 'use strict';
+import { showToast } from '/js/utils/toast.js';
 
 function createAvatar(picture, handle) {
     const avatar = document.createElement('div');
@@ -47,11 +48,12 @@ function createAttachment(attachment) {
     return container;
 }
 
-function createActions(likesNumber, commentsNumber) {
+function createActions(likesNumber, commentsNumber, link) {
     const actions = document.createElement('div');
     actions.classList.add('card-actions', 'place-content-between', 'space-x-5');
 
-    const likes = document.createElement('a');
+    const likes = document.createElement('input');
+    likes.type = 'checkbox';
     likes.classList.add('btn', 'btn-xs', 'btn-ghost');
     likes.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
@@ -97,7 +99,9 @@ function createActions(likesNumber, commentsNumber) {
     share.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
-        console.log('Likes button clicked');
+
+        showToast('Copied post link to clipboard', 'INFO')
+        navigator.clipboard.writeText(link)
     });
 
     const dropDownMenu = document.createElement('div');
@@ -195,7 +199,7 @@ function buildPost(post, isFocused) {
     if (post.body) postBody.appendChild(createParagraph(post.body));
     if (post.attachment) postBody.appendChild(createAttachment(post.attachment));
 
-    postBody.appendChild(createActions(post.likes, post.comments));
+    postBody.appendChild(createActions(post.likes, post.comments, card.href));
     layout.appendChild(postBody);
 
     card.appendChild(layout);

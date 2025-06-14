@@ -10,16 +10,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <title><%- title -%></title>
-    <script>
-        toastMessage = <%- JSON.stringify(message || '') %>;
+    <script type="module">
+        import { showToast } from '/js/utils/toast.js';
 
-        <% if (typeof messageType !== 'undefined') { %>
-        toastType = <%- JSON.stringify(messageType) %>;
-        <% } else { %>
-        toastType = null;
-        <% } %>
+        const toastMessage = <%- JSON.stringify(message || '') %>;
+        const toastType = <%- typeof messageType !== 'undefined' ? JSON.stringify(messageType) : 'null' %>;
 
-        console.log(toastMessage, toastType);
+        if (toastMessage != null) showToast(toastMessage, toastType);
     </script>
     <script defer type="module" src="/js/utils/toast.js"></script>
 </head>
