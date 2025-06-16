@@ -45,7 +45,7 @@ class App {
             populateTitleBar(this.titleBar, 'Home', false, false, true);
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
             renderFeedTabs(this.userType, 'HOME', this.feedTabRow);
-            Posts.getAllPosts(this.contentContainer, true).catch(console.error);
+            Posts.getAllPosts(this.contentContainer, true, this.loggedUser).catch(console.error);
         });
 
         // Route: /recents
@@ -58,7 +58,7 @@ class App {
             populateTitleBar(this.titleBar, 'Home', false, false, false);
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
             renderFeedTabs(this.userType, 'RECENTS', this.feedTabRow);
-            Posts.getAllPosts(this.contentContainer).catch(console.error);
+            Posts.getAllPosts(this.contentContainer, false, this.loggedUser).catch(console.error);
         });
 
         // Route: /search

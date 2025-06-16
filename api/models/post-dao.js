@@ -22,28 +22,32 @@ exports.newPost = function(body, attachment, date, author, thread) {
     })
 }
 
-exports.getAllPosts = function(orderByLikes = false) {
+exports.getAllPosts = function(orderByLikes = false, loggedUser = null) {
     return new Promise((resolve, reject) => {
         const orderClause = orderByLikes
             ? 'ORDER BY likes DESC, post.date DESC'
             : 'ORDER BY post.date DESC';
+
+        const isLikedSelect = loggedUser
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = post.id AND "like"."user" = ?)) AS isLiked`
+            : `0 AS isLiked`;
 
         const query = `
             SELECT
                 post.id, post.body, post.attachment, post.date,
                 user.handle, user.name, user.avatar,
                 (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments,
+                ${isLikedSelect}
             FROM post
-                JOIN user ON post.author = user.handle
-                ${orderClause};
+            JOIN user ON post.author = user.handle
+            ${orderClause};
         `;
 
-        db.all(query, (err, rows) => {
-            if (err) {
-                console.error('Database error: ', err);
-                return reject(err);
-            }
+        const params = loggedUser ? [loggedUser] : [];
+
+        db.all(query, params, (err, rows) => {
+            if (err) return reject(err);
 
             const posts = rows.map((p) => ({
                 id: p.id,
@@ -54,7 +58,8 @@ exports.getAllPosts = function(orderByLikes = false) {
                 authorName: p.name,
                 authorAvatar: p.avatar ? `data:image/webp;base64,${p.avatar.toString('base64')}` : null,
                 likes: p.likes,
-                comments: p.comments
+                comments: p.comments,
+                isLiked: !!p.isLiked
             }));
             resolve(posts);
         });

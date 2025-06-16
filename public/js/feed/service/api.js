@@ -2,8 +2,11 @@ import Post from '../data/classes/post.js'
 import Profile from '../data/classes/profile.js'
 
 class Api {
-    static getAllPosts = async(sortByLikes = false) => {
-        let response = await fetch('/api/posts?' + new URLSearchParams({orderByLikes: sortByLikes}))
+    static getAllPosts = async(sortByLikes = false, loggedUser = null) => {
+        let response = await fetch(
+            '/api/posts?' +
+            new URLSearchParams({orderByLikes: sortByLikes, loggedUser: loggedUser})
+        )
         const postsJson = await response.json()
 
         if (response.ok) return postsJson.map((pt) => Post.from(pt))
@@ -30,7 +33,7 @@ class Api {
         let params = new URLSearchParams({handle: handle, orderByLikes: sortByLikes})
         if (postType) { params.append('postType', postType) }
 
-        let response = await fetch('/api/posts?' + params)
+        let response = await fetch('/api/posts/' + handle + '?' + params)
         const postsJson = await response.json()
 
         if (response.ok) return postsJson.map((pt) => Post.from(pt))

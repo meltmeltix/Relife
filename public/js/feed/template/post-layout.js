@@ -48,25 +48,43 @@ function createAttachment(attachment) {
     return container;
 }
 
-function createActions(likesNumber, commentsNumber, link) {
+function createActions(likesNumber, commentsNumber, link, isLiked) {
+    let liked = isLiked;
+
     const actions = document.createElement('div');
     actions.classList.add('card-actions', 'place-content-between', 'space-x-5');
 
-    const likes = document.createElement('input');
-    likes.type = 'checkbox';
-    likes.classList.add('btn', 'btn-xs', 'btn-ghost');
-    likes.innerHTML = `
+    const heartOutline = `
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
             class="lucide lucide-heart-icon lucide-heart">
         <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
         </svg>
+    `
+    const heartFilled = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" 
+            fill="currentColor" class="lucide lucide-heart-icon lucide-heart">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+        </svg>
+    `
+    const likes = document.createElement('button');
+    likes.checked = liked;
+    likes.classList.add('btn', 'btn-xs', 'btn-ghost');
+    likes.innerHTML = `
+        ${liked ? heartFilled : heartOutline}
         ${likesNumber}
     `
     likes.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
-        console.log('Likes button clicked');
+
+        liked = !liked;
+        if (liked) { likesNumber++; } else { likesNumber--; }
+
+        likes.innerHTML = `
+            ${liked ? heartFilled : heartOutline}
+            ${likesNumber}
+        `;
     });
 
     const comments = document.createElement('a');
@@ -182,7 +200,7 @@ function buildPost(post, isFocused) {
 
         layout.appendChild(postBody);
         layout.appendChild(postDate);
-        layout.appendChild(createActions(post.likes, post.comments));
+        layout.appendChild(createActions(post.likes, post.comments, card.href, post.isLiked));
 
         card.appendChild(layout);
         return card;
@@ -199,7 +217,7 @@ function buildPost(post, isFocused) {
     if (post.body) postBody.appendChild(createParagraph(post.body));
     if (post.attachment) postBody.appendChild(createAttachment(post.attachment));
 
-    postBody.appendChild(createActions(post.likes, post.comments, card.href));
+    postBody.appendChild(createActions(post.likes, post.comments, card.href, post.isLiked));
     layout.appendChild(postBody);
 
     card.appendChild(layout);

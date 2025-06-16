@@ -13,7 +13,7 @@
     <script type="module">
         import { showToast } from '/js/utils/toast.js';
 
-        const toastMessage = <%- JSON.stringify(message || '') %>;
+        const toastMessage = <%- JSON.stringify(message || null) %>;
         const toastType = <%- typeof messageType !== 'undefined' ? JSON.stringify(messageType) : 'null' %>;
 
         if (toastMessage != null) showToast(toastMessage, toastType);

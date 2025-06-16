@@ -20,6 +20,7 @@ const feedRouter = require('./routes/feed')
 const userDao = require('./models/user-dao')
 const postDao = require('./models/post-dao')
 const { profile } = require('console')
+const {log} = require("node:util");
 
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
@@ -74,17 +75,32 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/api/posts', async (req, res) => {
-    const { handle, postType, orderByLikes } = req.query;
+    const { loggedUser, orderByLikes } = req.query;
     const orderLikes = orderByLikes === 'true';
-    const logPrefix = handle ? `Fetching ${handle} posts` : 'Fetching posts';
+    const logPrefix = 'Fetching posts';
 
     console.log(`${logPrefix}...`);
 
     try {
-        const posts = handle
-            ? await postDao.getUserPosts(handle, postType, orderLikes)
-            : await postDao.getAllPosts(orderLikes);
+        const posts = await postDao.getAllPosts(orderLikes, loggedUser);
+        console.log(`${logPrefix}: Success`);
+        res.json(posts);
+    } catch (error) {
+        console.log(`${logPrefix}: Failure`, error);
+        res.status(500).end();
+    }
+})
 
+app.get('/api/posts/:user', async (req, res) => {
+    const user = req.params.user;
+    const { postType, orderByLikes } = req.query;
+    const orderLikes = orderByLikes === 'true';
+    const logPrefix = user ? `Fetching ${user} posts` : 'Fetching posts';
+
+    console.log(`${logPrefix}...`);
+
+    try {
+        const posts = await postDao.getUserPosts(user, postType, orderLikes);
         console.log(`${logPrefix}: Success`);
         res.json(posts);
     } catch (error) {
