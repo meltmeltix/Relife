@@ -29,8 +29,8 @@ class Api {
         else throw commentsJson
     }
 
-    static getUserPosts = async(handle, postType, sortByLikes = false) => {
-        let params = new URLSearchParams({handle: handle, orderByLikes: sortByLikes})
+    static getUserPosts = async(handle, postType, sortByLikes = false, loggedUser = null) => {
+        let params = new URLSearchParams({handle: handle, orderByLikes: sortByLikes, loggedUser: loggedUser})
         if (postType) { params.append('postType', postType) }
 
         let response = await fetch('/api/posts/' + handle + '?' + params)

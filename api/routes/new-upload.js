@@ -9,7 +9,7 @@ const fs = require('fs')
 
 router.post('/post', multipartMiddle, async function (req, res, next) {
     console.log(req.body, req.files)
-    const { author, body, thread } = req.body
+    const { author, body, thread, redirect } = req.body
     const attachment = req.files.attachment
     const date = new Date().toLocaleDateString('en-CA')
     const time = new Date().toLocaleTimeString('en-GB', { hour12: false })
@@ -23,7 +23,7 @@ router.post('/post', multipartMiddle, async function (req, res, next) {
         else 
             await postDao.newPost(body, null, dateTime, author, thread)
 
-        res.redirect('/home')
+        res.redirect(redirect)
     } catch(error) {
         console.log('Something went wrong')
         // TODO Add a system to show errors

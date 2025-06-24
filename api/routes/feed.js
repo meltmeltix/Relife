@@ -9,12 +9,12 @@ router.get('/explore', function(req, res, next) {
 })
 
 router.get('/home', function(req, res, next) {
-    if(!req.isAuthenticated()) res.redirect('/')
+    if(!req.isAuthenticated()) res.redirect('/explore')
     else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 
 router.get('/search', function(req, res, next) {
-    if(!req.isAuthenticated()) res.redirect('/')
+    if(!req.isAuthenticated()) res.redirect('/explore')
     else res.render('feed', { sessionType: "USER", userHandle: req.user.handle })
 })
 

@@ -93,14 +93,14 @@ app.get('/api/posts', async (req, res) => {
 
 app.get('/api/posts/:user', async (req, res) => {
     const user = req.params.user;
-    const { postType, orderByLikes } = req.query;
+    const { postType, orderByLikes, loggedUser } = req.query;
     const orderLikes = orderByLikes === 'true';
     const logPrefix = user ? `Fetching ${user} posts` : 'Fetching posts';
 
     console.log(`${logPrefix}...`);
 
     try {
-        const posts = await postDao.getUserPosts(user, postType, orderLikes);
+        const posts = await postDao.getUserPosts(user, postType, orderLikes, loggedUser);
         console.log(`${logPrefix}: Success`);
         res.json(posts);
     } catch (error) {

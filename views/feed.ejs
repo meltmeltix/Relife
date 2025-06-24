@@ -34,7 +34,7 @@
     </svg>
 
     <div class="drawer sm:drawer-open md:px-16 lg:px-44 xl:px-[18rem]">
-        <input id="daisy-drawer" type="checkbox" class="drawer-toggle" />
+        <input id="daisy-drawer" type="checkbox" class="drawer-toggle" aria-label="Drawer Toggle"/>
 
         <!-- Content -->
         <div class="drawer-content flex flex-col min-h-[100svh]">
@@ -59,6 +59,7 @@
                     <form action="/new/post" method="post" class="flex flex-col gap-2" enctype="multipart/form-data">
                         <input name="author" id="post_author" type="hidden">
                         <input name="thread" id="post_thread" type="hidden">
+                        <input name="redirect" id="post_redirect" type="hidden">
 
                         <span class="text-xl w-full">New post</span>
 
