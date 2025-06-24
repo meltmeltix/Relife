@@ -4,22 +4,22 @@ import Api from "./api.js";
 import { buildPost } from "../template/post-layout.js";
 
 class Posts {
-    static async getAllPosts(contentContainer, sortByLikes, loggedUser) {
+    static async getAllPosts(contentContainer, sortByLikes, loggedUser, disabled = false) {
         contentContainer.innerHTML = ''
 
         const posts = await Api.getAllPosts(sortByLikes, loggedUser)
         for (let post of posts) {
-            contentContainer.appendChild(buildPost(post, false))
+            contentContainer.appendChild(buildPost(post, false, disabled))
         }
     }
 
-    static async getUserPosts(handle, postType, contentContainer, sortByLikes) {
+    static async getUserPosts(handle, postType, contentContainer, sortByLikes, loggedUser, disabled = false) {
         const postList = document.createElement('div')
         postList.innerHTML = ''
 
-        const posts = await Api.getUserPosts(handle, postType, sortByLikes)
+        const posts = await Api.getUserPosts(handle, postType, sortByLikes, loggedUser)
         for (let post of posts) {
-            const p = buildPost(post, false)
+            const p = buildPost(post, false, disabled)
             postList.appendChild(p)
         }
 

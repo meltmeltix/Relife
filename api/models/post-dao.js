@@ -66,7 +66,7 @@ exports.getAllPosts = function(orderByLikes = false, loggedUser = null) {
     });
 };
 
-exports.getUserPosts = function(handle, postType, orderByLikes = false) {
+exports.getUserPosts = function(handle, postType, orderByLikes = false, loggedUser = null) {
     return new Promise((resolve, reject) => {
         console.log('Querying for posts with handle:', handle, 'postType:', postType);
 
@@ -77,13 +77,18 @@ exports.getUserPosts = function(handle, postType, orderByLikes = false) {
         const hasMediaOnly = postType === 'MEDIA';
         const mediaFilter = hasMediaOnly ? 'AND p.attachment IS NOT NULL' : '';
 
+        const isLikedSelect = loggedUser
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = p.id AND "like"."user" = ?)) AS isLiked`
+            : `0 AS isLiked`;
+
         const query = `
             SELECT
                 p.id, p.body, p.attachment, p.date,
                 u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar, 
                 t.handle AS thread_handle, t.name AS thread_name,
                 (SELECT COUNT(*) FROM "like" WHERE "like".post = p.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments,
+                ${isLikedSelect}
             FROM post p
             LEFT JOIN user u ON p.author = u.handle
             LEFT JOIN post pt ON p.thread = pt.id
@@ -93,7 +98,9 @@ exports.getUserPosts = function(handle, postType, orderByLikes = false) {
             ${orderClause};
         `;
 
-        db.all(query, [handle], (err, rows) => {
+        const params = loggedUser ? [loggedUser, handle] : [handle];
+
+        db.all(query, params, (err, rows) => {
             if (err) {
                 console.error('Error executing query:', err);
                 return reject(err);
@@ -102,15 +109,16 @@ exports.getUserPosts = function(handle, postType, orderByLikes = false) {
             const posts = rows.map((p) => ({
                 id: p.id,
                 body: p.body,
-                attachment: p.attachment ? `data:image/jpeg;base64,${p.attachment.toString('base64')}` : null,
+                attachment: p.attachment ? `data:image/webp;base64,${p.attachment.toString('base64')}` : null,
                 date: p.date,
                 authorHandle: p.author_handle,
                 authorName: p.author_name,
-                authorAvatar: p.author_avatar ? `data:image/jpeg;base64,${p.author_avatar.toString('base64')}` : null,
+                authorAvatar: p.author_avatar ? `data:image/webp;base64,${p.author_avatar.toString('base64')}` : null,
                 threadHandle: p.thread_handle,
                 threadName: p.thread_name,
                 likes: p.likes,
-                comments: p.comments
+                comments: p.comments,
+                isLiked: !!p.isLiked
             }));
 
             resolve(posts);

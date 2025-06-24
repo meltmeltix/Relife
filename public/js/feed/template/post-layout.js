@@ -48,7 +48,7 @@ function createAttachment(attachment) {
     return container;
 }
 
-function createActions(likesNumber, commentsNumber, link, isLiked) {
+function createActions(likesNumber, commentsNumber, link, isLiked, isDisabled) {
     let liked = isLiked;
 
     const actions = document.createElement('div');
@@ -86,8 +86,9 @@ function createActions(likesNumber, commentsNumber, link, isLiked) {
             ${likesNumber}
         `;
     });
+    likes.disabled = isDisabled;
 
-    const comments = document.createElement('a');
+    const comments = document.createElement('button');
     comments.classList.add('btn', 'btn-xs', 'btn-ghost');
     comments.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
@@ -100,10 +101,12 @@ function createActions(likesNumber, commentsNumber, link, isLiked) {
     comments.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
-        console.log('Likes button clicked');
-    });
 
-    const share = document.createElement('a');
+        window.location.href = link + '?commentDialogue=true';
+    });
+    comments.disabled = isDisabled;
+
+    const share = document.createElement('button');
     share.classList.add('btn', 'btn-xs', 'btn-ghost');
     share.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
@@ -121,11 +124,12 @@ function createActions(likesNumber, commentsNumber, link, isLiked) {
         showToast('Copied post link to clipboard', 'INFO')
         navigator.clipboard.writeText(link)
     });
+    share.disabled = isDisabled;
 
     const dropDownMenu = document.createElement('div');
     dropDownMenu.classList.add('dropdown', 'dropdown-end');
 
-    const button = document.createElement('div');
+    const button = document.createElement('button');
     button.tabIndex = 0;
     button.role = 'button';
     button.classList.add('btn', 'btn-xs', 'btn-square', 'btn-ghost');
@@ -140,6 +144,7 @@ function createActions(likesNumber, commentsNumber, link, isLiked) {
                 <circle cx="12" cy="19" r="1"/>
         </svg>
     `;
+    button.disabled = isDisabled;
     dropDownMenu.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -166,7 +171,7 @@ function createActions(likesNumber, commentsNumber, link, isLiked) {
     return actions;
 }
 
-function buildPost(post, isFocused) {
+function buildPost(post, isFocused, isDisabled = false) {
     const card = document.createElement('a');
     if (!isFocused) {
         card.href = `/${post.authorHandle}/status/${post.id}`
@@ -200,7 +205,7 @@ function buildPost(post, isFocused) {
 
         layout.appendChild(postBody);
         layout.appendChild(postDate);
-        layout.appendChild(createActions(post.likes, post.comments, card.href, post.isLiked));
+        layout.appendChild(createActions(post.likes, post.comments, card.href, post.isLiked, isDisabled));
 
         card.appendChild(layout);
         return card;
@@ -217,7 +222,7 @@ function buildPost(post, isFocused) {
     if (post.body) postBody.appendChild(createParagraph(post.body));
     if (post.attachment) postBody.appendChild(createAttachment(post.attachment));
 
-    postBody.appendChild(createActions(post.likes, post.comments, card.href, post.isLiked));
+    postBody.appendChild(createActions(post.likes, post.comments, card.href, post.isLiked, isDisabled));
     layout.appendChild(postBody);
 
     card.appendChild(layout);
