@@ -184,7 +184,7 @@ class App {
             populateTitleBar(this.titleBar, 'Post', true, false, false);
             renderNavigation(this.userType, this.loggedUser, 'STATUS', this.sideNavigation, this.bottomNavigation);
             renderFeedTabs(this.userType, 'STATUS', this.feedTabRow);
-            renderStatus(handle, postId, this.titleBar, this.contentContainer)
+            renderStatus(handle, postId, this.titleBar, this.contentContainer, this.loggedUser)
                 .then(() => {
                     Posts.getStatusComments(postId, this.contentContainer);
                 });

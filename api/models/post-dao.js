@@ -1,7 +1,8 @@
 'use strict'
 
+require('sqlite3')
+
 const db = require('../database/db.js')
-const sqlite3 = require('sqlite3')
 
 exports.newPost = function(body, attachment, date, author, thread) {
     return new Promise((resolve, reject) => {
@@ -177,41 +178,50 @@ exports.getUserLikes = function(handle) {
     });
 };
 
-exports.getStatus = function(id, handle) {
+exports.getStatus = function(id, handle, loggedUser) {
     return new Promise((resolve, reject) => {
         console.log('Querying for user', handle, 'status with id', id)
+
+        const isLikedSelect = loggedUser
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = post.id AND "like"."user" = ?)) AS isLiked`
+            : `0 AS isLiked`;
 
         const query = `
             SELECT
                 post.id, post.body, post.attachment, post.date,
                 user.handle, user.name, user.avatar,
                 (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments,
+                ${isLikedSelect}
             FROM post
             JOIN user ON post.author = user.handle
             WHERE post.id = ? AND user.handle = ?;
-        `
+        `;
 
-        db.get(query, [id, handle], (err, row) => {
+        const params = loggedUser ? [loggedUser, id, handle] : [id, handle];
+
+        db.get(query, params, (err, row) => {
             if (err) {
                 console.error('Database error:', err)
                 return reject(err)
             }
-            if(!row) {
+
+            if (!row) {
                 console.log('Status not found')
                 return resolve({ error: 'Post not found' })
             }
 
             const status = {
-                id: row.id, 
-                body: row.body, 
+                id: row.id,
+                body: row.body,
                 attachment: row.attachment ? `data:image/jpeg;base64,${row.attachment.toString('base64')}` : null,
                 date: row.date,
                 authorHandle: row.handle,
                 authorName: row.name,
                 authorAvatar: row.avatar ? `data:image/jpeg;base64,${row.avatar.toString('base64')}` : null,
                 likes: row.likes,
-                comments: row.comments
+                comments: row.comments,
+                isLiked: !!row.isLiked
             }
 
             resolve(status)

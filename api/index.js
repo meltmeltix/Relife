@@ -76,7 +76,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/api/posts', async (req, res) => {
-    const { loggedUser, orderByLikes } = req.query;
+    const { orderByLikes, loggedUser } = req.query;
     const orderLikes = orderByLikes === 'true';
     const logPrefix = 'Fetching posts';
 
@@ -126,11 +126,10 @@ app.get('/api/likes', async (req, res) => {
 })
 
 app.get('/api/status', (req, res) => {
-    const id = req.query.id
-    const handle = req.query.handle
+    const { id, handle, loggedUser } = req.query
     console.log('Fetching post with', id, 'as id')
 
-    postDao.getStatus(id, handle)
+    postDao.getStatus(id, handle, loggedUser)
         .then((status) => {
             console.log('Fetching post with', id, 'as id: Success')
             res.json(status)
