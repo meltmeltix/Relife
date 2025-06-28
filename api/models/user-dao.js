@@ -1,7 +1,8 @@
 'use strict'
 
+require('sqlite3');
+
 const db = require('../database/db.js')
-const sqlite = require('sqlite3');
 const bcrypt = require('bcrypt');
 const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -57,7 +58,7 @@ exports.getUser = function(id, password) {
                 return resolve({ error: 'User not found' })
             }
 
-            const user = { handle: row.handle, mail: row.mail }
+            const user = { handle: row.handle, mail: row.mail, type: row.type }
             const check = bcrypt.compareSync(password, row.password)
 
             console.log('Password check result:', check)
@@ -84,7 +85,7 @@ exports.getUserByHandle = function(handle) {
                 return resolve({ error: 'User not found' })
             }
 
-            const user = { handle: row.handle, mail: row.mail }
+            const user = { handle: row.handle, mail: row.mail, type: row.type }
             console.log('User found!')
             resolve(user)
         })
@@ -113,6 +114,7 @@ exports.getUserProfile = function(handle) {
                 name: row.name, 
                 bio: row.bio,
                 avatar: row.avatar ? `data:image/webp;base64,${row.avatar.toString('base64')}` : null,
+                type: row.type
             }
             console.log('User found!')
             resolve(user)

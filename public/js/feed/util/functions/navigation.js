@@ -6,9 +6,8 @@ import {navItem, tabRowItem} from "../../template/navigation-item.js"
 function renderNavigation(userType, loggedUser, active, sideNavigation, bottomNavigation) {
     if (userType === 'GUEST')
         guestNavigation(sideNavigation, bottomNavigation)
-    else if (userType === 'USER') {
+    else if (userType === 'USER' || userType === 'MODERATOR')
         appNavigation(active, sideNavigation, bottomNavigation, loggedUser)
-    }
 }
 
 function guestNavigation(sideNavigation, bottomNavigation) {

@@ -1,5 +1,8 @@
 'use strict'
 
+require('console')
+require("node:util");
+
 const express = require('express')
 const path = require('path')
 const app = express()
@@ -19,8 +22,6 @@ const feedRouter = require('./routes/feed')
 
 const userDao = require('./models/user-dao')
 const postDao = require('./models/post-dao')
-const { profile } = require('console')
-const {log} = require("node:util");
 
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
@@ -178,7 +179,7 @@ app.use('/register', registerRouter)
 app.use('/new', newUploadRoute)
 
 app.use(function (req, res, next) { next(createError(404)) })
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res, _) {
     res.locals.message = err.message
     res.locals.error = req.app.get('env') === 'development' ? err : {}
 
