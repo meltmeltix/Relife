@@ -93,7 +93,7 @@ class App {
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(this.titleBar, isGuest ? 'User profile' : 'Profile', isGuest, false, true);
-
+            renderFeedTabs(this.userType, 'PROFILE', this.feedTabRow);
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     if (!isGuest) { profileNavigation('POSTS', handle, loggedUser, this.contentContainer); }
@@ -118,6 +118,7 @@ class App {
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(this.titleBar, this.userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true);
+            renderFeedTabs(this.userType, 'PROFILE', this.feedTabRow);
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('REPLIES', handle, loggedUser, this.contentContainer);
@@ -135,6 +136,7 @@ class App {
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(this.titleBar, this.userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true);
+            renderFeedTabs(this.userType, 'PROFILE', this.feedTabRow);
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('MEDIA', handle, loggedUser, this.contentContainer);
@@ -154,6 +156,7 @@ class App {
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(this.titleBar, this.userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true);
+            renderFeedTabs(this.userType, 'PROFILE', this.feedTabRow);
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('LIKES', handle, loggedUser, this.contentContainer);
@@ -162,7 +165,7 @@ class App {
         });
 
         // Route: /:handle/status/ (invalid/missing ID)
-        page('/:handle/status/', (ctx) => {
+        page('/:handle/status/', (_) => {
             console.log("THROW ERROR");
         });
 
