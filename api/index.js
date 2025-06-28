@@ -78,97 +78,112 @@ app.use(passport.session())
 app.get('/api/posts', async (req, res) => {
     const { orderByLikes, loggedUser } = req.query;
     const orderLikes = orderByLikes === 'true';
-    const logPrefix = 'Fetching posts';
+    const logPrefix = 'Fetching all posts';
 
     console.log(`${logPrefix}...`);
-
     try {
         const posts = await postDao.getAllPosts(orderLikes, loggedUser);
         console.log(`${logPrefix}: Success`);
         res.json(posts);
     } catch (error) {
-        console.log(`${logPrefix}: Failure`, error);
+        console.error(`${logPrefix}: Failure`, error);
         res.status(500).end();
     }
-})
+});
 
-app.get('/api/posts/:user', async (req, res) => {
-    const user = req.params.user;
-    const { postType, orderByLikes, loggedUser } = req.query;
-    const orderLikes = orderByLikes === 'true';
-    const logPrefix = user ? `Fetching ${user} posts` : 'Fetching posts';
+app.get('/api/users/:handle/profile', async (req, res) => {
+    const { handle } = req.params;
+    const logPrefix = `Fetching profile for user ${handle}`;
 
     console.log(`${logPrefix}...`);
-
     try {
-        const posts = await postDao.getUserPosts(user, postType, orderLikes, loggedUser);
+        const user = await userDao.getUserProfile(handle);
+        console.log(`${logPrefix}: Success`);
+        res.json(user);
+    } catch (error) {
+        console.error(`${logPrefix}: Failure`, error);
+        res.status(500).end();
+    }
+});
+
+app.get('/api/users/:handle/posts', async (req, res) => {
+    const { handle } = req.params;
+    const { postType, orderByLikes, loggedUser } = req.query;
+    const orderLikes = orderByLikes === 'true';
+    const logPrefix = `Fetching posts by user ${handle}`;
+
+    console.log(`${logPrefix}...`);
+    try {
+        const posts = await postDao.getUserPosts(handle, postType, orderLikes, loggedUser);
         console.log(`${logPrefix}: Success`);
         res.json(posts);
     } catch (error) {
-        console.log(`${logPrefix}: Failure`, error);
+        console.error(`${logPrefix}: Failure`, error);
         res.status(500).end();
     }
-})
+});
 
-app.get('/api/likes', async (req, res) => {
-    const handle = req.query.handle;
+app.get('/api/users/:handle/likes', async (req, res) => {
+    const { handle } = req.params;
+    const logPrefix = `Fetching liked posts by user ${handle}`;
 
-    console.log(`Fetching ${handle} liked posts`)
-
+    console.log(`${logPrefix}...`);
     try {
-        const posts = await postDao.getUserLikes(handle)
-        console.log(`Fetching ${handle} liked posts: Success`)
+        const posts = await postDao.getUserLikes(handle);
+        console.log(`${logPrefix}: Success`);
         res.json(posts);
     } catch (error) {
-        console.log(`Fetching ${handle} liked posts: Failure`, error);
+        console.error(`${logPrefix}: Failure`, error);
+        res.status(500).end();
+    }
+});
+
+app.get('/api/status/:id', async (req, res) => {
+    const { id } = req.params;
+    const { handle, loggedUser } = req.query;
+    const logPrefix = `Fetching post with ID ${id}`;
+
+    console.log(`${logPrefix}...`);
+    try {
+        const status = await postDao.getStatus(id, handle, loggedUser);
+        console.log(`${logPrefix}: Success`);
+        res.json(status);
+    } catch (error) {
+        console.error(`${logPrefix}: Failure`, error);
+        res.status(500).end();
+    }
+});
+
+app.get('/api/status/:id/like', async (req, res) => {
+    const { id } = req.params;
+    const { handle } = req.query
+    const logPrefix = `Toggling like for ${handle} with ID ${id}`
+
+    console.log(`${logPrefix}...`);
+    try {
+        await postDao.toggleLike(id, handle);
+        console.log(`${logPrefix}: Success`);
+        res.sendStatus(204); // No Content
+    } catch (error) {
+        console.error(`${logPrefix}: Failure`, error);
         res.status(500).end();
     }
 })
 
-app.get('/api/status', (req, res) => {
-    const { id, handle, loggedUser } = req.query
-    console.log('Fetching post with', id, 'as id')
+app.get('/api/status/:id/comments', async (req, res) => {
+    const { id } = req.params;
+    const logPrefix = `Fetching comments for post ${id}`;
 
-    postDao.getStatus(id, handle, loggedUser)
-        .then((status) => {
-            console.log('Fetching post with', id, 'as id: Success')
-            res.json(status)
-        })
-        .catch(() => {
-            console.log('Fetching post with', id, 'as id: Failure')
-            res.status(500).end()
-        })
-})
-
-app.get('/api/status/:id/comments', (req, res) => {
-    const id = req.params.id
-    console.log('Fetching comments for post', id)
-
-    postDao.getStatusComments(id)
-        .then((comments) => {
-            console.log('Fetching comments with for post:', id,' Success')
-            res.json(comments)
-        })
-        .catch(() => {
-            console.log('Fetching comments with for post:', id,' Failure')
-            res.status(500).end()
-        })
-})
-
-app.get('/api/user-profile', (req, res) => {
-    const handle = req.query.handle
-    console.log('Fetching user', handle, 'profile...')
-    
-    userDao.getUserProfile(handle)
-        .then((user) => {
-            console.log('Fetching user', handle, 'profile: Success')
-            res.json(user)
-        })
-        .catch(() => {
-            console.log('Fetching user', handle, 'profile: Failure')
-            res.status(500).end()
-        })
-})
+    console.log(`${logPrefix}...`);
+    try {
+        const comments = await postDao.getStatusComments(id);
+        console.log(`${logPrefix}: Success`);
+        res.json(comments);
+    } catch (error) {
+        console.error(`${logPrefix}: Failure`, error);
+        res.status(500).end();
+    }
+});
 
 app.use('/', sessionRouter)
 app.use('/', feedRouter)

@@ -266,3 +266,44 @@ exports.getStatusComments = function (postId) {
         })
     })
 }
+
+exports.toggleLike = function(postId, userHandle) {
+    return new Promise((resolve, reject) => {
+        console.log(`Toggling like: user=${userHandle}, post=${postId}`);
+
+        const checkQuery = `SELECT 1 FROM "like" WHERE post = ? AND "user" = ?`;
+
+        db.get(checkQuery, [postId, userHandle], (err, row) => {
+            if (err) {
+                console.error('Error checking like status:', err);
+                return reject(err);
+            }
+
+            if (row) {
+                // Like exists — remove it
+                const deleteQuery = `DELETE FROM "like" WHERE post = ? AND "user" = ?`;
+                db.run(deleteQuery, [postId, userHandle], function(err) {
+                    if (err) {
+                        console.error('Error removing like:', err);
+                        return reject(err);
+                    }
+
+                    console.log('Like removed');
+                    resolve({ action: 'unliked', postId, userHandle });
+                });
+            } else {
+                // Like does not exist — add it
+                const insertQuery = `INSERT INTO "like" (post, "user") VALUES (?, ?)`;
+                db.run(insertQuery, [postId, userHandle], function(err) {
+                    if (err) {
+                        console.error('Error adding like:', err);
+                        return reject(err);
+                    }
+
+                    console.log('Like added');
+                    resolve({ action: 'liked', postId, userHandle });
+                });
+            }
+        });
+    });
+};

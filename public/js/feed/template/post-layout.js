@@ -48,8 +48,8 @@ function createAttachment(attachment) {
     return container;
 }
 
-function createActions(likesNumber, commentsNumber, link, isLiked, isDisabled) {
-    let liked = isLiked;
+function createActions(post, link, isDisabled, isModerator, loggedUser) {
+    let liked = post.isLiked;
 
     const actions = document.createElement('div');
     actions.classList.add('card-actions', 'place-content-between', 'space-x-5');
@@ -72,19 +72,28 @@ function createActions(likesNumber, commentsNumber, link, isLiked, isDisabled) {
     likes.classList.add('btn', 'btn-xs', 'btn-ghost');
     likes.innerHTML = `
         ${liked ? heartFilled : heartOutline}
-        ${likesNumber}
+        ${post.likes}
     `
-    likes.addEventListener('click', (event) => {
+    likes.addEventListener('click', async (event) => {
         event.preventDefault();
         event.stopPropagation();
 
-        liked = !liked;
-        if (liked) { likesNumber++; } else { likesNumber--; }
+        try {
+            const response = await fetch(
+                'api/status/' + post.id + '/like?' + new URLSearchParams({handle: loggedUser})
+            )
 
-        likes.innerHTML = `
-            ${liked ? heartFilled : heartOutline}
-            ${likesNumber}
-        `;
+            if (response.ok) {
+                liked = !liked;
+                if (liked) post.likes++;
+                else post.likes--;
+
+                likes.innerHTML = `
+                    ${liked ? heartFilled : heartOutline}
+                    ${post.likes}
+                `;
+            }
+        } catch (error) { showToast("An error occurred trying to like post.") }
     });
     likes.disabled = isDisabled;
 
@@ -96,7 +105,7 @@ function createActions(likesNumber, commentsNumber, link, isLiked, isDisabled) {
             class="size-[1.6em]">
         <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>     
         </svg>
-        ${commentsNumber}
+        ${post.comments}
     `
     comments.addEventListener('click', (event) => {
         event.preventDefault();
@@ -126,7 +135,7 @@ function createActions(likesNumber, commentsNumber, link, isLiked, isDisabled) {
     });
     share.disabled = isDisabled;
 
-    const dropDownMenu = document.createElement('div');
+    /*const dropDownMenu = document.createElement('div');
     dropDownMenu.classList.add('dropdown', 'dropdown-end');
 
     const button = document.createElement('button');
@@ -134,10 +143,10 @@ function createActions(likesNumber, commentsNumber, link, isLiked, isDisabled) {
     button.role = 'button';
     button.classList.add('btn', 'btn-xs', 'btn-square', 'btn-ghost');
     button.innerHTML = `
-        <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="18" height="18" viewBox="0 0 24 24" fill="none" 
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="lucide lucide-ellipsis-vertical">
                 <circle cx="12" cy="12" r="1"/>
                 <circle cx="12" cy="5" r="1"/>
@@ -148,7 +157,6 @@ function createActions(likesNumber, commentsNumber, link, isLiked, isDisabled) {
     dropDownMenu.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
-        console.log('Likes button clicked');
     });
 
     const form = document.createElement('form');
@@ -163,15 +171,36 @@ function createActions(likesNumber, commentsNumber, link, isLiked, isDisabled) {
     `;
     dropDownMenu.appendChild(button);
     dropDownMenu.appendChild(form);
-
+*/
     actions.appendChild(likes)
     actions.appendChild(comments);
     actions.appendChild(share);
-    actions.appendChild(dropDownMenu);
+    //actions.appendChild(dropDownMenu);
+
+    if (isModerator) {
+        const removePost = document.createElement('button');
+        removePost.classList.add('btn', 'btn-xs', 'btn-ghost');
+        removePost.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                class="lucide lucide-message-circle-off-icon lucide-message-circle-off">
+            <path d="M20.5 14.9A9 9 0 0 0 9.1 3.5"/>
+            <path d="m2 2 20 20"/>
+            <path d="M5.6 5.6C3 8.3 2.2 12.5 4 16l-2 6 6-2c3.4 1.8 7.6 1.1 10.3-1.7"/>
+            </svg>
+        `;
+        removePost.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+        });
+
+        actions.appendChild(removePost);
+    }
+
     return actions;
 }
 
-function buildPost(post, isFocused, isDisabled = false) {
+function buildPost(post, isFocused, isDisabled = false, isModerator = false, loggedUser) {
     const card = document.createElement('a');
     if (!isFocused) {
         card.href = `/${post.authorHandle}/status/${post.id}`
@@ -205,7 +234,7 @@ function buildPost(post, isFocused, isDisabled = false) {
 
         layout.appendChild(postBody);
         layout.appendChild(postDate);
-        layout.appendChild(createActions(post.likes, post.comments, card.href, post.isLiked, isDisabled));
+        layout.appendChild(createActions(post, card.href, isDisabled, isModerator, loggedUser));
 
         card.appendChild(layout);
         return card;
@@ -222,7 +251,7 @@ function buildPost(post, isFocused, isDisabled = false) {
     if (post.body) postBody.appendChild(createParagraph(post.body));
     if (post.attachment) postBody.appendChild(createAttachment(post.attachment));
 
-    postBody.appendChild(createActions(post.likes, post.comments, card.href, post.isLiked, isDisabled));
+    postBody.appendChild(createActions(post, card.href, isDisabled, isModerator, loggedUser));
     layout.appendChild(postBody);
 
     card.appendChild(layout);

@@ -15,8 +15,8 @@ class Api {
 
     static getStatus = async(id, handle, loggedUser = null) => {
         let response = await fetch(
-            '/api/status?' +
-            new URLSearchParams({id: id, handle: handle, loggedUser: loggedUser})
+            '/api/status/' + id + '?' +
+            new URLSearchParams({handle: handle, loggedUser: loggedUser})
         )
         const statusJson = await response.json()
 
@@ -36,7 +36,7 @@ class Api {
         let params = new URLSearchParams({handle: handle, orderByLikes: sortByLikes, loggedUser: loggedUser})
         if (postType) { params.append('postType', postType) }
 
-        let response = await fetch('/api/posts/' + handle + '?' + params)
+        let response = await fetch('/api/users/' + handle + '/posts?' + params)
         const postsJson = await response.json()
 
         if (response.ok) return postsJson.map((pt) => Post.from(pt))
@@ -52,7 +52,7 @@ class Api {
     }
 
     static getProfile = async(handle) => {
-        let response = await fetch('/api/user-profile?' + new URLSearchParams({handle: handle}))
+        let response = await fetch('/api/users/' + handle + '/profile')
         const profileJson = await response.json()
 
         if (response.ok) return Profile.from(profileJson)

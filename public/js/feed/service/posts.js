@@ -4,12 +4,17 @@ import Api from "./api.js";
 import { buildPost } from "../template/post-layout.js";
 
 class Posts {
-    static async getAllPosts(contentContainer, sortByLikes, loggedUser, disabled = false) {
+    static async getAllPosts(loggedUser, userType, sortByLikes, disabled = false, contentContainer) {
         contentContainer.innerHTML = ''
 
         const posts = await Api.getAllPosts(sortByLikes, loggedUser)
         for (let post of posts) {
-            contentContainer.appendChild(buildPost(post, false, disabled))
+            contentContainer.appendChild(buildPost(post,
+                false,
+                disabled,
+                userType === 'MODERATOR',
+                loggedUser
+            ))
         }
     }
 

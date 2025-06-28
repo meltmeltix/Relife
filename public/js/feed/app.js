@@ -37,7 +37,7 @@ class App {
             this.postThread.value = null;
             populateTitleBar(this.titleBar, 'Explore', false, false, false);
             renderNavigation(this.userType, this.loggedUser, '', this.sideNavigation, this.bottomNavigation);
-            Posts.getAllPosts(this.contentContainer, true, null, true).catch(console.error);
+            Posts.getAllPosts(null, this.userType, true, true, this.contentContainer).catch(console.error);
         });
 
         // Route: /home
@@ -51,7 +51,7 @@ class App {
             populateTitleBar(this.titleBar, 'Home', false, false, true);
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
             renderFeedTabs(this.userType, 'HOME', this.feedTabRow);
-            Posts.getAllPosts(this.contentContainer, true, this.loggedUser).catch(console.error);
+            Posts.getAllPosts(this.loggedUser, this.userType, true, false, this.contentContainer).catch(console.error);
         });
 
         // Route: /recents
@@ -65,7 +65,7 @@ class App {
             populateTitleBar(this.titleBar, 'Home', false, false, false);
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
             renderFeedTabs(this.userType, 'RECENTS', this.feedTabRow);
-            Posts.getAllPosts(this.contentContainer, false, this.loggedUser).catch(console.error);
+            Posts.getAllPosts(this.loggedUser, this.userType, false, false, this.contentContainer).catch(console.error);
         });
 
         // Route: /search
