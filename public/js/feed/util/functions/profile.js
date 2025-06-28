@@ -10,8 +10,8 @@ async function renderProfile(handle, userType, titleBar, contentContainer) {
     contentContainer.innerHTML = buildProfile(profile)
 }
 
-async function renderStatus(handle, postId, titleBar, contentContainer) {
-    const post = await Api.getStatus(postId, handle)
+async function renderStatus(handle, postId, titleBar, contentContainer, loggedUser) {
+    const post = await Api.getStatus(postId, handle, loggedUser)
     contentContainer.innerHTML = ''
     contentContainer.appendChild(buildPost(post, true))
 
