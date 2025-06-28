@@ -44,7 +44,10 @@ class Api {
     }
 
     static async getLikedPosts(handle) {
-        let response = await fetch('/api/likes?' + new URLSearchParams({handle: handle}))
+        let response = await fetch(
+            '/api/users/' + handle + '/likes?' +
+            new URLSearchParams({handle: handle})
+        )
         const likedPostsJson = await response.json()
 
         if (response.ok) return likedPostsJson.map((pt) => Post.from(pt))

@@ -65,7 +65,13 @@ class App {
             populateTitleBar(this.titleBar, 'Home', false, false, false);
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
             renderFeedTabs(this.userType, 'RECENTS', this.feedTabRow);
-            Posts.getAllPosts(this.loggedUser, this.userType, false, false, this.contentContainer).catch(console.error);
+            Posts.getAllPosts(
+                this.loggedUser,
+                this.userType,
+                false,
+                false,
+                this.contentContainer
+            ).catch(console.error);
         });
 
         // Route: /search
@@ -99,11 +105,12 @@ class App {
                     if (!isGuest) { profileNavigation('POSTS', handle, loggedUser, this.contentContainer); }
                     Posts.getUserPosts(
                         handle,
-                        null,
-                        this.contentContainer,
-                        true,
                         this.loggedUser,
-                        isGuest
+                        this.userType,
+                        null,
+                        isGuest,
+                        true,
+                        this.contentContainer
                     );
                 });
         });
@@ -122,7 +129,15 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('REPLIES', handle, loggedUser, this.contentContainer);
-                    Posts.getUserPosts(handle, 'REPLIES', this.contentContainer, false, this.loggedUser);
+                    Posts.getUserPosts(
+                        handle,
+                        this.loggedUser,
+                        this.userType,
+                        'REPLIES',
+                        false,
+                        false,
+                        this.contentContainer
+                    );
                 });
         });
 
@@ -140,7 +155,14 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('MEDIA', handle, loggedUser, this.contentContainer);
-                    Posts.getUserPosts(handle, 'MEDIA', this.contentContainer, false, this.loggedUser);
+                    Posts.getUserPosts(
+                        handle,
+                        this.loggedUser,
+                        'MEDIA',
+                        false,
+                        false,
+                        this.contentContainer
+                    );
                 });
         });
 
@@ -160,7 +182,12 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('LIKES', handle, loggedUser, this.contentContainer);
-                    Posts.getUserLikes(handle, this.contentContainer);
+                    Posts.getUserLikes(
+                        handle,
+                        this.userType,
+                        false,
+                        this.contentContainer
+                    );
                 });
         });
 

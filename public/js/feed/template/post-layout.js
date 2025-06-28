@@ -80,7 +80,7 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
 
         try {
             const response = await fetch(
-                'api/status/' + post.id + '/like?' + new URLSearchParams({handle: loggedUser})
+                '/api/status/' + post.id + '/like?' + new URLSearchParams({handle: loggedUser})
             )
 
             if (response.ok) {

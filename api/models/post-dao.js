@@ -170,7 +170,8 @@ exports.getUserLikes = function(handle) {
                 threadHandle: p.thread_handle,
                 threadName: p.thread_name,
                 likes: p.likes,
-                comments: p.comments
+                comments: p.comments,
+                isLiked: true
             }));
 
             resolve(posts);

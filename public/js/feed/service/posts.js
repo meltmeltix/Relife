@@ -9,7 +9,8 @@ class Posts {
 
         const posts = await Api.getAllPosts(sortByLikes, loggedUser)
         for (let post of posts) {
-            contentContainer.appendChild(buildPost(post,
+            contentContainer.appendChild(buildPost(
+                post,
                 false,
                 disabled,
                 userType === 'MODERATOR',
@@ -18,26 +19,38 @@ class Posts {
         }
     }
 
-    static async getUserPosts(handle, postType, contentContainer, sortByLikes, loggedUser, disabled = false) {
+    static async getUserPosts(handle, loggedUser, userType, postType, disabled = false, sortByLikes, contentContainer) {
         const postList = document.createElement('div')
         postList.innerHTML = ''
 
         const posts = await Api.getUserPosts(handle, postType, sortByLikes, loggedUser)
         for (let post of posts) {
-            const p = buildPost(post, false, disabled)
+            const p = buildPost(
+                post,
+                false,
+                disabled,
+                userType === 'MODERATOR',
+                loggedUser
+            )
             postList.appendChild(p)
         }
 
         contentContainer.appendChild(postList)
     }
 
-    static async getUserLikes(handle, contentContainer) {
+    static async getUserLikes(handle, userType, disabled = false, contentContainer) {
         const likesList = document.createElement('div')
         likesList.innerHTML = ''
 
         const likedPosts = await Api.getLikedPosts(handle)
         for (let likedPost of likedPosts) {
-            const lp = buildPost(likedPost, false)
+            const lp = buildPost(
+                likedPost,
+                false,
+                disabled,
+                userType === 'MODERATOR',
+                handle
+            )
             likesList.appendChild(lp)
         }
 
