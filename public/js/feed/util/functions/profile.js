@@ -10,10 +10,16 @@ async function renderProfile(handle, userType, titleBar, contentContainer) {
     contentContainer.innerHTML = buildProfile(profile)
 }
 
-async function renderStatus(handle, postId, titleBar, contentContainer, loggedUser) {
+async function renderStatus(handle, userType, postId, titleBar, contentContainer, loggedUser) {
     const post = await Api.getStatus(postId, handle, loggedUser)
     contentContainer.innerHTML = ''
-    contentContainer.appendChild(buildPost(post, true))
+    contentContainer.appendChild(buildPost(
+        post,
+        true,
+        userType === 'GUEST',
+        userType === 'MODERATOR',
+        loggedUser
+    ))
 
     const field = commentsField(false).cloneNode(true)
     field.classList.add('hidden', 'sm:block')

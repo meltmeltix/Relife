@@ -7,7 +7,7 @@ class Posts {
     static async getAllPosts(loggedUser, userType, sortByLikes, disabled = false, contentContainer) {
         contentContainer.innerHTML = ''
 
-        const posts = await Api.getAllPosts(sortByLikes, loggedUser)
+        const posts = await Api.getAllStatuses(sortByLikes, loggedUser)
         for (let post of posts) {
             contentContainer.appendChild(buildPost(
                 post,
@@ -23,7 +23,7 @@ class Posts {
         const postList = document.createElement('div')
         postList.innerHTML = ''
 
-        const posts = await Api.getUserPosts(handle, postType, sortByLikes, loggedUser)
+        const posts = await Api.getUserStatuses(handle, postType, sortByLikes, loggedUser)
         for (let post of posts) {
             const p = buildPost(
                 post,
@@ -42,7 +42,7 @@ class Posts {
         const likesList = document.createElement('div')
         likesList.innerHTML = ''
 
-        const likedPosts = await Api.getLikedPosts(handle)
+        const likedPosts = await Api.getLikedStatuses(handle)
         for (let likedPost of likedPosts) {
             const lp = buildPost(
                 likedPost,
@@ -57,13 +57,19 @@ class Posts {
         contentContainer.appendChild(likesList)
     }
 
-    static async getStatusComments(thread, contentContainer) {
+    static async getStatusComments(userType, thread, contentContainer, loggedUser) {
         const commentsList = document.createElement('div')
         commentsList.innerHTML = ''
 
-        const comments = await Api.getStatusComments(thread)
+        const comments = await Api.getStatusComments(thread, loggedUser)
         for (let comment of comments) {
-            const c = buildPost(comment, false)
+            const c = buildPost(
+                comment,
+                false,
+                userType === 'GUEST',
+                userType === 'MODERATOR',
+                loggedUser
+            )
             commentsList.appendChild(c)
         }
 

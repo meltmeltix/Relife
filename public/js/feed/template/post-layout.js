@@ -80,7 +80,8 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
 
         try {
             const response = await fetch(
-                '/api/status/' + post.id + '/like?' + new URLSearchParams({handle: loggedUser})
+                '/api/status/' + post.id + '/like?' +
+                new URLSearchParams({handle: loggedUser})
             )
 
             if (response.ok) {
@@ -189,9 +190,18 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
             <path d="M5.6 5.6C3 8.3 2.2 12.5 4 16l-2 6 6-2c3.4 1.8 7.6 1.1 10.3-1.7"/>
             </svg>
         `;
-        removePost.addEventListener('click', (event) => {
+        removePost.addEventListener('click', async (event) => {
             event.preventDefault();
             event.stopPropagation();
+
+            try {
+                const response = await fetch(
+                    '/api/status/' + post.id,
+                    { method: 'DELETE' }
+                );
+
+                if (response.ok) { showToast('Post deleted', 'INFO') }
+            } catch (error) { showToast("An error occurred " + error, 'ERROR') }
         });
 
         actions.appendChild(removePost);

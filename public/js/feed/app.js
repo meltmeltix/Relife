@@ -158,6 +158,7 @@ class App {
                     Posts.getUserPosts(
                         handle,
                         this.loggedUser,
+                        this.userType,
                         'MEDIA',
                         false,
                         false,
@@ -187,7 +188,7 @@ class App {
                         this.userType,
                         false,
                         this.contentContainer
-                    );
+                    )
                 });
         });
 
@@ -197,9 +198,9 @@ class App {
         });
 
         // Route: /:handle/status/:post
-        page('/:handle/status/:post', (ctx) => {
+        page('/:handle/status/:id', (ctx) => {
             const handle = ctx.params.handle;
-            const postId = ctx.params.post;
+            const postId = ctx.params.id;
             const params = new URLSearchParams(ctx.querystring);
 
             if (this.userType === 'GUEST') return page.redirect(`/${handle}`);
@@ -211,9 +212,9 @@ class App {
             populateTitleBar(this.titleBar, 'Post', true, false, false);
             renderNavigation(this.userType, this.loggedUser, 'STATUS', this.sideNavigation, this.bottomNavigation);
             renderFeedTabs(this.userType, 'STATUS', this.feedTabRow);
-            renderStatus(handle, postId, this.titleBar, this.contentContainer, this.loggedUser)
+            renderStatus(handle, this.userType, postId, this.titleBar, this.contentContainer, this.loggedUser)
                 .then(() => {
-                    Posts.getStatusComments(postId, this.contentContainer);
+                    Posts.getStatusComments(this.userType, postId, this.contentContainer, this.loggedUser);
                 });
         });
 

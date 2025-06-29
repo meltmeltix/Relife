@@ -2,9 +2,9 @@ import Post from '../data/classes/post.js'
 import Profile from '../data/classes/profile.js'
 
 class Api {
-    static getAllPosts = async(sortByLikes = false, loggedUser = null) => {
+    static getAllStatuses = async(sortByLikes = false, loggedUser = null) => {
         let response = await fetch(
-            '/api/posts?' +
+            '/api/status?' +
             new URLSearchParams({orderByLikes: sortByLikes, loggedUser: loggedUser})
         )
         const postsJson = await response.json()
@@ -24,26 +24,29 @@ class Api {
         else throw statusJson
     }
 
-    static getStatusComments = async(thread) => {
-        let response = await fetch('/api/status/' + thread + '/comments')
+    static getStatusComments = async(thread, loggedUser = null) => {
+        let response = await fetch(
+            '/api/status/' + thread + '/comments?' +
+            new URLSearchParams({loggedUser: loggedUser})
+        )
         const commentsJson = await response.json()
 
         if (response.ok) return commentsJson.map((c) => Post.from(c))
         else throw commentsJson
     }
 
-    static getUserPosts = async(handle, postType, sortByLikes = false, loggedUser = null) => {
+    static getUserStatuses = async(handle, postType, sortByLikes = false, loggedUser = null) => {
         let params = new URLSearchParams({handle: handle, orderByLikes: sortByLikes, loggedUser: loggedUser})
         if (postType) { params.append('postType', postType) }
 
-        let response = await fetch('/api/users/' + handle + '/posts?' + params)
+        let response = await fetch('/api/users/' + handle + '/status?' + params)
         const postsJson = await response.json()
 
         if (response.ok) return postsJson.map((pt) => Post.from(pt))
         else throw postsJson
     }
 
-    static async getLikedPosts(handle) {
+    static async getLikedStatuses(handle) {
         let response = await fetch(
             '/api/users/' + handle + '/likes?' +
             new URLSearchParams({handle: handle})

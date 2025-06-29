@@ -75,22 +75,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.get('/api/posts', async (req, res) => {
-    const { orderByLikes, loggedUser } = req.query;
-    const orderLikes = orderByLikes === 'true';
-    const logPrefix = 'Fetching all posts';
-
-    console.log(`${logPrefix}...`);
-    try {
-        const posts = await postDao.getAllPosts(orderLikes, loggedUser);
-        console.log(`${logPrefix}: Success`);
-        res.json(posts);
-    } catch (error) {
-        console.error(`${logPrefix}: Failure`, error);
-        res.status(500).end();
-    }
-});
-
 app.get('/api/users/:handle/profile', async (req, res) => {
     const { handle } = req.params;
     const logPrefix = `Fetching profile for user ${handle}`;
@@ -106,7 +90,7 @@ app.get('/api/users/:handle/profile', async (req, res) => {
     }
 });
 
-app.get('/api/users/:handle/posts', async (req, res) => {
+app.get('/api/users/:handle/status', async (req, res) => {
     const { handle } = req.params;
     const { postType, orderByLikes, loggedUser } = req.query;
     const orderLikes = orderByLikes === 'true';
@@ -138,6 +122,22 @@ app.get('/api/users/:handle/likes', async (req, res) => {
     }
 });
 
+app.get('/api/status', async (req, res) => {
+    const { orderByLikes, loggedUser } = req.query;
+    const orderLikes = orderByLikes === 'true';
+    const logPrefix = 'Fetching all posts';
+
+    console.log(`${logPrefix}...`);
+    try {
+        const posts = await postDao.getAllPosts(orderLikes, loggedUser);
+        console.log(`${logPrefix}: Success`);
+        res.json(posts);
+    } catch (error) {
+        console.error(`${logPrefix}: Failure`, error);
+        res.status(500).end();
+    }
+});
+
 app.get('/api/status/:id', async (req, res) => {
     const { id } = req.params;
     const { handle, loggedUser } = req.query;
@@ -153,6 +153,21 @@ app.get('/api/status/:id', async (req, res) => {
         res.status(500).end();
     }
 });
+
+app.delete('/api/status/:id', async (req, res) => {
+    const { id } = req.params;
+    const logPrefix = `Deleting post with ID ${id}`;
+
+    console.log(`${logPrefix}...`);
+    try {
+        const status = await postDao.deleteStatus(id);
+        console.log(`${logPrefix}: Success`);
+        res.json(status);
+    } catch (error) {
+        console.error(`${logPrefix}: Failure`, error);
+        res.status(500).end();
+    }
+})
 
 app.get('/api/status/:id/like', async (req, res) => {
     const { id } = req.params;
@@ -172,11 +187,12 @@ app.get('/api/status/:id/like', async (req, res) => {
 
 app.get('/api/status/:id/comments', async (req, res) => {
     const { id } = req.params;
+    const { loggedUser } = req.query;
     const logPrefix = `Fetching comments for post ${id}`;
 
     console.log(`${logPrefix}...`);
     try {
-        const comments = await postDao.getStatusComments(id);
+        const comments = await postDao.getStatusComments(id, loggedUser);
         console.log(`${logPrefix}: Success`);
         res.json(comments);
     } catch (error) {

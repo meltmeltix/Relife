@@ -6,6 +6,8 @@ const db = require('../database/db.js')
 
 exports.newPost = function(body, attachment, date, author, thread) {
     return new Promise((resolve, reject) => {
+        thread = thread === '' ? null : thread;
+
         const query = attachment
             ? 'INSERT INTO post(body, attachment, date, author, thread) VALUES (?, ?, ?, ?, ?)'
             : 'INSERT INTO post(body, date, author, thread) VALUES (?, ?, ?, ?)'
@@ -230,22 +232,30 @@ exports.getStatus = function(id, handle, loggedUser) {
     })
 }
 
-exports.getStatusComments = function (postId) {
+exports.getStatusComments = function (postId, loggedUser = null) {
     return new Promise((resolve, reject) => {
         console.log('Querying comments for status', postId)
+
+        const isLikedSelect = loggedUser
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = post.id AND "like"."user" = ?)) AS isLiked`
+            : `0 AS isLiked`;
 
         const query = `
             SELECT
                 post.id, post.body, post.attachment, post.date, post.thread,
                 user.handle, user.name, user.avatar,
                 (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments,
+                ${isLikedSelect}
             FROM post
             JOIN user ON post.author = user.handle
-            WHERE post.thread = ?;
+            WHERE post.thread = ?
+            ORDER BY post.date ASC;
         `
 
-        db.all(query, [postId], (err, rows) => {
+        const params = loggedUser ? [loggedUser, postId] : [postId];
+
+        db.all(query, params, (err, rows) => {
             if (err) {
                 console.error('Error executing query:', err)
                 return reject(err)
@@ -260,13 +270,15 @@ exports.getStatusComments = function (postId) {
                 authorName: p.name,
                 authorAvatar: p.avatar ? `data:image/jpeg;base64,${p.avatar.toString('base64')}` : null,
                 likes: p.likes,
-                comments: p.comments
+                comments: p.comments,
+                isLiked: !!p.isLiked
             }))
 
             resolve(posts)
         })
     })
 }
+
 
 exports.toggleLike = function(postId, userHandle) {
     return new Promise((resolve, reject) => {
@@ -305,6 +317,30 @@ exports.toggleLike = function(postId, userHandle) {
                     resolve({ action: 'liked', postId, userHandle });
                 });
             }
+        });
+    });
+};
+
+exports.deleteStatus = function(id) {
+    return new Promise((resolve, reject) => {
+        console.log(`Deleting post with ID ${id}`);
+
+        const deleteQuery = `DELETE FROM post WHERE id = ?`;
+
+        db.run(deleteQuery, [id], function(err) {
+            if (err) {
+                console.error('Error deleting post:', err);
+                return reject(err);
+            }
+
+            if (this.changes === 0) {
+                // No post was deleted (i.e., no match)
+                console.warn(`Post with ID ${id} not found.`);
+                return resolve({ deleted: false, message: 'Post not found' });
+            }
+
+            console.log(`Post with ID ${id} deleted.`);
+            resolve({ deleted: true, id });
         });
     });
 };
