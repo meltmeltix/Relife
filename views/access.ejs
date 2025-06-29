@@ -36,6 +36,8 @@
             <%- include('partials/login') -%>
         <% } else if (accessType === "SIGNUP") { %>
             <%- include('partials/signup') -%>
+        <% } else if (accessType === 'FORGOT') { %>
+            <%- include('partials/forgot') %>
         <% } %>
     </div>
 </body>

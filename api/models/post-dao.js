@@ -279,7 +279,6 @@ exports.getStatusComments = function (postId, loggedUser = null) {
     })
 }
 
-
 exports.toggleLike = function(postId, userHandle) {
     return new Promise((resolve, reject) => {
         console.log(`Toggling like: user=${userHandle}, post=${postId}`);

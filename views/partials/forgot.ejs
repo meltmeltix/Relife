@@ -1,0 +1,18 @@
+<form action="/forgot" method="post" class="flex flex-col p-6 justify-between h-viewport gap-10 sm: sm:h-full sm:p-8">
+    <div class="flex flex-col gap-3">
+        <h1 class="font-serif font-semibold text-2xl pb-3">Set a new password</h1>
+
+        <input aria-label="Username" type="text" name="username" placeholder="Mail or username" class="input input-bordered w-full" required autofocus/>
+        <input aria-label="New password" type="password" name="newPassword" placeholder="New password" class="input input-bordered w-full" required/>
+        <input aria-label="Confirm password" type="password" name="confirmPassword" placeholder="Confirm password" class="input input-bordered w-full" required/>
+
+        <a href="/a/login/" class="link link-hover link-accent">I remember my password.</a>
+        <p class="inline">Need an account? <a href="/a/signup" class="inline-block link link-hover link-accent">Sign up</a></p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div><a href="/" id="backButton" class="btn w-full">Back</a></div>
+        <div class="hidden sm:block sm:w-10"></div>
+        <div><button id="nextButton" type="submit" class="btn btn-primary w-full">Reset</button></div>
+    </div>
+</form>

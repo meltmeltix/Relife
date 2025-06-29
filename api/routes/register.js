@@ -3,11 +3,9 @@
 
 const express = require('express')
 const router = express.Router()
-const passport = require('passport')
 const userDao = require('../models/user-dao')
-const { title } = require('process')
 
-router.post('/', async function (req, res, next) {
+router.post('/', async function (req, res, _) {
     console.log(req.body)
     const { handle, mail, password, birthDate } = req.body
 
@@ -47,7 +45,7 @@ router.post('/', async function (req, res, next) {
 
         return res.render('access', {
             accessType: "LOGIN",
-            title: "Sign Up",
+            title: "Log In",
             messageType: "SUCCESS",
             message: "Account created!<br>Now log in to start using Relife."
         })

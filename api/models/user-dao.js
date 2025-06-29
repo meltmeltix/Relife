@@ -121,3 +121,35 @@ exports.getUserProfile = function(handle) {
         })
     })
 }
+
+/**
+ * Updates the password of a user identified by handle or email
+ *
+ * @param {string} id             Either handle or email of the user
+ * @param {string} newPassword    The new plain-text password to set
+ * @returns {Promise}             Resolves on success, rejects on error or if user not found
+ */
+exports.updateUserPassword = function(id, newPassword) {
+    return new Promise((resolve, reject) => {
+        const hashedPassword = bcrypt.hashSync(newPassword, 10);
+        const isEmail = mailRegex.test(id);
+        const query = isEmail
+            ? 'UPDATE user SET password = ? WHERE mail = ?'
+            : 'UPDATE user SET password = ? WHERE handle = ?';
+
+        db.run(query, [hashedPassword, id], function(err) {
+            if (err) {
+                console.error('Error updating password:', err);
+                return reject(err);
+            }
+
+            if (this.changes === 0) {
+                console.warn('No user found to update password for:', id);
+                return reject(new Error('User not found'));
+            }
+
+            console.log('Password updated successfully for', id);
+            resolve({ success: true });
+        });
+    });
+}

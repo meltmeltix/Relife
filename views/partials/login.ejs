@@ -1,11 +1,11 @@
-<form action="/sessions" method="post" class="flex flex-col p-6 justify-between h-viewport gap-10 sm: sm:h-full sm:p-8">
+<form action="/" method="post" class="flex flex-col p-6 justify-between h-viewport gap-10 sm: sm:h-full sm:p-8">
     <div class="flex flex-col gap-3">
         <h1 class="font-serif font-semibold text-2xl pb-3">Log in to Relife</h1>
 
-        <input type="text" name="username" placeholder="Mail or username" class="input input-bordered w-full" required autofocus/>
-        <input type="password" name="password" placeholder="Password" class="input input-bordered w-full" required/>
+        <input aria-label="Username" type="text" name="username" placeholder="Mail or username" class="input input-bordered w-full" required autofocus/>
+        <input aria-label="Password" type="password" name="password" placeholder="Password" class="input input-bordered w-full" required/>
 
-        <a class="link link-hover link-accent">Forgot your password?</a>
+        <a href="/a/forgot" class="link link-hover link-accent">Forgot your password?</a>
         <p class="inline">Need an account? <a href="/a/signup" class="inline-block link link-hover link-accent">Sign up</a></p>
     </div>
 

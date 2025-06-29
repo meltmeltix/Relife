@@ -136,47 +136,9 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
     });
     share.disabled = isDisabled;
 
-    /*const dropDownMenu = document.createElement('div');
-    dropDownMenu.classList.add('dropdown', 'dropdown-end');
-
-    const button = document.createElement('button');
-    button.tabIndex = 0;
-    button.role = 'button';
-    button.classList.add('btn', 'btn-xs', 'btn-square', 'btn-ghost');
-    button.innerHTML = `
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-ellipsis-vertical">
-                <circle cx="12" cy="12" r="1"/>
-                <circle cx="12" cy="5" r="1"/>
-                <circle cx="12" cy="19" r="1"/>
-        </svg>
-    `;
-    button.disabled = isDisabled;
-    dropDownMenu.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-    });
-
-    const form = document.createElement('form');
-    //form.action = '';
-    //form.method = 'POST';
-    form.innerHTML = `
-        <form action="" method="post">
-            <ul tabindex="0" class="dropdown-content menu bg-base-200 w-32 shadow-sm">
-                <li><input type="submit" value="Report"></li>
-            </ul>
-        </form>
-    `;
-    dropDownMenu.appendChild(button);
-    dropDownMenu.appendChild(form);
-*/
     actions.appendChild(likes)
     actions.appendChild(comments);
     actions.appendChild(share);
-    //actions.appendChild(dropDownMenu);
 
     if (isModerator) {
         const removePost = document.createElement('button');
