@@ -2,7 +2,7 @@
 
 import Api from "../../service/api.js";
 import {buildProfile} from "../../template/profile-layout.js";
-import {buildPost} from "../../template/post-layout.js";
+import {buildPost} from "../../template/status-layout.js";
 import {commentsField} from "./navigation.js";
 
 async function renderProfile(handle, userType, titleBar, contentContainer) {
@@ -10,11 +10,11 @@ async function renderProfile(handle, userType, titleBar, contentContainer) {
     contentContainer.innerHTML = buildProfile(profile)
 }
 
-async function renderStatus(handle, userType, postId, titleBar, contentContainer, loggedUser) {
-    const post = await Api.getStatus(postId, handle, loggedUser)
+async function renderStatus(handle, userType, statusId, titleBar, contentContainer, loggedUser) {
+    const status = await Api.getStatus(statusId, handle, loggedUser)
     contentContainer.innerHTML = ''
     contentContainer.appendChild(buildPost(
-        post,
+        status,
         true,
         userType === 'GUEST',
         userType === 'MODERATOR',

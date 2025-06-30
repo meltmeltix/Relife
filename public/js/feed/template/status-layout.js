@@ -43,7 +43,7 @@ function createAttachment(attachment) {
         'bg-center', 'rounded-lg', 'bg-base-200'
     );
     container.style.backgroundImage = `url(${attachment})`;
-    container.ariaLabel = 'Post attachment';
+    container.ariaLabel = 'Status attachment';
 
     return container;
 }
@@ -162,7 +162,7 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
                     { method: 'DELETE' }
                 );
 
-                if (response.ok) { showToast('Post deleted', 'INFO') }
+                if (response.ok) { showToast('Status deleted', 'INFO') }
             } catch (error) { showToast("An error occurred " + error, 'ERROR') }
         });
 

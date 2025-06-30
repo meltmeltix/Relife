@@ -4,7 +4,7 @@ require('sqlite3')
 
 const db = require('../database/db.js')
 
-exports.newPost = function(body, attachment, date, author, thread) {
+exports.newStatus = function(body, attachment, date, author, thread) {
     return new Promise((resolve, reject) => {
         thread = thread === '' ? null : thread;
 
@@ -25,7 +25,7 @@ exports.newPost = function(body, attachment, date, author, thread) {
     })
 }
 
-exports.getAllPosts = function(orderByLikes = false, loggedUser = null) {
+exports.getAllStatuses = function(orderByLikes = false, loggedUser = null) {
     return new Promise((resolve, reject) => {
         const orderClause = orderByLikes
             ? 'ORDER BY likes DESC, post.date DESC'
@@ -211,7 +211,7 @@ exports.getStatus = function(id, handle, loggedUser) {
 
             if (!row) {
                 console.log('Status not found')
-                return resolve({ error: 'Post not found' })
+                return resolve({ error: 'Status not found' })
             }
 
             const status = {
@@ -335,7 +335,7 @@ exports.deleteStatus = function(id) {
             if (this.changes === 0) {
                 // No post was deleted (i.e., no match)
                 console.warn(`Post with ID ${id} not found.`);
-                return resolve({ deleted: false, message: 'Post not found' });
+                return resolve({ deleted: false, message: 'Status not found' });
             }
 
             console.log(`Post with ID ${id} deleted.`);

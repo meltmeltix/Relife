@@ -1,14 +1,27 @@
 'use strict'
 
 import Api from "./api.js";
-import { buildPost } from "../template/post-layout.js";
+import { buildPost } from "../template/status-layout.js";
 
-class Posts {
+class Statuses {
     static async getAllPosts(loggedUser, userType, sortByLikes, disabled = false, contentContainer) {
         const posts = await Api.getAllStatuses(sortByLikes, loggedUser)
         for (let post of posts) {
             contentContainer.appendChild(buildPost(
                 post,
+                false,
+                disabled,
+                userType === 'MODERATOR',
+                loggedUser
+            ))
+        }
+    }
+
+    static async getPostsByQuery(query, loggedUser, userType, disabled, contentContainer) {
+        const statuses = await Api.getStatusesByQuery(query)
+        for (let status of statuses) {
+            contentContainer.appendChild(buildPost(
+                status,
                 false,
                 disabled,
                 userType === 'MODERATOR',
@@ -75,4 +88,4 @@ class Posts {
     }
 }
 
-export default Posts;
+export default Statuses;

@@ -131,7 +131,7 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     bottomNavigation.appendChild(navBar);
 }
 
-function newRenderTabs(destinations, active, contentContainer) {
+function renderTabs(destinations, active, contentContainer) {
     const tabRow = document.createElement('div')
     tabRow.classList.add('tabs', 'tabs-border')
     tabRow.role = 'tablist'
@@ -258,4 +258,4 @@ function logOutOption() {
     return form;
 }
 
-export {renderNavigation, populateTitleBar, commentsField, newRenderTabs}
+export {renderNavigation, populateTitleBar, commentsField, renderTabs}

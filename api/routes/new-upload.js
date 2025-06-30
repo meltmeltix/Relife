@@ -4,10 +4,10 @@ const express = require('express')
 const router = express.Router()
 const multipart = require('connect-multiparty')
 const multipartMiddle = multipart()
-const postDao = require('../models/post-dao')
+const postDao = require('../models/status-dao')
 const fs = require('fs')
 
-router.post('/post', multipartMiddle, async function (req, res, next) {
+router.post('/post', multipartMiddle, async function (req, res, _) {
     console.log(req.body, req.files)
     const { author, body, thread, redirect } = req.body
     const attachment = req.files.attachment
@@ -19,9 +19,9 @@ router.post('/post', multipartMiddle, async function (req, res, next) {
         const attachmentBuffer = fs.readFileSync(attachment.path)
 
         if (attachment.size > 0) 
-            await postDao.newPost(body, attachmentBuffer, dateTime, author, thread)
+            await postDao.newStatus(body, attachmentBuffer, dateTime, author, thread)
         else 
-            await postDao.newPost(body, null, dateTime, author, thread)
+            await postDao.newStatus(body, null, dateTime, author, thread)
 
         res.redirect(redirect)
     } catch(error) {

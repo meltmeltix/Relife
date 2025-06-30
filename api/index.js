@@ -22,7 +22,7 @@ const newUploadRoute = require('./routes/new-upload')
 const feedRouter = require('./routes/feed')
 
 const userDao = require('./models/user-dao')
-const postDao = require('./models/post-dao')
+const postDao = require('./models/status-dao')
 
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
@@ -130,7 +130,7 @@ app.get('/api/status', async (req, res) => {
 
     console.log(`${logPrefix}...`);
     try {
-        const posts = await postDao.getAllPosts(orderLikes, loggedUser);
+        const posts = await postDao.getAllStatuses(orderLikes, loggedUser);
         console.log(`${logPrefix}: Success`);
         res.json(posts);
     } catch (error) {

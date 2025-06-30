@@ -3,13 +3,13 @@
 import {
     populateTitleBar,
     renderNavigation,
-    newRenderTabs
+    renderTabs
 } from './util/functions/navigation.js'
 import {
     renderProfile,
     renderStatus
 } from './util/functions/profile.js';
-import Posts from "./service/posts.js";
+import Statuses from "./service/statuses.js";
 import { renderSearch } from "./util/functions/search.js";
 import {feedTabs, profileTabs, searchTabs} from "./data/constants/navigation.js"
 
@@ -39,7 +39,7 @@ class App {
             renderNavigation(this.userType, this.loggedUser, '', this.sideNavigation, this.bottomNavigation);
 
             contentContainer.innerHTML = ''
-            Posts.getAllPosts(null, this.userType, true, true, this.contentContainer).catch(console.error);
+            Statuses.getAllPosts(null, this.userType, true, true, this.contentContainer).catch(console.error);
         });
 
         // Route: /home
@@ -54,8 +54,8 @@ class App {
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
 
             contentContainer.innerHTML = ''
-            newRenderTabs(feedTabs, 'HOME', this.contentContainer);
-            Posts.getAllPosts(this.loggedUser, this.userType, true, false, this.contentContainer).catch(console.error);
+            renderTabs(feedTabs, 'HOME', this.contentContainer);
+            Statuses.getAllPosts(this.loggedUser, this.userType, true, false, this.contentContainer).catch(console.error);
         });
 
         // Route: /recents
@@ -70,8 +70,8 @@ class App {
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
 
             contentContainer.innerHTML = ''
-            newRenderTabs(feedTabs, 'RECENTS', this.contentContainer);
-            Posts.getAllPosts(
+            renderTabs(feedTabs, 'RECENTS', this.contentContainer);
+            Statuses.getAllPosts(
                 this.loggedUser,
                 this.userType,
                 false,
@@ -83,22 +83,43 @@ class App {
         // Route: /search
         page('/search', (ctx) => {
             if (this.userType === 'GUEST') return page.redirect('/explore');
+
+            const params = new URLSearchParams(ctx.querystring);
+            const query = params.get('q') || '';
+
             document.title = 'Search | Relife';
             this.postThread.value = null;
             this.postRedirect.value = ctx.path;
 
-            populateTitleBar(this.titleBar, 'Search', false, true, false);
             renderNavigation(this.userType, this.loggedUser, 'SEARCH', this.sideNavigation, this.bottomNavigation);
-            renderFeedTabs(this.userType, 'SEARCH', this.feedTabRow);
-            renderSearch(this.contentContainer);
+            populateTitleBar(
+                this.titleBar,
+                'Search',
+                false,
+                true,
+                false,
+                query ? query : null
+            );
+
+            contentContainer.innerHTML = ''
+            if (query) {
+                renderTabs(searchTabs, 'SEARCH', this.contentContainer);
+                renderSearch(this.contentContainer);
+            }
         });
+
+        // Route: /search/users
+        page('/search/users', (ctx) => {
+            if (this.userType === 'GUEST') return page.redirect('/explore');
+            if (!ctx.params) return page.redirect('/search')
+
+            Statuses.getPostsByQuery()
+        })
 
         // Route: /:handle
         page('/:handle', (ctx) => {
             const handle = ctx.params.handle;
             document.title = `${handle} | Relife`;
-
-            const isGuest = this.userType === 'GUEST';
 
             this.postThread.value = null;
             this.postRedirect.value = ctx.path;
@@ -115,9 +136,9 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     if (this.userType !== 'GUEST')
-                        newRenderTabs(this.createDestinations(handle), 'POSTS', this.contentContainer);
+                        renderTabs(this.createDestinations(handle), 'POSTS', this.contentContainer);
 
-                    Posts.getUserPosts(
+                    Statuses.getUserPosts(
                         handle,
                         this.loggedUser,
                         this.userType,
@@ -149,9 +170,9 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     if (this.userType !== 'GUEST')
-                        newRenderTabs(this.createDestinations(handle), 'REPLIES', this.contentContainer);
+                        renderTabs(this.createDestinations(handle), 'REPLIES', this.contentContainer);
 
-                    Posts.getUserPosts(
+                    Statuses.getUserPosts(
                         handle,
                         this.loggedUser,
                         this.userType,
@@ -183,9 +204,9 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     if (this.userType !== 'GUEST')
-                        newRenderTabs(this.createDestinations(handle), 'MEDIA', this.contentContainer);
+                        renderTabs(this.createDestinations(handle), 'MEDIA', this.contentContainer);
 
-                    Posts.getUserPosts(
+                    Statuses.getUserPosts(
                         handle,
                         this.loggedUser,
                         this.userType,
@@ -218,8 +239,10 @@ class App {
 
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
-                    profileNavigation('LIKES', handle, loggedUser, this.contentContainer);
-                    Posts.getUserLikes(
+                    if (this.userType !== 'GUEST')
+                        renderTabs(this.createDestinations(handle), 'LIKES', this.contentContainer);
+
+                    Statuses.getUserLikes(
                         handle,
                         this.userType,
                         false,
@@ -248,7 +271,7 @@ class App {
             renderNavigation(this.userType, this.loggedUser, 'STATUS', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(
                 this.titleBar,
-                'Post',
+                'Status',
                 true,
                 false,
                 false
@@ -256,7 +279,7 @@ class App {
 
             renderStatus(handle, this.userType, postId, this.titleBar, this.contentContainer, this.loggedUser)
                 .then(() => {
-                    Posts.getStatusComments(this.userType, postId, this.contentContainer, this.loggedUser);
+                    Statuses.getStatusComments(this.userType, postId, this.contentContainer, this.loggedUser);
                 });
         });
 

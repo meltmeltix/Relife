@@ -1,4 +1,4 @@
-import Post from '../data/classes/post.js'
+import Status from '../data/classes/status.js'
 import Profile from '../data/classes/profile.js'
 
 class Api {
@@ -7,10 +7,21 @@ class Api {
             '/api/status?' +
             new URLSearchParams({orderByLikes: sortByLikes, loggedUser: loggedUser})
         )
-        const postsJson = await response.json()
+        const statusJson = await response.json()
 
-        if (response.ok) return postsJson.map((pt) => Post.from(pt))
-        else throw postsJson
+        if (response.ok) return statusJson.map((pt) => Status.from(pt))
+        else throw statusJson
+    }
+
+    static getStatusesByQuery = async(query, loggedUser = null) => {
+        let response = await fetch(
+            '/api/status/search?' +
+            new URLSearchParams({query: query, loggedUser: loggedUser})
+        )
+        const statusJson = await response.json()
+
+        if (response.ok) return statusJson.map((st) => Status.from(st))
+        else throw statusJson
     }
 
     static getStatus = async(id, handle, loggedUser = null) => {
@@ -20,7 +31,7 @@ class Api {
         )
         const statusJson = await response.json()
 
-        if (response.ok) return Post.from(statusJson)
+        if (response.ok) return Status.from(statusJson)
         else throw statusJson
     }
 
@@ -31,7 +42,7 @@ class Api {
         )
         const commentsJson = await response.json()
 
-        if (response.ok) return commentsJson.map((c) => Post.from(c))
+        if (response.ok) return commentsJson.map((c) => Status.from(c))
         else throw commentsJson
     }
 
@@ -42,7 +53,7 @@ class Api {
         let response = await fetch('/api/users/' + handle + '/status?' + params)
         const postsJson = await response.json()
 
-        if (response.ok) return postsJson.map((pt) => Post.from(pt))
+        if (response.ok) return postsJson.map((st) => Status.from(st))
         else throw postsJson
     }
 
@@ -53,7 +64,7 @@ class Api {
         )
         const likedPostsJson = await response.json()
 
-        if (response.ok) return likedPostsJson.map((pt) => Post.from(pt))
+        if (response.ok) return likedPostsJson.map((st) => Status.from(st))
         else throw likedPostsJson
     }
 

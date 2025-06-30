@@ -1,4 +1,4 @@
-class Post {
+class Status {
     constructor(id, body, attachment, date, authorHandle, authorName, authorAvatar, threadHandle, threadName, likes, comments) {
         this.id = id
         this.body = body
@@ -14,10 +14,10 @@ class Post {
     }
 
     static from(json) {
-        const p = Object.assign(new Post(), json)
+        const p = Object.assign(new Status(), json)
         p.date = moment(p.date)
         return p
     }
 }
 
-export default Post
+export default Status
