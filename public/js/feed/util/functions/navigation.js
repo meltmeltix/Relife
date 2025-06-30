@@ -1,6 +1,6 @@
 'use strict'
 
-import {destinationList, profileTabs, guestActions, feedTabs} from "../../data/constants/navigation.js"
+import {destinationList, guestActions} from "../../data/constants/navigation.js"
 import {navItem, tabRowItem} from "../../template/navigation-item.js"
 
 function renderNavigation(userType, loggedUser, active, sideNavigation, bottomNavigation) {
@@ -131,30 +131,16 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     bottomNavigation.appendChild(navBar);
 }
 
-function renderFeedTabs(userType, active, tabRow) {
-    tabRow.innerHTML = ''
-
-    if (active === 'HOME' || active === 'RECENTS')
-    feedTabs.forEach(dest => {
-        const tab = tabRowItem(active, dest)
-        tab.href = `/${dest.url}`
-        tabRow.appendChild(tab);
-    })
-}
-
-function profileNavigation(active, handle, loggedUser, contentContainer) {
+function newRenderTabs(destinations, active, contentContainer) {
     const tabRow = document.createElement('div')
     tabRow.classList.add('tabs', 'tabs-border')
     tabRow.role = 'tablist'
     tabRow.innerHTML = ''
 
-    const isOwner = loggedUser === handle;
-    const tabsToRender = isOwner ? profileTabs : profileTabs.slice(0, -1);
-
-    tabsToRender.forEach(dest => {
-        const tab = tabRowItem(active, dest)
-        tab.href = `/${handle}/${dest.url}`
-        tabRow.appendChild(tab)
+    destinations.forEach(dest => {
+        const tab = tabRowItem(active, dest);
+        tab.href = `/${dest.url}`
+        tabRow.appendChild(tab);
     })
 
     contentContainer.appendChild(tabRow)
@@ -165,7 +151,8 @@ function populateTitleBar(
     headline = 'Relife',
     backButton = false,
     searchBar = false,
-    dropDownMenu = true
+    dropDownMenu = true,
+    searchText = null
 ) {
     titleBar.innerHTML = ''
     if (backButton) {
@@ -189,6 +176,8 @@ function populateTitleBar(
         searchBar.type = 'search'
         searchBar.classList.add('input', 'w-full', 'pl-2')
         searchBar.placeholder = 'Search...'
+
+        if (searchText) { searchBar.value = searchText; }
 
         titleBar.appendChild(searchBar)
     } else {
@@ -269,4 +258,4 @@ function logOutOption() {
     return form;
 }
 
-export {renderNavigation, profileNavigation, populateTitleBar, commentsField, renderFeedTabs}
+export {renderNavigation, populateTitleBar, commentsField, newRenderTabs}

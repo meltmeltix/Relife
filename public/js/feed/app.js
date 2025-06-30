@@ -2,9 +2,8 @@
 
 import {
     populateTitleBar,
-    profileNavigation,
-    renderFeedTabs,
-    renderNavigation
+    renderNavigation,
+    newRenderTabs
 } from './util/functions/navigation.js'
 import {
     renderProfile,
@@ -12,6 +11,7 @@ import {
 } from './util/functions/profile.js';
 import Posts from "./service/posts.js";
 import { renderSearch } from "./util/functions/search.js";
+import {feedTabs, profileTabs, searchTabs} from "./data/constants/navigation.js"
 
 class App {
     constructor(
@@ -37,6 +37,8 @@ class App {
             this.postThread.value = null;
             populateTitleBar(this.titleBar, 'Explore', false, false, false);
             renderNavigation(this.userType, this.loggedUser, '', this.sideNavigation, this.bottomNavigation);
+
+            contentContainer.innerHTML = ''
             Posts.getAllPosts(null, this.userType, true, true, this.contentContainer).catch(console.error);
         });
 
@@ -50,7 +52,9 @@ class App {
 
             populateTitleBar(this.titleBar, 'Home', false, false, true);
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
-            renderFeedTabs(this.userType, 'HOME', this.feedTabRow);
+
+            contentContainer.innerHTML = ''
+            newRenderTabs(feedTabs, 'HOME', this.contentContainer);
             Posts.getAllPosts(this.loggedUser, this.userType, true, false, this.contentContainer).catch(console.error);
         });
 
@@ -64,7 +68,9 @@ class App {
 
             populateTitleBar(this.titleBar, 'Home', false, false, false);
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
-            renderFeedTabs(this.userType, 'RECENTS', this.feedTabRow);
+
+            contentContainer.innerHTML = ''
+            newRenderTabs(feedTabs, 'RECENTS', this.contentContainer);
             Posts.getAllPosts(
                 this.loggedUser,
                 this.userType,
@@ -98,17 +104,25 @@ class App {
             this.postRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
-            populateTitleBar(this.titleBar, isGuest ? 'User profile' : 'Profile', isGuest, false, true);
-            renderFeedTabs(this.userType, 'PROFILE', this.feedTabRow);
+            populateTitleBar(
+                this.titleBar,
+                this.userType === 'GUEST' ? 'User profile' : 'Profile',
+                this.userType === 'GUEST',
+                false,
+                true
+            );
+
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
-                    if (!isGuest) { profileNavigation('POSTS', handle, loggedUser, this.contentContainer); }
+                    if (this.userType !== 'GUEST')
+                        newRenderTabs(this.createDestinations(handle), 'POSTS', this.contentContainer);
+
                     Posts.getUserPosts(
                         handle,
                         this.loggedUser,
                         this.userType,
                         null,
-                        isGuest,
+                        this.userType === 'GUEST',
                         true,
                         this.contentContainer
                     );
@@ -124,11 +138,19 @@ class App {
             this.postRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
-            populateTitleBar(this.titleBar, this.userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true);
-            renderFeedTabs(this.userType, 'PROFILE', this.feedTabRow);
+            populateTitleBar(
+                this.titleBar,
+                this.userType === 'GUEST' ? 'User profile' : 'Profile',
+                false,
+                false,
+                true
+            );
+
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
-                    profileNavigation('REPLIES', handle, loggedUser, this.contentContainer);
+                    if (this.userType !== 'GUEST')
+                        newRenderTabs(this.createDestinations(handle), 'REPLIES', this.contentContainer);
+
                     Posts.getUserPosts(
                         handle,
                         this.loggedUser,
@@ -150,11 +172,19 @@ class App {
             this.postRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
-            populateTitleBar(this.titleBar, this.userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true);
-            renderFeedTabs(this.userType, 'PROFILE', this.feedTabRow);
+            populateTitleBar(
+                this.titleBar,
+                this.userType === 'GUEST' ? 'User profile' : 'Profile',
+                false,
+                false,
+                true
+            );
+
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
-                    profileNavigation('MEDIA', handle, loggedUser, this.contentContainer);
+                    if (this.userType !== 'GUEST')
+                        newRenderTabs(this.createDestinations(handle), 'MEDIA', this.contentContainer);
+
                     Posts.getUserPosts(
                         handle,
                         this.loggedUser,
@@ -178,8 +208,14 @@ class App {
             this.postRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
-            populateTitleBar(this.titleBar, this.userType === 'GUEST' ? 'User profile' : 'Profile', false, false, true);
-            renderFeedTabs(this.userType, 'PROFILE', this.feedTabRow);
+            populateTitleBar(
+                this.titleBar,
+                this.userType === 'GUEST' ? 'User profile' : 'Profile',
+                false,
+                false,
+                true
+            );
+
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     profileNavigation('LIKES', handle, loggedUser, this.contentContainer);
@@ -209,9 +245,15 @@ class App {
             this.postThread.value = postId;
             this.postRedirect.value = ctx.path;
 
-            populateTitleBar(this.titleBar, 'Post', true, false, false);
             renderNavigation(this.userType, this.loggedUser, 'STATUS', this.sideNavigation, this.bottomNavigation);
-            renderFeedTabs(this.userType, 'STATUS', this.feedTabRow);
+            populateTitleBar(
+                this.titleBar,
+                'Post',
+                true,
+                false,
+                false
+            );
+
             renderStatus(handle, this.userType, postId, this.titleBar, this.contentContainer, this.loggedUser)
                 .then(() => {
                     Posts.getStatusComments(this.userType, postId, this.contentContainer, this.loggedUser);
@@ -219,6 +261,16 @@ class App {
         });
 
         page(); // Activate routes
+    }
+
+    createDestinations = function(handle) {
+        const destinations = profileTabs.map(pTab => ({ ...pTab }))
+
+        const tabsToRender =
+            loggedUser === handle ? destinations : destinations.slice(0, -1);
+        tabsToRender.forEach((tab) => { tab.url = `${handle}/` + tab.url });
+
+        return tabsToRender
     }
 }
 

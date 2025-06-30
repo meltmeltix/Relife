@@ -66,6 +66,21 @@ export const feedTabs = [
     )
 ]
 
+export const searchTabs = [
+    new Destination(
+        'SEARCH',
+        'search',
+        'Posts',
+        ''
+    ),
+    new Destination(
+        'USERS',
+        '/search/users',
+        'Users',
+        ''
+    )
+]
+
 export const guestActions = [
     new Action(
         'Sign up',

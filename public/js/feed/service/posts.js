@@ -5,8 +5,6 @@ import { buildPost } from "../template/post-layout.js";
 
 class Posts {
     static async getAllPosts(loggedUser, userType, sortByLikes, disabled = false, contentContainer) {
-        contentContainer.innerHTML = ''
-
         const posts = await Api.getAllStatuses(sortByLikes, loggedUser)
         for (let post of posts) {
             contentContainer.appendChild(buildPost(
