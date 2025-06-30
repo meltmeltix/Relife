@@ -230,4 +230,17 @@ function buildPost(post, isFocused, isDisabled = false, isModerator = false, log
     return card;
 }
 
-export { buildPost, createActions };
+function buildUserItem(user) {
+    const item = document.createElement('div');
+    item.classList.add(
+        'w-full', 'flex', 'flex-row', 'space-x-2', 'hover:bg-background-950/15',
+        'p-2', 'border-b', 'border-neutral'
+    );
+
+    item.appendChild(createAvatar(user.avatar, user.handle));
+    item.appendChild(createHeader(user.name, user.handle, null));
+
+    return item;
+}
+
+export { buildPost, createActions, buildUserItem };

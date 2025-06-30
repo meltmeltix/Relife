@@ -153,3 +153,37 @@ exports.updateUserPassword = function(id, newPassword) {
         });
     });
 }
+
+exports.getUsersByQuery = function(searchQuery) {
+    return new Promise((resolve, reject) => {
+        console.log('Searching users with query:', searchQuery);
+
+        const trimmedQuery = searchQuery.trim().toLowerCase();
+        const likeQuery = `%${trimmedQuery}%`;
+
+        const sql = `
+            SELECT handle, name, bio, avatar
+            FROM user
+            WHERE LOWER(handle) LIKE ?
+               OR LOWER(name) LIKE ?
+            ORDER BY name
+        `;
+
+        db.all(sql, [likeQuery, likeQuery], (err, rows) => {
+            if (err) {
+                console.error('Error executing user search query:', err);
+                return reject(err);
+            }
+
+            const users = rows.map((u) => ({
+                handle: u.handle,
+                name: u.name,
+                bio: u.bio,
+                avatar: u.avatar ? `data:image/webp;base64,${u.avatar.toString('base64')}` : null,
+            }));
+
+            resolve(users);
+        });
+    });
+};
+

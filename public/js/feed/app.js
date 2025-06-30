@@ -10,17 +10,17 @@ import {
     renderStatus
 } from './util/functions/profile.js';
 import Statuses from "./service/statuses.js";
-import { renderSearch } from "./util/functions/search.js";
 import {feedTabs, profileTabs, searchTabs} from "./data/constants/navigation.js"
+import Api from "./service/api.js";
+import {buildUserItem} from "./template/status-layout.js";
 
 class App {
     constructor(
         userType, loggedUser,
-        titleBar, feedTabRow, contentContainer, sideNavigation, bottomNavigation,
+        titleBar, contentContainer, sideNavigation, bottomNavigation,
         postThread, postRedirect
     ) {
         this.titleBar = titleBar;
-        this.feedTabRow = feedTabRow;
         this.contentContainer = contentContainer;
         this.sideNavigation = sideNavigation;
         this.bottomNavigation = bottomNavigation;
@@ -98,22 +98,61 @@ class App {
                 false,
                 true,
                 false,
-                query ? query : null
+                query || null,
+                this.loggedUser
             );
 
             contentContainer.innerHTML = ''
             if (query) {
-                renderTabs(searchTabs, 'SEARCH', this.contentContainer);
-                renderSearch(this.contentContainer);
+                const destinations = searchTabs.map(sTab => ({ ...sTab }))
+                destinations.forEach(d => d.url = `${d.url}?` + params)
+
+                renderTabs(destinations, 'SEARCH', this.contentContainer);
+
+                Statuses.getStatusesByQuery(
+                    query,
+                    this.loggedUser,
+                    this.userType,
+                    this.userType === 'GUEST',
+                    this.contentContainer
+                )
             }
         });
 
         // Route: /search/users
         page('/search/users', (ctx) => {
             if (this.userType === 'GUEST') return page.redirect('/explore');
-            if (!ctx.params) return page.redirect('/search')
 
-            Statuses.getPostsByQuery()
+            const params = new URLSearchParams(ctx.querystring);
+            const query = params.get('q') || '';
+
+            document.title = 'Search | Relife';
+            this.postThread.value = null;
+            this.postRedirect.value = ctx.path;
+
+            renderNavigation(this.userType, this.loggedUser, 'SEARCH', this.sideNavigation, this.bottomNavigation);
+            populateTitleBar(
+                this.titleBar,
+                'Search',
+                false,
+                true,
+                false,
+                query || null,
+                this.loggedUser
+            );
+
+            contentContainer.innerHTML = ''
+            if (query) {
+                const destinations = searchTabs.map(sTab => ({ ...sTab }))
+                destinations.forEach(d => d.url = `${d.url}?` + params)
+
+                renderTabs(destinations, 'USERS', this.contentContainer);
+
+                Api.getUsersByQuery(query).then(users => {
+                    console.log(users);
+                    users.forEach(user => { this.contentContainer.appendChild(buildUserItem(user)) })
+                })
+            }
         })
 
         // Route: /:handle
@@ -136,7 +175,7 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     if (this.userType !== 'GUEST')
-                        renderTabs(this.createDestinations(handle), 'POSTS', this.contentContainer);
+                        renderTabs(this.createProfileDestinations(handle), 'POSTS', this.contentContainer);
 
                     Statuses.getUserPosts(
                         handle,
@@ -170,7 +209,7 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     if (this.userType !== 'GUEST')
-                        renderTabs(this.createDestinations(handle), 'REPLIES', this.contentContainer);
+                        renderTabs(this.createProfileDestinations(handle), 'REPLIES', this.contentContainer);
 
                     Statuses.getUserPosts(
                         handle,
@@ -204,7 +243,7 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     if (this.userType !== 'GUEST')
-                        renderTabs(this.createDestinations(handle), 'MEDIA', this.contentContainer);
+                        renderTabs(this.createProfileDestinations(handle), 'MEDIA', this.contentContainer);
 
                     Statuses.getUserPosts(
                         handle,
@@ -240,7 +279,7 @@ class App {
             renderProfile(handle, this.userType, this.titleBar, this.contentContainer)
                 .then(() => {
                     if (this.userType !== 'GUEST')
-                        renderTabs(this.createDestinations(handle), 'LIKES', this.contentContainer);
+                        renderTabs(this.createProfileDestinations(handle), 'LIKES', this.contentContainer);
 
                     Statuses.getUserLikes(
                         handle,
@@ -286,7 +325,7 @@ class App {
         page(); // Activate routes
     }
 
-    createDestinations = function(handle) {
+    createProfileDestinations = function(handle) {
         const destinations = profileTabs.map(pTab => ({ ...pTab }))
 
         const tabsToRender =

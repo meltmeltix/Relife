@@ -75,6 +75,17 @@ class Api {
         if (response.ok) return Profile.from(profileJson)
         else throw profileJson
     }
+
+    static getUsersByQuery = async (query) => {
+        let response = await fetch(
+            '/api/users/search?' + new URLSearchParams({ q: query })
+        );
+        const profilesJson = await response.json();
+
+        if (response.ok) return profilesJson.map((p) => Profile.from(p));
+        else throw profilesJson;
+    }
+
 }
 
 export default Api

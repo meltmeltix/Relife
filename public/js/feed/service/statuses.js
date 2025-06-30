@@ -17,8 +17,8 @@ class Statuses {
         }
     }
 
-    static async getPostsByQuery(query, loggedUser, userType, disabled, contentContainer) {
-        const statuses = await Api.getStatusesByQuery(query)
+    static async getStatusesByQuery(query, loggedUser, userType, disabled, contentContainer) {
+        const statuses = await Api.getStatusesByQuery(query, loggedUser)
         for (let status of statuses) {
             contentContainer.appendChild(buildPost(
                 status,

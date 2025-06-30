@@ -69,6 +69,56 @@ exports.getAllStatuses = function(orderByLikes = false, loggedUser = null) {
     });
 };
 
+exports.getStatusesByQuery = function (searchQuery, loggedUser = null) {
+    return new Promise((resolve, reject) => {
+        console.log('Searching posts with query:', searchQuery);
+
+        const trimmedQuery = searchQuery.trim();
+        const likeQuery = `%${trimmedQuery}%`;
+
+        const isLikedSelect = loggedUser
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = post.id AND "like"."user" = ?)) AS isLiked`
+            : `0 AS isLiked`;
+
+        const query = `
+            SELECT
+                post.id, post.body, post.attachment, post.date,
+                user.handle, user.name, user.avatar,
+                (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
+                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments,
+                ${isLikedSelect}
+            FROM post
+                     JOIN user ON post.author = user.handle
+            WHERE post.body LIKE ? COLLATE NOCASE
+            ORDER BY post.date DESC;
+        `;
+
+        const params = loggedUser ? [loggedUser, likeQuery] : [likeQuery];
+
+        db.all(query, params, (err, rows) => {
+            if (err) {
+                console.error('Error executing search query:', err);
+                return reject(err);
+            }
+
+            const posts = rows.map((p) => ({
+                id: p.id,
+                body: p.body,
+                attachment: p.attachment ? `data:image/webp;base64,${p.attachment.toString('base64')}` : null,
+                date: p.date,
+                authorHandle: p.handle,
+                authorName: p.name,
+                authorAvatar: p.avatar ? `data:image/webp;base64,${p.avatar.toString('base64')}` : null,
+                likes: p.likes,
+                comments: p.comments,
+                isLiked: !!p.isLiked
+            }));
+
+            resolve(posts);
+        });
+    });
+};
+
 exports.getUserPosts = function(handle, postType, orderByLikes = false, loggedUser = null) {
     return new Promise((resolve, reject) => {
         console.log('Querying for posts with handle:', handle, 'postType:', postType);

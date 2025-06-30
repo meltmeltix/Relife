@@ -123,6 +123,21 @@ app.get('/api/users/:handle/likes', async (req, res) => {
     }
 });
 
+app.get('/api/users/search', async (req, res) => {
+    const { q } = req.query;
+    const logPrefix = `Searching users with query "${q}"`;
+
+    console.log(`${logPrefix}...`);
+    try {
+        const users = await userDao.getUsersByQuery(q);
+        console.log(`${logPrefix}: Success (${users.length} results)`);
+        res.json(users);
+    } catch (error) {
+        console.error(`${logPrefix}: Failure`, error);
+        res.status(500).end();
+    }
+});
+
 app.get('/api/status', async (req, res) => {
     const { orderByLikes, loggedUser } = req.query;
     const orderLikes = orderByLikes === 'true';
@@ -138,6 +153,22 @@ app.get('/api/status', async (req, res) => {
         res.status(500).end();
     }
 });
+
+app.get('/api/status/search', async (req, res) => {
+    const { query, loggedUser } = req.query;
+    const logPrefix = `Fetching posts with search query ${query}`;
+
+    console.log(`${logPrefix}...`);
+    try {
+        const statuses = await postDao.getStatusesByQuery(query, loggedUser);
+        console.log(statuses)
+        console.log(`${logPrefix}: Success`);
+        res.json(statuses);
+    } catch (error) {
+        console.error(`${logPrefix}: Failure`, error);
+        res.status(500).end();
+    }
+})
 
 app.get('/api/status/:id', async (req, res) => {
     const { id } = req.params;
@@ -179,7 +210,7 @@ app.get('/api/status/:id/like', async (req, res) => {
     try {
         await postDao.toggleLike(id, handle);
         console.log(`${logPrefix}: Success`);
-        res.sendStatus(204); // No Content
+        res.sendStatus(204);
     } catch (error) {
         console.error(`${logPrefix}: Failure`, error);
         res.status(500).end();

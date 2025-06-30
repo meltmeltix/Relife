@@ -75,7 +75,7 @@ export const searchTabs = [
     ),
     new Destination(
         'USERS',
-        '/search/users',
+        'search/users',
         'Users',
         ''
     )

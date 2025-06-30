@@ -172,14 +172,25 @@ function populateTitleBar(
     }
 
     if (searchBar) {
-        const searchBar = document.createElement('input')
-        searchBar.type = 'search'
-        searchBar.classList.add('input', 'w-full', 'pl-2')
-        searchBar.placeholder = 'Search...'
+        const form = document.createElement('form');
+        form.classList.add('w-full', 'flex');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (query) {
+                page(`/search?q=${encodeURIComponent(query)}`);
+            }
+        });
 
-        if (searchText) { searchBar.value = searchText; }
+        const searchInput = document.createElement('input');
+        searchInput.type = 'search';
+        searchInput.name = 'q';
+        searchInput.placeholder = 'Search...';
+        searchInput.classList.add('input', 'w-full', 'pl-2');
+        if (searchInput) searchInput.value = searchText;
 
-        titleBar.appendChild(searchBar)
+        form.appendChild(searchInput);
+        titleBar.appendChild(form);
     } else {
         const headlineText = document.createElement('span')
         headlineText.classList.add('w-full', 'ml-2')
