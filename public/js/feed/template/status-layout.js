@@ -132,7 +132,7 @@ function createActions(status, link, isDisabled, isModerator, loggedUser) {
         event.stopPropagation();
 
         showToast('Copied post link to clipboard', 'INFO')
-        navigator.clipboard.writeText(link)
+        navigator.clipboard.writeText(link).then(_ => {})
     });
     share.disabled = isDisabled;
 

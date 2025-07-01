@@ -105,7 +105,6 @@ class App {
                 true,
                 false,
                 query || null,
-                this.loggedUser
             );
 
             contentContainer.innerHTML = ''
@@ -121,7 +120,7 @@ class App {
                     this.userType,
                     this.userType === 'GUEST',
                     this.contentContainer
-                )
+                ).catch(error => {console.error(error)});
             }
         });
 
@@ -143,8 +142,7 @@ class App {
                 false,
                 true,
                 false,
-                query || null,
-                this.loggedUser
+                query || null
             );
 
             contentContainer.innerHTML = ''
@@ -190,7 +188,7 @@ class App {
                         this.userType === 'GUEST',
                         true,
                         this.contentContainer
-                    );
+                    ).catch(error => {console.error(error)});
                 });
         });
 
@@ -224,7 +222,7 @@ class App {
                         false,
                         false,
                         this.contentContainer
-                    );
+                    ).catch(error => {console.error(error)});
                 });
         });
 
@@ -258,7 +256,7 @@ class App {
                         false,
                         false,
                         this.contentContainer
-                    );
+                    ).catch(error => {console.error(error)});
                 });
         });
 
@@ -291,7 +289,7 @@ class App {
                         this.userType,
                         false,
                         this.contentContainer
-                    )
+                    ).catch(error => {console.error(error)});
                 });
         });
 
@@ -323,7 +321,12 @@ class App {
 
             renderStatus(handle, this.userType, statusId, this.titleBar, this.contentContainer, this.loggedUser)
                 .then(() => {
-                    Statuses.getStatusComments(this.userType, statusId, this.contentContainer, this.loggedUser);
+                    Statuses.getStatusComments(
+                        this.userType,
+                        statusId,
+                        this.contentContainer,
+                        this.loggedUser
+                    ).catch(error => {console.error(error)});
                 });
         });
 

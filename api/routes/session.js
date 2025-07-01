@@ -4,7 +4,7 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res, _) {
     if (req.isAuthenticated()) res.redirect('/home')
     else res.render('index')
 })
@@ -27,7 +27,7 @@ router.post('/', function(req, res, next) {
     })(req, res, next)
 })
 
-router.use(function (err, req, res, next) {
+router.use(function (err, req, res, _) {
     res.render('access', { 
         accessType: "LOGIN", 
         title: "Log In", 
