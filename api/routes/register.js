@@ -6,8 +6,7 @@ const router = express.Router()
 const userDao = require('../models/user-dao')
 
 router.post('/', async function (req, res, _) {
-    console.log(req.body)
-    const { handle, mail, password, birthDate } = req.body
+    const { handle, name, mail, password, birthDate, bio } = req.body
 
     if (getAge(birthDate) < 18) {
         return res.render('access', { 
@@ -41,13 +40,13 @@ router.post('/', async function (req, res, _) {
     }
 
     try {
-        await userDao.createUser(handle, mail, password, birthDate)
+        await userDao.createUser(handle, mail, name, password, birthDate, bio)
 
         return res.render('access', {
             accessType: "LOGIN",
             title: "Log In",
             messageType: "SUCCESS",
-            message: "Account created!<br>Now log in to start using Relife."
+            message: "Account created! Now log in to start using Relife."
         })
     } catch (error) {
         console.log('Error creating user', error)

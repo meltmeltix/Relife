@@ -46,15 +46,15 @@ class Api {
         else throw commentsJson
     }
 
-    static getUserStatuses = async(handle, postType, sortByLikes = false, loggedUser = null) => {
+    static getUserStatuses = async(handle, statusType, sortByLikes = false, loggedUser = null) => {
         let params = new URLSearchParams({handle: handle, orderByLikes: sortByLikes, loggedUser: loggedUser})
-        if (postType) { params.append('postType', postType) }
+        if (statusType) { params.append('statusType', statusType) }
 
         let response = await fetch('/api/users/' + handle + '/status?' + params)
-        const postsJson = await response.json()
+        const statusesJson = await response.json()
 
-        if (response.ok) return postsJson.map((st) => Status.from(st))
-        else throw postsJson
+        if (response.ok) return statusesJson.map((st) => Status.from(st))
+        else throw statusesJson
     }
 
     static async getLikedStatuses(handle) {
@@ -62,10 +62,10 @@ class Api {
             '/api/users/' + handle + '/likes?' +
             new URLSearchParams({handle: handle})
         )
-        const likedPostsJson = await response.json()
+        const likedStatusesJson = await response.json()
 
-        if (response.ok) return likedPostsJson.map((st) => Status.from(st))
-        else throw likedPostsJson
+        if (response.ok) return likedStatusesJson.map((st) => Status.from(st))
+        else throw likedStatusesJson
     }
 
     static getProfile = async(handle) => {

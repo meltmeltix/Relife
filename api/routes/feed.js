@@ -44,7 +44,7 @@ router.get('/:handle/likes', function(req, res, _) {
     else res.render('feed', { sessionType: req.user.type, userHandle: req.user.handle })
 })
 
-router.get('/:handle/status/:post', function(req, res, _) {
+router.get('/:handle/status/:status', function(req, res, _) {
     if(!req.isAuthenticated()) res.redirect('/' + req.params.handle)
     else res.render('feed', { sessionType: req.user.type, userHandle: req.user.handle })
 })

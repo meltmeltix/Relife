@@ -6,21 +6,11 @@ const db = require('../database/db.js')
 const bcrypt = require('bcrypt');
 const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-/**
- * Given a user object, retrieve all of its information
- * and insert into the user table to create a new user
- *
- * @returns
- * @param handle
- * @param mail
- * @param password
- * @param birthDate
- */
-exports.createUser = function(handle, mail, password, birthDate) {
+exports.createUser = function(handle, mail, name, password, birthDate, bio) {
     return new Promise((resolve, reject) => {
         const query = 'INSERT INTO user(handle, mail, password, birthdate, name, bio, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)'
         const hashedPassword = bcrypt.hashSync(password, 10)
-        const user = [handle, mail, hashedPassword, birthDate, null, null, null]
+        const user = [handle, mail, hashedPassword, birthDate, name, bio, null]
 
         db.run(query, user, (err) => {
             if (err) {
@@ -32,14 +22,6 @@ exports.createUser = function(handle, mail, password, birthDate) {
     })
 }
 
-/**
- * Given user data, execute select query to retrieve the user
- * 
- * @param {*} id            Can be either handle or mail
- * @param {*} password      Secret to be checked
- * @returns                 User and user existance, fullfilling the promise.
- *                          Otherwise rejects with the respective error
- */
 exports.getUser = function(id, password) {
     return new Promise((resolve, reject) => {
         const query = mailRegex.test(id) 
@@ -122,13 +104,6 @@ exports.getUserProfile = function(handle) {
     })
 }
 
-/**
- * Updates the password of a user identified by handle or email
- *
- * @param {string} id             Either handle or email of the user
- * @param {string} newPassword    The new plain-text password to set
- * @returns {Promise}             Resolves on success, rejects on error or if user not found
- */
 exports.updateUserPassword = function(id, newPassword) {
     return new Promise((resolve, reject) => {
         const hashedPassword = bcrypt.hashSync(newPassword, 10);

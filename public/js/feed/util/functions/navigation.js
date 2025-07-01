@@ -80,7 +80,7 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
 
     const actionButton = document.createElement('button');
     actionButton.classList.add('btn', 'btn-secondary', 'w-full', 'rounded-2xl');
-    actionButton.setAttribute('onclick', 'post_modal.showModal()');
+    actionButton.setAttribute('onclick', 'status_modal.showModal()');
     actionButton.innerHTML = `Post`
 
     const fab = document.createElement('button');
@@ -97,12 +97,12 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     if (active === 'STATUS') {
         fab.hidden = true
         const field = commentsField(true)
-        field.onclick = () => { post_modal.showModal() }
+        field.onclick = () => { status_modal.showModal() }
 
         bottomNavigation.classList.remove('p-2')
         bottomNavigation.appendChild(field)
     }
-    fab.onclick = () => { post_modal.showModal() }
+    fab.onclick = () => { status_modal.showModal() }
 
     const navDrawer = document.createElement('ul')
     navDrawer.classList.add('menu', 'p-0', 'gap-2', 'w-full', 'py-2')

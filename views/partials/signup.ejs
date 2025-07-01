@@ -1,25 +1,46 @@
 <form action="/register" method="post" class="flex flex-col p-6 justify-between h-viewport gap-10 sm: sm:h-full sm:p-8">
     <div class="flex flex-col gap-3">
         <h1 class="font-serif font-semibold text-2xl">Create a new account</h1>
-        
+
+        <div class="form-control w-full">
+            <div class="label"><span class="label-text">Display Name</span></div>
+            <input aria-label="Display name" name="name" type="text" placeholder="Choose your display name" class="input input-bordered w-full"/>
+        </div>
+
         <div class="form-control w-full">
             <div class="label"><span class="label-text">Mail</span></div>
-            <input name="mail" type="email" placeholder="Enter your email address" class="input input-bordered w-full"/>
+            <input aria-label="Mail" name="mail" type="email" placeholder="Enter your email address" class="input input-bordered w-full"/>
         </div>
 
         <div class="form-control w-full">
             <div class="label"><span class="label-text">Handle</span></div>
-            <input name="handle" type="text" placeholder="Choose your unique handle" class="input input-bordered w-full"/>
+            <input aria-label="Handle" name="handle" type="text" placeholder="Choose your unique handle" class="input input-bordered w-full"/>
         </div>
 
         <div class="form-control w-full">
             <div class="label"><span class="label-text">Password</span></div>
-            <input name="password" type="password" placeholder="Choose your password" class="input input-bordered w-full"/>
+            <input aria-label="Password" name="password" type="password" placeholder="Choose your password" class="input input-bordered w-full"/>
         </div>
 
         <div class="form-control w-full">
             <div class="label"><span class="label-text">Birthday</span></div>
-            <input name="birthDate" type="date" placeholder="Input your birthday" class="input input-bordered w-full"/>
+            <input aria-label="Birthday" name="birthDate" type="date" placeholder="Input your birthday" class="input input-bordered w-full"/>
+        </div>
+
+        <div class="form-control w-full">
+            <div class="label"><span class="label-text">Bio</span></div>
+            <textarea
+                aria-label="Bio"
+                id="textarea_max_char"
+                name="bio"
+                type="text"
+                maxlength="200"
+                placeholder="Write your bio"
+                class="textarea textarea-bordered w-full"></textarea>
+
+            <div class="label">
+                <span id="textarea_counter" class="label-text-alt">0/200</span>
+            </div>
         </div>
 
         <p class="inline">Already have an account? <a href="/a/login" class="inline-block link link-hover link-accent">Log in</a></p>
@@ -30,4 +51,6 @@
         <div class="hidden sm:block sm:w-40"></div>
         <div><button id="nextButton" type="submit" class="btn btn-primary w-full">Sign up</button></div>
     </div>
+
+    <script src="/js/feed/util/functions/textCharCounter.js"></script>
 </form>

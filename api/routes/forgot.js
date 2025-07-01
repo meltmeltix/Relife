@@ -3,7 +3,6 @@ const router = express.Router();
 const userDao = require('../models/user-dao');
 
 router.post('/', async function (req, res, _) {
-    console.log(req.body);
     const { username, newPassword, confirmPassword } = req.body;
 
     if (newPassword !== confirmPassword) {

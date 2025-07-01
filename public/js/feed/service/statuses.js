@@ -1,14 +1,14 @@
 'use strict'
 
 import Api from "./api.js";
-import { buildPost } from "../template/status-layout.js";
+import { buildStatus } from "../template/status-layout.js";
 
 class Statuses {
-    static async getAllPosts(loggedUser, userType, sortByLikes, disabled = false, contentContainer) {
-        const posts = await Api.getAllStatuses(sortByLikes, loggedUser)
-        for (let post of posts) {
-            contentContainer.appendChild(buildPost(
-                post,
+    static async getAllStatuses(loggedUser, userType, sortByLikes, disabled = false, contentContainer) {
+        const statuses = await Api.getAllStatuses(sortByLikes, loggedUser)
+        for (let status of statuses) {
+            contentContainer.appendChild(buildStatus(
+                status,
                 false,
                 disabled,
                 userType === 'MODERATOR',
@@ -20,7 +20,7 @@ class Statuses {
     static async getStatusesByQuery(query, loggedUser, userType, disabled, contentContainer) {
         const statuses = await Api.getStatusesByQuery(query, loggedUser)
         for (let status of statuses) {
-            contentContainer.appendChild(buildPost(
+            contentContainer.appendChild(buildStatus(
                 status,
                 false,
                 disabled,
@@ -30,33 +30,33 @@ class Statuses {
         }
     }
 
-    static async getUserPosts(handle, loggedUser, userType, postType, disabled = false, sortByLikes, contentContainer) {
-        const postList = document.createElement('div')
-        postList.innerHTML = ''
+    static async getUserStatuses(handle, loggedUser, userType, statusType, disabled = false, sortByLikes, contentContainer) {
+        const statusList = document.createElement('div')
+        statusList.innerHTML = ''
 
-        const posts = await Api.getUserStatuses(handle, postType, sortByLikes, loggedUser)
-        for (let post of posts) {
-            const p = buildPost(
-                post,
+        const statuses = await Api.getUserStatuses(handle, statusType, sortByLikes, loggedUser)
+        for (let status of statuses) {
+            const p = buildStatus(
+                status,
                 false,
                 disabled,
                 userType === 'MODERATOR',
                 loggedUser
             )
-            postList.appendChild(p)
+            statusList.appendChild(p)
         }
 
-        contentContainer.appendChild(postList)
+        contentContainer.appendChild(statusList)
     }
 
     static async getUserLikes(handle, userType, disabled = false, contentContainer) {
         const likesList = document.createElement('div')
         likesList.innerHTML = ''
 
-        const likedPosts = await Api.getLikedStatuses(handle)
-        for (let likedPost of likedPosts) {
-            const lp = buildPost(
-                likedPost,
+        const likedStatuses = await Api.getLikedStatuses(handle)
+        for (let likedStatus of likedStatuses) {
+            const lp = buildStatus(
+                likedStatus,
                 false,
                 disabled,
                 userType === 'MODERATOR',
@@ -74,7 +74,7 @@ class Statuses {
 
         const comments = await Api.getStatusComments(thread, loggedUser)
         for (let comment of comments) {
-            const c = buildPost(
+            const c = buildStatus(
                 comment,
                 false,
                 userType === 'GUEST',

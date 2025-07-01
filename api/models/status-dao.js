@@ -9,13 +9,13 @@ exports.newStatus = function(body, attachment, date, author, thread) {
         thread = thread === '' ? null : thread;
 
         const query = attachment
-            ? 'INSERT INTO post(body, attachment, date, author, thread) VALUES (?, ?, ?, ?, ?)'
-            : 'INSERT INTO post(body, date, author, thread) VALUES (?, ?, ?, ?)'
-        const post = attachment
+            ? 'INSERT INTO status(body, attachment, date, author, thread) VALUES (?, ?, ?, ?, ?)'
+            : 'INSERT INTO status(body, date, author, thread) VALUES (?, ?, ?, ?)'
+        const status = attachment
             ? [body, attachment, date, author, thread]
             : [body, date, author, thread]
 
-        db.run(query, post, (err) => {
+        db.run(query, status, (err) => {
             if (err) {
                 console.error('Error executing query:', err)
                 return reject(err)
@@ -28,22 +28,22 @@ exports.newStatus = function(body, attachment, date, author, thread) {
 exports.getAllStatuses = function(orderByLikes = false, loggedUser = null) {
     return new Promise((resolve, reject) => {
         const orderClause = orderByLikes
-            ? 'ORDER BY likes DESC, post.date DESC'
-            : 'ORDER BY post.date DESC';
+            ? 'ORDER BY likes DESC, status.date DESC'
+            : 'ORDER BY status.date DESC';
 
         const isLikedSelect = loggedUser
-            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = post.id AND "like"."user" = ?)) AS isLiked`
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".status = status.id AND "like"."user" = ?)) AS isLiked`
             : `0 AS isLiked`;
 
         const query = `
             SELECT
-                post.id, post.body, post.attachment, post.date,
+                status.id, status.body, status.attachment, status.date,
                 user.handle, user.name, user.avatar,
-                (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments,
+                (SELECT COUNT(*) FROM "like" WHERE "like".status = status.id) AS likes,
+                (SELECT COUNT(*) FROM status AS comments WHERE comments.thread = status.id) AS comments,
                 ${isLikedSelect}
-            FROM post
-            JOIN user ON post.author = user.handle
+            FROM status
+            JOIN user ON status.author = user.handle
             ${orderClause};
         `;
 
@@ -52,7 +52,7 @@ exports.getAllStatuses = function(orderByLikes = false, loggedUser = null) {
         db.all(query, params, (err, rows) => {
             if (err) return reject(err);
 
-            const posts = rows.map((p) => ({
+            const statuses = rows.map((p) => ({
                 id: p.id,
                 body: p.body,
                 attachment: p.attachment ? `data:image/webp;base64,${p.attachment.toString('base64')}` : null,
@@ -64,33 +64,33 @@ exports.getAllStatuses = function(orderByLikes = false, loggedUser = null) {
                 comments: p.comments,
                 isLiked: !!p.isLiked
             }));
-            resolve(posts);
+            resolve(statuses);
         });
     });
 };
 
 exports.getStatusesByQuery = function (searchQuery, loggedUser = null) {
     return new Promise((resolve, reject) => {
-        console.log('Searching posts with query:', searchQuery);
+        console.log('Searching statuses with query:', searchQuery);
 
         const trimmedQuery = searchQuery.trim();
         const likeQuery = `%${trimmedQuery}%`;
 
         const isLikedSelect = loggedUser
-            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = post.id AND "like"."user" = ?)) AS isLiked`
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".status = status.id AND "like"."user" = ?)) AS isLiked`
             : `0 AS isLiked`;
 
         const query = `
             SELECT
-                post.id, post.body, post.attachment, post.date,
+                status.id, status.body, status.attachment, status.date,
                 user.handle, user.name, user.avatar,
-                (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments,
+                (SELECT COUNT(*) FROM "like" WHERE "like".status = status.id) AS likes,
+                (SELECT COUNT(*) FROM status AS comments WHERE comments.thread = status.id) AS comments,
                 ${isLikedSelect}
-            FROM post
-                     JOIN user ON post.author = user.handle
-            WHERE post.body LIKE ? COLLATE NOCASE
-            ORDER BY post.date DESC;
+            FROM status
+                     JOIN user ON status.author = user.handle
+            WHERE status.body LIKE ? COLLATE NOCASE
+            ORDER BY status.date DESC;
         `;
 
         const params = loggedUser ? [loggedUser, likeQuery] : [likeQuery];
@@ -101,7 +101,7 @@ exports.getStatusesByQuery = function (searchQuery, loggedUser = null) {
                 return reject(err);
             }
 
-            const posts = rows.map((p) => ({
+            const statuses = rows.map((p) => ({
                 id: p.id,
                 body: p.body,
                 attachment: p.attachment ? `data:image/webp;base64,${p.attachment.toString('base64')}` : null,
@@ -114,24 +114,24 @@ exports.getStatusesByQuery = function (searchQuery, loggedUser = null) {
                 isLiked: !!p.isLiked
             }));
 
-            resolve(posts);
+            resolve(statuses);
         });
     });
 };
 
-exports.getUserPosts = function(handle, postType, orderByLikes = false, loggedUser = null) {
+exports.getUserStatuses = function(handle, statusType, orderByLikes = false, loggedUser = null) {
     return new Promise((resolve, reject) => {
-        console.log('Querying for posts with handle:', handle, 'postType:', postType);
+        console.log('Querying for statuses with handle:', handle, 'statusType:', statusType);
 
         const orderClause = orderByLikes
             ? 'ORDER BY likes DESC, p.date DESC'
             : 'ORDER BY p.date DESC';
 
-        const hasMediaOnly = postType === 'MEDIA';
+        const hasMediaOnly = statusType === 'MEDIA';
         const mediaFilter = hasMediaOnly ? 'AND p.attachment IS NOT NULL' : '';
 
         const isLikedSelect = loggedUser
-            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = p.id AND "like"."user" = ?)) AS isLiked`
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".status = p.id AND "like"."user" = ?)) AS isLiked`
             : `0 AS isLiked`;
 
         const query = `
@@ -139,12 +139,12 @@ exports.getUserPosts = function(handle, postType, orderByLikes = false, loggedUs
                 p.id, p.body, p.attachment, p.date,
                 u.handle AS author_handle, u.name AS author_name, u.avatar AS author_avatar, 
                 t.handle AS thread_handle, t.name AS thread_name,
-                (SELECT COUNT(*) FROM "like" WHERE "like".post = p.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments,
+                (SELECT COUNT(*) FROM "like" WHERE "like".status = p.id) AS likes,
+                (SELECT COUNT(*) FROM status AS comments WHERE comments.thread = p.id) AS comments,
                 ${isLikedSelect}
-            FROM post p
+            FROM status p
             LEFT JOIN user u ON p.author = u.handle
-            LEFT JOIN post pt ON p.thread = pt.id
+            LEFT JOIN status pt ON p.thread = pt.id
             LEFT JOIN user t ON pt.author = t.handle
             WHERE u.handle = ?
             ${mediaFilter}
@@ -159,7 +159,7 @@ exports.getUserPosts = function(handle, postType, orderByLikes = false, loggedUs
                 return reject(err);
             }
 
-            const posts = rows.map((p) => ({
+            const statuses = rows.map((p) => ({
                 id: p.id,
                 body: p.body,
                 attachment: p.attachment ? `data:image/webp;base64,${p.attachment.toString('base64')}` : null,
@@ -174,14 +174,14 @@ exports.getUserPosts = function(handle, postType, orderByLikes = false, loggedUs
                 isLiked: !!p.isLiked
             }));
 
-            resolve(posts);
+            resolve(statuses);
         });
     });
 };
 
 exports.getUserLikes = function(handle) {
     return new Promise((resolve, reject) => {
-        console.log('Querying for posts liked by user with handle:', handle);
+        console.log('Querying for statuses liked by user with handle:', handle);
 
         const query = `
             SELECT
@@ -194,12 +194,12 @@ exports.getUserLikes = function(handle) {
                 u.avatar AS author_avatar,
                 t.handle AS thread_handle,
                 t.name AS thread_name,
-                (SELECT COUNT(*) FROM "like" WHERE "like".post = p.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = p.id) AS comments
+                (SELECT COUNT(*) FROM "like" WHERE "like".status = p.id) AS likes,
+                (SELECT COUNT(*) FROM status AS comments WHERE comments.thread = p.id) AS comments
             FROM "like" l
-                JOIN post p ON l.post = p.id
+                JOIN status p ON l.status = p.id
                 LEFT JOIN user u ON p.author = u.handle
-                LEFT JOIN post pt ON p.thread = pt.id
+                LEFT JOIN status pt ON p.thread = pt.id
                 LEFT JOIN user t ON pt.author = t.handle
             WHERE l."user" = ?
             ORDER BY p.date DESC
@@ -211,7 +211,7 @@ exports.getUserLikes = function(handle) {
                 return reject(err);
             }
 
-            const posts = rows.map((p) => ({
+            const statuses = rows.map((p) => ({
                 id: p.id,
                 body: p.body,
                 attachment: p.attachment ? `data:image/jpeg;base64,${p.attachment.toString('base64')}` : null,
@@ -226,7 +226,7 @@ exports.getUserLikes = function(handle) {
                 isLiked: true
             }));
 
-            resolve(posts);
+            resolve(statuses);
         });
     });
 };
@@ -236,19 +236,19 @@ exports.getStatus = function(id, handle, loggedUser) {
         console.log('Querying for user', handle, 'status with id', id)
 
         const isLikedSelect = loggedUser
-            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = post.id AND "like"."user" = ?)) AS isLiked`
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".status = status.id AND "like"."user" = ?)) AS isLiked`
             : `0 AS isLiked`;
 
         const query = `
             SELECT
-                post.id, post.body, post.attachment, post.date,
+                status.id, status.body, status.attachment, status.date,
                 user.handle, user.name, user.avatar,
-                (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments,
+                (SELECT COUNT(*) FROM "like" WHERE "like".status = status.id) AS likes,
+                (SELECT COUNT(*) FROM status AS comments WHERE comments.thread = status.id) AS comments,
                 ${isLikedSelect}
-            FROM post
-            JOIN user ON post.author = user.handle
-            WHERE post.id = ? AND user.handle = ?;
+            FROM status
+            JOIN user ON status.author = user.handle
+            WHERE status.id = ? AND user.handle = ?;
         `;
 
         const params = loggedUser ? [loggedUser, id, handle] : [id, handle];
@@ -282,28 +282,28 @@ exports.getStatus = function(id, handle, loggedUser) {
     })
 }
 
-exports.getStatusComments = function (postId, loggedUser = null) {
+exports.getStatusComments = function (statusId, loggedUser = null) {
     return new Promise((resolve, reject) => {
-        console.log('Querying comments for status', postId)
+        console.log('Querying comments for status', statusId)
 
         const isLikedSelect = loggedUser
-            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".post = post.id AND "like"."user" = ?)) AS isLiked`
+            ? `(EXISTS (SELECT 1 FROM "like" WHERE "like".status = status.id AND "like"."user" = ?)) AS isLiked`
             : `0 AS isLiked`;
 
         const query = `
             SELECT
-                post.id, post.body, post.attachment, post.date, post.thread,
+                status.id, status.body, status.attachment, status.date, status.thread,
                 user.handle, user.name, user.avatar,
-                (SELECT COUNT(*) FROM "like" WHERE "like".post = post.id) AS likes,
-                (SELECT COUNT(*) FROM post AS comments WHERE comments.thread = post.id) AS comments,
+                (SELECT COUNT(*) FROM "like" WHERE "like".status = status.id) AS likes,
+                (SELECT COUNT(*) FROM status AS comments WHERE comments.thread = status.id) AS comments,
                 ${isLikedSelect}
-            FROM post
-            JOIN user ON post.author = user.handle
-            WHERE post.thread = ?
-            ORDER BY post.date ASC;
+            FROM status
+            JOIN user ON status.author = user.handle
+            WHERE status.thread = ?
+            ORDER BY status.date ASC;
         `
 
-        const params = loggedUser ? [loggedUser, postId] : [postId];
+        const params = loggedUser ? [loggedUser, statusId] : [statusId];
 
         db.all(query, params, (err, rows) => {
             if (err) {
@@ -311,7 +311,7 @@ exports.getStatusComments = function (postId, loggedUser = null) {
                 return reject(err)
             }
 
-            const posts = rows.map((p) => ({
+            const statuses = rows.map((p) => ({
                 id: p.id,
                 body: p.body,
                 attachment: p.attachment ? `data:image/jpeg;base64,${p.attachment.toString('base64')}` : null,
@@ -324,18 +324,18 @@ exports.getStatusComments = function (postId, loggedUser = null) {
                 isLiked: !!p.isLiked
             }))
 
-            resolve(posts)
+            resolve(statuses)
         })
     })
 }
 
-exports.toggleLike = function(postId, userHandle) {
+exports.toggleLike = function(statusId, userHandle) {
     return new Promise((resolve, reject) => {
-        console.log(`Toggling like: user=${userHandle}, post=${postId}`);
+        console.log(`Toggling like: user=${userHandle}, status=${statusId}`);
 
-        const checkQuery = `SELECT 1 FROM "like" WHERE post = ? AND "user" = ?`;
+        const checkQuery = `SELECT 1 FROM "like" WHERE status = ? AND "user" = ?`;
 
-        db.get(checkQuery, [postId, userHandle], (err, row) => {
+        db.get(checkQuery, [statusId, userHandle], (err, row) => {
             if (err) {
                 console.error('Error checking like status:', err);
                 return reject(err);
@@ -343,27 +343,27 @@ exports.toggleLike = function(postId, userHandle) {
 
             if (row) {
                 // Like exists — remove it
-                const deleteQuery = `DELETE FROM "like" WHERE post = ? AND "user" = ?`;
-                db.run(deleteQuery, [postId, userHandle], function(err) {
+                const deleteQuery = `DELETE FROM "like" WHERE status = ? AND "user" = ?`;
+                db.run(deleteQuery, [statusId, userHandle], function(err) {
                     if (err) {
                         console.error('Error removing like:', err);
                         return reject(err);
                     }
 
                     console.log('Like removed');
-                    resolve({ action: 'unliked', postId, userHandle });
+                    resolve({ action: 'unliked', statusId, userHandle });
                 });
             } else {
                 // Like does not exist — add it
-                const insertQuery = `INSERT INTO "like" (post, "user") VALUES (?, ?)`;
-                db.run(insertQuery, [postId, userHandle], function(err) {
+                const insertQuery = `INSERT INTO "like" (status, "user") VALUES (?, ?)`;
+                db.run(insertQuery, [statusId, userHandle], function(err) {
                     if (err) {
                         console.error('Error adding like:', err);
                         return reject(err);
                     }
 
                     console.log('Like added');
-                    resolve({ action: 'liked', postId, userHandle });
+                    resolve({ action: 'liked', statusId, userHandle });
                 });
             }
         });
@@ -372,23 +372,23 @@ exports.toggleLike = function(postId, userHandle) {
 
 exports.deleteStatus = function(id) {
     return new Promise((resolve, reject) => {
-        console.log(`Deleting post with ID ${id}`);
+        console.log(`Deleting status with ID ${id}`);
 
-        const deleteQuery = `DELETE FROM post WHERE id = ?`;
+        const deleteQuery = `DELETE FROM status WHERE id = ?`;
 
         db.run(deleteQuery, [id], function(err) {
             if (err) {
-                console.error('Error deleting post:', err);
+                console.error('Error deleting status:', err);
                 return reject(err);
             }
 
             if (this.changes === 0) {
                 // No post was deleted (i.e., no match)
-                console.warn(`Post with ID ${id} not found.`);
+                console.warn(`Status with ID ${id} not found.`);
                 return resolve({ deleted: false, message: 'Status not found' });
             }
 
-            console.log(`Post with ID ${id} deleted.`);
+            console.log(`Status with ID ${id} deleted.`);
             resolve({ deleted: true, id });
         });
     });

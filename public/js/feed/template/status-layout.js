@@ -48,8 +48,8 @@ function createAttachment(attachment) {
     return container;
 }
 
-function createActions(post, link, isDisabled, isModerator, loggedUser) {
-    let liked = post.isLiked;
+function createActions(status, link, isDisabled, isModerator, loggedUser) {
+    let liked = status.isLiked;
 
     const actions = document.createElement('div');
     actions.classList.add('card-actions', 'place-content-between', 'space-x-5');
@@ -72,7 +72,7 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
     likes.classList.add('btn', 'btn-xs', 'btn-ghost');
     likes.innerHTML = `
         ${liked ? heartFilled : heartOutline}
-        ${post.likes}
+        ${status.likes}
     `
     likes.addEventListener('click', async (event) => {
         event.preventDefault();
@@ -80,18 +80,18 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
 
         try {
             const response = await fetch(
-                '/api/status/' + post.id + '/like?' +
+                '/api/status/' + status.id + '/like?' +
                 new URLSearchParams({handle: loggedUser})
             )
 
             if (response.ok) {
                 liked = !liked;
-                if (liked) post.likes++;
-                else post.likes--;
+                if (liked) status.likes++;
+                else status.likes--;
 
                 likes.innerHTML = `
                     ${liked ? heartFilled : heartOutline}
-                    ${post.likes}
+                    ${status.likes}
                 `;
             }
         } catch (error) { showToast("An error occurred trying to like post.") }
@@ -106,7 +106,7 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
             class="size-[1.6em]">
         <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>     
         </svg>
-        ${post.comments}
+        ${status.comments}
     `
     comments.addEventListener('click', (event) => {
         event.preventDefault();
@@ -141,9 +141,9 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
     actions.appendChild(share);
 
     if (isModerator) {
-        const removePost = document.createElement('button');
-        removePost.classList.add('btn', 'btn-xs', 'btn-ghost');
-        removePost.innerHTML = `
+        const removeStatus = document.createElement('button');
+        removeStatus.classList.add('btn', 'btn-xs', 'btn-ghost');
+        removeStatus.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
                 class="lucide lucide-message-circle-off-icon lucide-message-circle-off">
@@ -152,13 +152,13 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
             <path d="M5.6 5.6C3 8.3 2.2 12.5 4 16l-2 6 6-2c3.4 1.8 7.6 1.1 10.3-1.7"/>
             </svg>
         `;
-        removePost.addEventListener('click', async (event) => {
+        removeStatus.addEventListener('click', async (event) => {
             event.preventDefault();
             event.stopPropagation();
 
             try {
                 const response = await fetch(
-                    '/api/status/' + post.id,
+                    '/api/status/' + status.id,
                     { method: 'DELETE' }
                 );
 
@@ -166,16 +166,16 @@ function createActions(post, link, isDisabled, isModerator, loggedUser) {
             } catch (error) { showToast("An error occurred " + error, 'ERROR') }
         });
 
-        actions.appendChild(removePost);
+        actions.appendChild(removeStatus);
     }
 
     return actions;
 }
 
-function buildPost(post, isFocused, isDisabled = false, isModerator = false, loggedUser) {
+function buildStatus(status, isFocused, isDisabled = false, isModerator = false, loggedUser) {
     const card = document.createElement('a');
     if (!isFocused) {
-        card.href = `/${post.authorHandle}/status/${post.id}`
+        card.href = `/${status.authorHandle}/status/${status.id}`
         card.classList.add('hover:bg-background-950/15');
     }
     card.classList.add(
@@ -189,24 +189,24 @@ function buildPost(post, isFocused, isDisabled = false, isModerator = false, log
 
         const header = document.createElement('div');
         header.classList.add('flex', 'flex-row', 'space-x-2');
-        header.appendChild(createAvatar(post.authorAvatar, post.authorHandle));
-        header.appendChild(createHeader(post.authorName, post.authorHandle, null));
+        header.appendChild(createAvatar(status.authorAvatar, status.authorHandle));
+        header.appendChild(createHeader(status.authorName, status.authorHandle, null));
 
         layout.appendChild(header);
 
-        const postBody = document.createElement('div');
-        postBody.classList.add('flex-1', 'flex-col', 'text-base', 'space-y-2');
+        const statusBody = document.createElement('div');
+        statusBody.classList.add('flex-1', 'flex-col', 'text-base', 'space-y-2');
 
-        if (post.body) postBody.appendChild(createParagraph(post.body));
-        if (post.attachment) postBody.appendChild(createAttachment(post.attachment));
+        if (status.body) statusBody.appendChild(createParagraph(status.body));
+        if (status.attachment) statusBody.appendChild(createAttachment(status.attachment));
 
-        const postDate = document.createElement('div');
-        postDate.classList.add('opacity-70');
-        postDate.innerText = moment(post.date).format('MM/DD/YYYY • HH:mm:ss');
+        const statusDate = document.createElement('div');
+        statusDate.classList.add('opacity-70');
+        statusDate.innerText = moment(status.date).format('MM/DD/YYYY • HH:mm:ss');
 
-        layout.appendChild(postBody);
-        layout.appendChild(postDate);
-        layout.appendChild(createActions(post, card.href, isDisabled, isModerator, loggedUser));
+        layout.appendChild(statusBody);
+        layout.appendChild(statusDate);
+        layout.appendChild(createActions(status, card.href, isDisabled, isModerator, loggedUser));
 
         card.appendChild(layout);
         return card;
@@ -214,17 +214,17 @@ function buildPost(post, isFocused, isDisabled = false, isModerator = false, log
 
     const layout = document.createElement('div');
     layout.classList.add('card-body', 'pb-2', 'flex', 'flex-row');
-    layout.appendChild(createAvatar(post.authorAvatar, post.authorHandle));
+    layout.appendChild(createAvatar(status.authorAvatar, status.authorHandle));
 
-    const postBody = document.createElement('div');
-    postBody.classList.add('flex-1', 'flex-col', 'text-base', 'space-y-2');
-    postBody.appendChild(createHeader(post.authorName, post.authorHandle, post.date));
+    const statusBody = document.createElement('div');
+    statusBody.classList.add('flex-1', 'flex-col', 'text-base', 'space-y-2');
+    statusBody.appendChild(createHeader(status.authorName, status.authorHandle, status.date));
 
-    if (post.body) postBody.appendChild(createParagraph(post.body));
-    if (post.attachment) postBody.appendChild(createAttachment(post.attachment));
+    if (status.body) statusBody.appendChild(createParagraph(status.body));
+    if (status.attachment) statusBody.appendChild(createAttachment(status.attachment));
 
-    postBody.appendChild(createActions(post, card.href, isDisabled, isModerator, loggedUser));
-    layout.appendChild(postBody);
+    statusBody.appendChild(createActions(status, card.href, isDisabled, isModerator, loggedUser));
+    layout.appendChild(statusBody);
 
     card.appendChild(layout);
     return card;
@@ -243,4 +243,4 @@ function buildUserItem(user) {
     return item;
 }
 
-export { buildPost, createActions, buildUserItem };
+export { buildStatus, createActions, buildUserItem };

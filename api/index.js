@@ -22,7 +22,7 @@ const newUploadRoute = require('./routes/new-upload')
 const feedRouter = require('./routes/feed')
 
 const userDao = require('./models/user-dao')
-const postDao = require('./models/status-dao')
+const statusDao = require('./models/status-dao')
 
 // Views setup
 app.set('views', path.join(__dirname, '../views'))
@@ -93,15 +93,15 @@ app.get('/api/users/:handle/profile', async (req, res) => {
 
 app.get('/api/users/:handle/status', async (req, res) => {
     const { handle } = req.params;
-    const { postType, orderByLikes, loggedUser } = req.query;
+    const { statusType, orderByLikes, loggedUser } = req.query;
     const orderLikes = orderByLikes === 'true';
-    const logPrefix = `Fetching posts by user ${handle}`;
+    const logPrefix = `Fetching statuses by user ${handle}`;
 
     console.log(`${logPrefix}...`);
     try {
-        const posts = await postDao.getUserPosts(handle, postType, orderLikes, loggedUser);
+        const statuses = await statusDao.getUserStatuses(handle, statusType, orderLikes, loggedUser);
         console.log(`${logPrefix}: Success`);
-        res.json(posts);
+        res.json(statuses);
     } catch (error) {
         console.error(`${logPrefix}: Failure`, error);
         res.status(500).end();
@@ -110,13 +110,13 @@ app.get('/api/users/:handle/status', async (req, res) => {
 
 app.get('/api/users/:handle/likes', async (req, res) => {
     const { handle } = req.params;
-    const logPrefix = `Fetching liked posts by user ${handle}`;
+    const logPrefix = `Fetching liked statuses by user ${handle}`;
 
     console.log(`${logPrefix}...`);
     try {
-        const posts = await postDao.getUserLikes(handle);
+        const statuses = await statusDao.getUserLikes(handle);
         console.log(`${logPrefix}: Success`);
-        res.json(posts);
+        res.json(statuses);
     } catch (error) {
         console.error(`${logPrefix}: Failure`, error);
         res.status(500).end();
@@ -141,13 +141,13 @@ app.get('/api/users/search', async (req, res) => {
 app.get('/api/status', async (req, res) => {
     const { orderByLikes, loggedUser } = req.query;
     const orderLikes = orderByLikes === 'true';
-    const logPrefix = 'Fetching all posts';
+    const logPrefix = 'Fetching all statuses';
 
     console.log(`${logPrefix}...`);
     try {
-        const posts = await postDao.getAllStatuses(orderLikes, loggedUser);
+        const statuses = await statusDao.getAllStatuses(orderLikes, loggedUser);
         console.log(`${logPrefix}: Success`);
-        res.json(posts);
+        res.json(statuses);
     } catch (error) {
         console.error(`${logPrefix}: Failure`, error);
         res.status(500).end();
@@ -156,12 +156,11 @@ app.get('/api/status', async (req, res) => {
 
 app.get('/api/status/search', async (req, res) => {
     const { query, loggedUser } = req.query;
-    const logPrefix = `Fetching posts with search query ${query}`;
+    const logPrefix = `Fetching statuses with search query ${query}`;
 
     console.log(`${logPrefix}...`);
     try {
-        const statuses = await postDao.getStatusesByQuery(query, loggedUser);
-        console.log(statuses)
+        const statuses = await statusDao.getStatusesByQuery(query, loggedUser);
         console.log(`${logPrefix}: Success`);
         res.json(statuses);
     } catch (error) {
@@ -173,11 +172,11 @@ app.get('/api/status/search', async (req, res) => {
 app.get('/api/status/:id', async (req, res) => {
     const { id } = req.params;
     const { handle, loggedUser } = req.query;
-    const logPrefix = `Fetching post with ID ${id}`;
+    const logPrefix = `Fetching status with ID ${id}`;
 
     console.log(`${logPrefix}...`);
     try {
-        const status = await postDao.getStatus(id, handle, loggedUser);
+        const status = await statusDao.getStatus(id, handle, loggedUser);
         console.log(`${logPrefix}: Success`);
         res.json(status);
     } catch (error) {
@@ -188,11 +187,11 @@ app.get('/api/status/:id', async (req, res) => {
 
 app.delete('/api/status/:id', async (req, res) => {
     const { id } = req.params;
-    const logPrefix = `Deleting post with ID ${id}`;
+    const logPrefix = `Deleting status with ID ${id}`;
 
     console.log(`${logPrefix}...`);
     try {
-        const status = await postDao.deleteStatus(id);
+        const status = await statusDao.deleteStatus(id);
         console.log(`${logPrefix}: Success`);
         res.json(status);
     } catch (error) {
@@ -208,7 +207,7 @@ app.get('/api/status/:id/like', async (req, res) => {
 
     console.log(`${logPrefix}...`);
     try {
-        await postDao.toggleLike(id, handle);
+        await statusDao.toggleLike(id, handle);
         console.log(`${logPrefix}: Success`);
         res.sendStatus(204);
     } catch (error) {
@@ -220,11 +219,11 @@ app.get('/api/status/:id/like', async (req, res) => {
 app.get('/api/status/:id/comments', async (req, res) => {
     const { id } = req.params;
     const { loggedUser } = req.query;
-    const logPrefix = `Fetching comments for post ${id}`;
+    const logPrefix = `Fetching comments for status ${id}`;
 
     console.log(`${logPrefix}...`);
     try {
-        const comments = await postDao.getStatusComments(id, loggedUser);
+        const comments = await statusDao.getStatusComments(id, loggedUser);
         console.log(`${logPrefix}: Success`);
         res.json(comments);
     } catch (error) {

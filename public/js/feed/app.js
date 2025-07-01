@@ -18,14 +18,14 @@ class App {
     constructor(
         userType, loggedUser,
         titleBar, contentContainer, sideNavigation, bottomNavigation,
-        postThread, postRedirect
+        statusThread, statusRedirect
     ) {
         this.titleBar = titleBar;
         this.contentContainer = contentContainer;
         this.sideNavigation = sideNavigation;
         this.bottomNavigation = bottomNavigation;
-        this.postThread = postThread;
-        this.postRedirect = postRedirect;
+        this.statusThread = statusThread;
+        this.statusRedirect = statusRedirect;
 
         this.userType = userType;
         this.loggedUser = loggedUser;
@@ -34,12 +34,12 @@ class App {
         page('/explore', () => {
             document.title = 'Explore | Relife';
 
-            this.postThread.value = null;
+            this.statusThread.value = null;
             populateTitleBar(this.titleBar, 'Explore', false, false, false);
             renderNavigation(this.userType, this.loggedUser, '', this.sideNavigation, this.bottomNavigation);
 
             contentContainer.innerHTML = ''
-            Statuses.getAllPosts(null, this.userType, true, true, this.contentContainer).catch(console.error);
+            Statuses.getAllStatuses(null, this.userType, true, true, this.contentContainer).catch(console.error);
         });
 
         // Route: /home
@@ -47,15 +47,21 @@ class App {
             if (this.userType === 'GUEST') return page.redirect('/explore');
 
             document.title = 'Home | Relife';
-            this.postThread.value = null;
-            this.postRedirect.value = ctx.path;
+            this.statusThread.value = null;
+            this.statusRedirect.value = ctx.path;
 
             populateTitleBar(this.titleBar, 'Home', false, false, true);
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
 
             contentContainer.innerHTML = ''
             renderTabs(feedTabs, 'HOME', this.contentContainer);
-            Statuses.getAllPosts(this.loggedUser, this.userType, true, false, this.contentContainer).catch(console.error);
+            Statuses.getAllStatuses(
+                this.loggedUser,
+                this.userType,
+                true,
+                false,
+                this.contentContainer
+            ).catch(console.error);
         });
 
         // Route: /recents
@@ -63,15 +69,15 @@ class App {
             if (this.userType === 'GUEST') return page.redirect('/explore');
 
             document.title = 'Home | Relife';
-            this.postThread.value = null;
-            this.postRedirect.value = ctx.path;
+            this.statusThread.value = null;
+            this.statusRedirect.value = ctx.path;
 
-            populateTitleBar(this.titleBar, 'Home', false, false, false);
+            populateTitleBar(this.titleBar, 'Home', false, false, true);
             renderNavigation(this.userType, this.loggedUser, 'HOME', this.sideNavigation, this.bottomNavigation);
 
             contentContainer.innerHTML = ''
             renderTabs(feedTabs, 'RECENTS', this.contentContainer);
-            Statuses.getAllPosts(
+            Statuses.getAllStatuses(
                 this.loggedUser,
                 this.userType,
                 false,
@@ -88,8 +94,8 @@ class App {
             const query = params.get('q') || '';
 
             document.title = 'Search | Relife';
-            this.postThread.value = null;
-            this.postRedirect.value = ctx.path;
+            this.statusThread.value = null;
+            this.statusRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'SEARCH', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(
@@ -127,8 +133,8 @@ class App {
             const query = params.get('q') || '';
 
             document.title = 'Search | Relife';
-            this.postThread.value = null;
-            this.postRedirect.value = ctx.path;
+            this.statusThread.value = null;
+            this.statusRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'SEARCH', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(
@@ -149,7 +155,6 @@ class App {
                 renderTabs(destinations, 'USERS', this.contentContainer);
 
                 Api.getUsersByQuery(query).then(users => {
-                    console.log(users);
                     users.forEach(user => { this.contentContainer.appendChild(buildUserItem(user)) })
                 })
             }
@@ -160,8 +165,8 @@ class App {
             const handle = ctx.params.handle;
             document.title = `${handle} | Relife`;
 
-            this.postThread.value = null;
-            this.postRedirect.value = ctx.path;
+            this.statusThread.value = null;
+            this.statusRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(
@@ -177,7 +182,7 @@ class App {
                     if (this.userType !== 'GUEST')
                         renderTabs(this.createProfileDestinations(handle), 'POSTS', this.contentContainer);
 
-                    Statuses.getUserPosts(
+                    Statuses.getUserStatuses(
                         handle,
                         this.loggedUser,
                         this.userType,
@@ -192,10 +197,10 @@ class App {
         // Route: /:handle/replies
         page('/:handle/replies', (ctx) => {
             const handle = ctx.params.handle;
-            document.title = `Posts replied by ${handle} | Relife`;
+            document.title = `Statuses replied by ${handle} | Relife`;
 
-            this.postThread.value = null;
-            this.postRedirect.value = ctx.path;
+            this.statusThread.value = null;
+            this.statusRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(
@@ -211,7 +216,7 @@ class App {
                     if (this.userType !== 'GUEST')
                         renderTabs(this.createProfileDestinations(handle), 'REPLIES', this.contentContainer);
 
-                    Statuses.getUserPosts(
+                    Statuses.getUserStatuses(
                         handle,
                         this.loggedUser,
                         this.userType,
@@ -228,8 +233,8 @@ class App {
             const handle = ctx.params.handle;
             document.title = `Media uploaded by ${handle} | Relife`;
 
-            this.postThread.value = null;
-            this.postRedirect.value = ctx.path;
+            this.statusThread.value = null;
+            this.statusRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(
@@ -245,7 +250,7 @@ class App {
                     if (this.userType !== 'GUEST')
                         renderTabs(this.createProfileDestinations(handle), 'MEDIA', this.contentContainer);
 
-                    Statuses.getUserPosts(
+                    Statuses.getUserStatuses(
                         handle,
                         this.loggedUser,
                         this.userType,
@@ -264,8 +269,8 @@ class App {
 
             document.title = `Liked by ${handle} | Relife`;
 
-            this.postThread.value = null;
-            this.postRedirect.value = ctx.path;
+            this.statusThread.value = null;
+            this.statusRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'PROFILE', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(
@@ -295,30 +300,30 @@ class App {
             console.log("THROW ERROR");
         });
 
-        // Route: /:handle/status/:post
+        // Route: /:handle/status/:status
         page('/:handle/status/:id', (ctx) => {
             const handle = ctx.params.handle;
-            const postId = ctx.params.id;
+            const statusId = ctx.params.id;
             const params = new URLSearchParams(ctx.querystring);
 
             if (this.userType === 'GUEST') return page.redirect(`/${handle}`);
-            if (params.get('commentDialogue') === 'true') { post_modal.showModal() }
+            if (params.get('commentDialogue') === 'true') { status_modal.showModal() }
 
-            this.postThread.value = postId;
-            this.postRedirect.value = ctx.path;
+            this.statusThread.value = statusId;
+            this.statusRedirect.value = ctx.path;
 
             renderNavigation(this.userType, this.loggedUser, 'STATUS', this.sideNavigation, this.bottomNavigation);
             populateTitleBar(
                 this.titleBar,
-                'Status',
+                'Post',
                 true,
                 false,
                 false
             );
 
-            renderStatus(handle, this.userType, postId, this.titleBar, this.contentContainer, this.loggedUser)
+            renderStatus(handle, this.userType, statusId, this.titleBar, this.contentContainer, this.loggedUser)
                 .then(() => {
-                    Statuses.getStatusComments(this.userType, postId, this.contentContainer, this.loggedUser);
+                    Statuses.getStatusComments(this.userType, statusId, this.contentContainer, this.loggedUser);
                 });
         });
 

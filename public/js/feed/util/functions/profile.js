@@ -2,7 +2,7 @@
 
 import Api from "../../service/api.js";
 import {buildProfile} from "../../template/profile-layout.js";
-import {buildPost} from "../../template/status-layout.js";
+import {buildStatus} from "../../template/status-layout.js";
 import {commentsField} from "./navigation.js";
 
 async function renderProfile(handle, userType, titleBar, contentContainer) {
@@ -13,7 +13,7 @@ async function renderProfile(handle, userType, titleBar, contentContainer) {
 async function renderStatus(handle, userType, statusId, titleBar, contentContainer, loggedUser) {
     const status = await Api.getStatus(statusId, handle, loggedUser)
     contentContainer.innerHTML = ''
-    contentContainer.appendChild(buildPost(
+    contentContainer.appendChild(buildStatus(
         status,
         true,
         userType === 'GUEST',
@@ -23,7 +23,7 @@ async function renderStatus(handle, userType, statusId, titleBar, contentContain
 
     const field = commentsField(false).cloneNode(true)
     field.classList.add('hidden', 'sm:block')
-    field.onclick = () => { post_modal.showModal() }
+    field.onclick = () => { status_modal.showModal() }
     contentContainer.appendChild(field);
 }
 

@@ -1,9 +1,9 @@
-const textarea = document.getElementById('post_textarea')
-const counter = document.getElementById('post_textarea_counter')
-const upload = document.getElementById('post_upload')
-const submit = document.getElementById('post_submit')
+const textarea = document.getElementById('status_textarea')
+const counter = document.getElementById('status_textarea_counter')
+const upload = document.getElementById('status_upload')
+const submit = document.getElementById('status_submit')
 
-document.getElementById('post_author').value = loggedUser
+document.getElementById('status_author').value = loggedUser
 
 function updateCounter() {
     const maxLength = textarea.getAttribute("maxlength");
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     checkFormValidity();
 });
 
-textarea.addEventListener("input", ({ currentTarget: target }) => {
+textarea.addEventListener("input", () => {
     updateCounter();
     checkFormValidity();
 });
