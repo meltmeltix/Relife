@@ -1,18 +1,12 @@
 'use strict'
 
-import {
-    populateTitleBar,
-    renderNavigation,
-    renderTabs
-} from './util/functions/navigation.js'
-import {
-    renderProfile,
-    renderStatus
-} from './util/functions/profile.js';
+import { populateTitleBar, renderNavigation, renderTabs } from './util/functions/navigation.js'
+import { renderProfile, renderStatus } from './util/functions/profile.js';
 import Statuses from "./service/statuses.js";
 import {feedTabs, profileTabs, searchTabs} from "./data/constants/navigation.js"
 import Api from "./service/api.js";
-import {buildUserItem} from "./template/status-layout.js";
+import { buildUserItem } from "./template/status-layout.js";
+import { createEmptyMessage } from "../utils/utils.js";
 
 class App {
     constructor(
@@ -30,7 +24,6 @@ class App {
         this.userType = userType;
         this.loggedUser = loggedUser;
 
-        // Route: /explore
         page('/explore', () => {
             document.title = 'Explore | Relife';
 
@@ -39,10 +32,18 @@ class App {
             renderNavigation(this.userType, this.loggedUser, '', this.sideNavigation, this.bottomNavigation);
 
             contentContainer.innerHTML = ''
-            Statuses.getAllStatuses(null, this.userType, true, true, this.contentContainer).catch(console.error);
+            Statuses.getAllStatuses(
+                null,
+                this.userType,
+                true,
+                true,
+                this.contentContainer
+            ).then(elements => {
+                if (elements.length === 0) { this.contentContainer
+                    .appendChild(createEmptyMessage("It's pretty silent in here...")) }
+            })
         });
 
-        // Route: /home
         page('/home', (ctx) => {
             if (this.userType === 'GUEST') return page.redirect('/explore');
 
@@ -61,10 +62,12 @@ class App {
                 true,
                 false,
                 this.contentContainer
-            ).catch(console.error);
+            ).then(elements => {
+                if (elements.length === 0) { this.contentContainer
+                    .appendChild(createEmptyMessage("It's pretty silent in here...")) }
+            })
         });
 
-        // Route: /recents
         page('/recents', (ctx) => {
             if (this.userType === 'GUEST') return page.redirect('/explore');
 
@@ -83,10 +86,12 @@ class App {
                 false,
                 false,
                 this.contentContainer
-            ).catch(console.error);
+            ).then(elements => {
+                if (elements.length === 0) { this.contentContainer
+                    .appendChild(createEmptyMessage("Nobody posted anything yet...")) }
+            })
         });
 
-        // Route: /search
         page('/search', (ctx) => {
             if (this.userType === 'GUEST') return page.redirect('/explore');
 
@@ -120,11 +125,14 @@ class App {
                     this.userType,
                     this.userType === 'GUEST',
                     this.contentContainer
-                ).catch(error => {console.error(error)});
+                ).then(elements => {
+                    if (elements.length === 0) { this.contentContainer
+                        .appendChild(createEmptyMessage('There are no posts matching this query'))
+                    }
+                })
             }
         });
 
-        // Route: /search/users
         page('/search/users', (ctx) => {
             if (this.userType === 'GUEST') return page.redirect('/explore');
 
@@ -153,12 +161,17 @@ class App {
                 renderTabs(destinations, 'USERS', this.contentContainer);
 
                 Api.getUsersByQuery(query).then(users => {
-                    users.forEach(user => { this.contentContainer.appendChild(buildUserItem(user)) })
+                    if (users.length > 0) {
+                        users.forEach(user => {
+                            this.contentContainer.appendChild(buildUserItem(user)) })
+                    } else {
+                        this.contentContainer
+                            .appendChild(createEmptyMessage('There are no users matching this query'))
+                    }
                 })
             }
         })
 
-        // Route: /:handle
         page('/:handle', (ctx) => {
             const handle = ctx.params.handle;
             document.title = `${handle} | Relife`;
@@ -188,11 +201,13 @@ class App {
                         this.userType === 'GUEST',
                         true,
                         this.contentContainer
-                    ).catch(error => {console.error(error)});
+                    ).then(elements => {
+                        if (elements.length === 0) { this.contentContainer
+                            .appendChild(createEmptyMessage("This user has no posts.")) }
+                    })
                 });
         });
 
-        // Route: /:handle/replies
         page('/:handle/replies', (ctx) => {
             const handle = ctx.params.handle;
             document.title = `Statuses replied by ${handle} | Relife`;
@@ -222,11 +237,13 @@ class App {
                         false,
                         false,
                         this.contentContainer
-                    ).catch(error => {console.error(error)});
+                    ).then(elements => {
+                        if (elements.length === 0) { this.contentContainer
+                            .appendChild(createEmptyMessage("This user has no replies.")) }
+                    })
                 });
         });
 
-        // Route: /:handle/media
         page('/:handle/media', (ctx) => {
             const handle = ctx.params.handle;
             document.title = `Media uploaded by ${handle} | Relife`;
@@ -256,11 +273,13 @@ class App {
                         false,
                         false,
                         this.contentContainer
-                    ).catch(error => {console.error(error)});
+                    ).then(elements => {
+                        if (elements.length === 0) { this.contentContainer
+                            .appendChild(createEmptyMessage("This user has no media.")) }
+                    })
                 });
         });
 
-        // Route: /:handle/likes
         page('/:handle/likes', (ctx) => {
             const handle = ctx.params.handle;
             if (handle !== loggedUser) return page(`/${handle}`)
@@ -289,16 +308,13 @@ class App {
                         this.userType,
                         false,
                         this.contentContainer
-                    ).catch(error => {console.error(error)});
+                    ).then(elements => {
+                        if (elements.length === 0) { this.contentContainer
+                            .appendChild(createEmptyMessage("This user hasn't liked anything yet.")) }
+                    })
                 });
         });
 
-        // Route: /:handle/status/ (invalid/missing ID)
-        page('/:handle/status/', (_) => {
-            console.log("THROW ERROR");
-        });
-
-        // Route: /:handle/status/:status
         page('/:handle/status/:id', (ctx) => {
             const handle = ctx.params.handle;
             const statusId = ctx.params.id;
@@ -326,7 +342,10 @@ class App {
                         statusId,
                         this.contentContainer,
                         this.loggedUser
-                    ).catch(error => {console.error(error)});
+                    ).then(elements => {
+                        if (elements.length === 0) { this.contentContainer
+                            .appendChild(createEmptyMessage("There doesn't seem to be any comment yet.")) }
+                    })
                 });
         });
 

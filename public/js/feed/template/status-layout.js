@@ -230,17 +230,18 @@ function buildStatus(status, isFocused, isDisabled = false, isModerator = false,
     return card;
 }
 
-function buildUserItem(user) {
-    const item = document.createElement('div');
-    item.classList.add(
-        'w-full', 'flex', 'flex-row', 'space-x-2', 'hover:bg-background-950/15',
-        'p-2', 'border-b', 'border-neutral'
-    );
+    function buildUserItem(user) {
+        const item = document.createElement('a');
+        item.classList.add(
+            'w-full', 'flex', 'flex-row', 'space-x-2', 'hover:bg-background-950/15',
+            'p-3', 'border-b', 'border-neutral'
+        );
+        item.href = `/${user.handle}`;
 
-    item.appendChild(createAvatar(user.avatar, user.handle));
-    item.appendChild(createHeader(user.name, user.handle, null));
+        item.appendChild(createAvatar(user.avatar, user.handle));
+        item.appendChild(createHeader(user.name, user.handle, null));
 
-    return item;
-}
+        return item;
+    }
 
 export { buildStatus, createActions, buildUserItem };
