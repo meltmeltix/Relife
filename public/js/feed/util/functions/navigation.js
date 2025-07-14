@@ -115,7 +115,7 @@ function appNavigation(active, sideNavigation, bottomNavigation, loggedUser) {
     navBar.classList.add('dock', 'dock-sm');
     navBar.innerHTML = ''
 
-    destinationList[destinationList.length - 1].url = loggedUser
+    destinationList[destinationList.length - 1].url += `/${loggedUser}`
 
     destinationList.forEach(dest => {
         navDrawer.appendChild(navItem(active, dest, true));

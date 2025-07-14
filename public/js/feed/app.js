@@ -172,7 +172,7 @@ class App {
             }
         })
 
-        page('/:handle', (ctx) => {
+        page('/profile/:handle', (ctx) => {
             const handle = ctx.params.handle;
             document.title = `${handle} | Relife`;
 
@@ -208,7 +208,7 @@ class App {
                 });
         });
 
-        page('/:handle/replies', (ctx) => {
+        page('/profile/:handle/replies', (ctx) => {
             const handle = ctx.params.handle;
             document.title = `Statuses replied by ${handle} | Relife`;
 
@@ -244,7 +244,7 @@ class App {
                 });
         });
 
-        page('/:handle/media', (ctx) => {
+        page('/profile/:handle/media', (ctx) => {
             const handle = ctx.params.handle;
             document.title = `Media uploaded by ${handle} | Relife`;
 
@@ -280,7 +280,7 @@ class App {
                 });
         });
 
-        page('/:handle/likes', (ctx) => {
+        page('/profile/:handle/likes', (ctx) => {
             const handle = ctx.params.handle;
             if (handle !== loggedUser) return page(`/${handle}`)
 
@@ -357,7 +357,7 @@ class App {
 
         const tabsToRender =
             loggedUser === handle ? destinations : destinations.slice(0, -1);
-        tabsToRender.forEach((tab) => { tab.url = `${handle}/` + tab.url });
+        tabsToRender.forEach((tab) => { tab.url = `profile/${handle}/` + tab.url });
 
         return tabsToRender
     }
