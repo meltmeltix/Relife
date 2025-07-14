@@ -23,9 +23,9 @@ router.post('/status', multipartMiddle, async function (req, res, _) {
             await statusDao.newStatus(body, null, dateTime, author, thread)
 
         res.redirect(redirect)
-    } catch(error) {
-        console.log('Something went wrong')
-        // TODO Add a system to show errors
+    } catch(err) {
+        res.status(err.status || 500)
+        res.render(err)
     }
 })
 
