@@ -315,12 +315,12 @@ class App {
                 });
         });
 
-        page('/:handle/status/:id', (ctx) => {
+        page('/status/:handle/:id', (ctx) => {
             const handle = ctx.params.handle;
             const statusId = ctx.params.id;
             const params = new URLSearchParams(ctx.querystring);
 
-            if (this.userType === 'GUEST') return page.redirect(`/${handle}`);
+            if (this.userType === 'GUEST') return page.redirect(`/profile/${handle}`);
             if (params.get('commentDialogue') === 'true') { status_modal.showModal() }
 
             this.statusThread.value = statusId;

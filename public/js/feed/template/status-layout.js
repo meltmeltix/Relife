@@ -3,7 +3,7 @@ import { showToast } from '/js/utils/toast.js';
 
 function createAvatar(picture, handle) {
     const avatar = document.createElement('a');
-    avatar.href = `profile/${handle}`
+    avatar.href = `/profile/${handle}`
     avatar.classList.add('avatar', 'size-10');
     avatar.innerHTML = `
         <img 
@@ -18,7 +18,7 @@ function createAvatar(picture, handle) {
 
 function createHeader(name, handle, date) {
     const header = document.createElement('a');
-    header.href = `profile/${handle}`
+    header.href = `/profile/${handle}`
     header.classList.add('card-title', 'h-10', 'flex-1', 'font-sans', 'font-normal');
     header.innerHTML = `
         <div class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis leading-4">
@@ -177,7 +177,7 @@ function createActions(status, link, isDisabled, isModerator, loggedUser) {
 function buildStatus(status, isFocused, isDisabled = false, isModerator = false, loggedUser) {
     const card = document.createElement('a');
     if (!isFocused) {
-        card.href = `/${status.authorHandle}/status/${status.id}`
+        card.href = `status/${status.authorHandle}/${status.id}`
         card.classList.add('hover:bg-background-950/15');
     }
     card.classList.add(

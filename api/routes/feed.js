@@ -44,8 +44,9 @@ router.get('/profile/:handle/likes', function(req, res, _) {
     else res.render('feed', { sessionType: req.user.type, userHandle: req.user.handle })
 })
 
-router.get('/profile/:handle/status/:status', function(req, res, _) {
-    if(!req.isAuthenticated()) res.redirect('/' + req.params.handle)
+router.get('/status/:handle/:status', function(req, res, _) {
+    console.log("hello????")
+    if(!req.isAuthenticated()) res.redirect('/profile/' + req.params.handle)
     else res.render('feed', { sessionType: req.user.type, userHandle: req.user.handle })
 })
 
