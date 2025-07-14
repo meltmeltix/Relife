@@ -55,6 +55,17 @@ To download and install the project:
    1. Run `npm run dev` to run the server, while watching project changes and have tailwind compile the CSS;
    2. Or run `npm run start` to run the server.
 
+### 🔑 Test Users
+
+- User
+  - Handle: `user`
+  - Mail: `user@relife.com`
+  - Password: `user`
+- Moderator
+  - Handle: `moderator`
+  - Mail: `moderator@relife.com`
+  - Password: `moderator`
+
 <br>
 
 ## 🧩 Modules
