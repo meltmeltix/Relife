@@ -11,16 +11,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <title>Relife</title>
 
-    <script type="module">
-        import { showToast } from "../public/js/utils/toast";
-
+    <script>
         const userType = '<%- sessionType %>'
         const loggedUser = '<%- userHandle %>'
-
-        const toastMessage = <%- JSON.stringify(message || null) %>;
-        const toastType = <%- typeof messageType !== 'undefined' ? JSON.stringify(messageType) : 'null'%>;
-
-        if (toastMessage != null) showToast(toastMessage, toastType);
     </script>
     <script defer src="/js/utils/libs/page.js"></script>
     <script defer src="/js/utils/libs/moment.min.js"></script>
