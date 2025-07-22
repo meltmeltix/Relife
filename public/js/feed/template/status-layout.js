@@ -177,7 +177,7 @@ function createActions(status, link, isDisabled, isModerator, loggedUser) {
 function buildStatus(status, isFocused, isDisabled = false, isModerator = false, loggedUser) {
     const card = document.createElement('a');
     if (!isFocused) {
-        card.href = `status/${status.authorHandle}/${status.id}`
+        card.href = `/status/${status.authorHandle}/${status.id}`
         card.classList.add('hover:bg-background-950/15');
     }
     card.classList.add(
